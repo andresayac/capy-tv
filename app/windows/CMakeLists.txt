@@ -57,6 +57,14 @@ add_subdirectory("runner")
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
+# The web view plugin (trailers) still uses <experimental/coroutine>, which Visual Studio 2026's
+# compiler (MSVC 14.51) refuses unless told to; its latest version (0.7.0-beta.3) has no fix yet.
+# Only that plugin is told, so the app's own code still hears about it.
+if(TARGET flutter_inappwebview_windows_plugin)
+  target_compile_definitions(flutter_inappwebview_windows_plugin PRIVATE
+    _SILENCE_EXPERIMENTAL_COROUTINE_DEPRECATION_WARNINGS)
+endif()
+
 
 # === Installation ===
 # Support files are copied into place next to the executable, so that it can
