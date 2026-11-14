@@ -51,7 +51,8 @@ Everything in detail: [docs/features.md](docs/features.md) and [docs/player.md](
 | Windows 10 and 11 | Installer from [Releases](https://github.com/andresayac/capy-tv/releases) |
 | Linux (x64, and arm64 such as a Raspberry Pi 4 or 5) | `.tar.gz` from [Releases](https://github.com/andresayac/capy-tv/releases); needs `libmpv2` |
 | Samsung TVs (Tizen; used on 2020 and 2026 models) | `CapyTV.wgt` from [Releases](https://github.com/andresayac/capy-tv/releases), a web app of its own, installed from a computer: [tizen/README.md](tizen/README.md) |
-| macOS and iOS | Build from source |
+| macOS 12 or later (experimental) | `.zip` from [Releases](https://github.com/andresayac/capy-tv/releases), not signed by Apple: [docs/install.md](docs/install.md#macos-experimental) |
+| iOS | Build from source |
 
 Step-by-step installation, with no programming: [docs/install.md](docs/install.md).
 

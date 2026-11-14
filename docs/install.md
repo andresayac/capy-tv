@@ -78,10 +78,19 @@ another ARM board, with a 64-bit system) anywhere and run `capy_tv` inside it. I
 system's libmpv: `sudo apt install libmpv2` on Debian, Ubuntu and Raspberry Pi OS. The ARM build
 has not been tried on a Raspberry Pi yet: say how it goes in an issue.
 
-## macOS and iOS
+## macOS (experimental)
 
-There is no download yet: the app is built from this repository (see
-[development.md](development.md)).
+Each release has `CapyTV-macos.zip`, for macOS 12 or later on Apple silicon and Intel Macs. Unzip
+it and move **Capy TV** to Applications. It is not signed by Apple, so the first time macOS refuses
+to open it: open System Settings, then Privacy & Security, and choose **Open Anyway** next to the
+message about Capy TV. After that it opens as any other app.
+
+It is checked to open on a Mac at each release, but nobody has watched anything on it yet: say how
+it goes in an issue.
+
+## iOS
+
+There is no download: the app is built from this repository (see [development.md](development.md)).
 
 ## First steps
 
