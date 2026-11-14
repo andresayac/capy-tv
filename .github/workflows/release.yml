@@ -7,7 +7,8 @@
 # which a sync server serves with the APKs and the installer for its devices to update themselves
 # (server/README.md, "App updates").
 # The sync server's image goes to ghcr.io. Run by hand (Actions → Release → Run workflow), it builds
-# all of it from the branch chosen and keeps it as artifacts, publishing nothing.
+# all of it from the branch chosen, as the version given if any, and keeps it as artifacts,
+# publishing nothing.
 #
 # Secrets (Settings → Secrets and variables → Actions):
 #   ANDROID_KEYSTORE      the release keystore, base64 (base64 -w0 release.jks)
@@ -26,6 +27,10 @@ on:
   push:
     tags: ['v*.*.*']
   workflow_dispatch:
+    inputs:
+      version:
+        description: Build as this version, like 1.2.3 (app/pubspec.yaml's by default); nothing is published
+        required: false
 
 permissions:
   contents: read
@@ -47,9 +52,13 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - id: v
         name: Version and build number
+        env:
+          ASKED: ${{ inputs.version }}
         run: |
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
             name=${GITHUB_REF#refs/tags/v}
+          elif [ -n "$ASKED" ]; then
+            name=$ASKED
           else
             name=$(sed -n 's/^version: *\([^+]*\).*/\1/p' app/pubspec.yaml)
           fi
@@ -239,6 +248,10 @@ jobs:
           if [ -n "$TMDB_API_KEY" ]; then printf 'TMDB_API_KEY=%s\n' "$TMDB_API_KEY" > ../.env; fi
           node scripts/build.mjs
           rm -f ../.env
+      # On Linux the Tizen tools keep certificate passwords in the desktop's keyring: one is started
+      # for the signing step only
+      - name: Keyring
+        run: sudo apt-get update && sudo apt-get install -y gnome-keyring dbus-x11
       # Signed with the project's author certificate, so that each release installs over the last
       - name: Package
         working-directory: tizen
@@ -246,21 +259,26 @@ jobs:
           TIZEN_AUTHOR_CERT: ${{ secrets.TIZEN_AUTHOR_CERT }}
           TIZEN_AUTHOR_PASSWORD: ${{ secrets.TIZEN_AUTHOR_PASSWORD }}
         run: |
-          tizen=$HOME/tizen-studio/tools/ide/bin/tizen
+          export tizen=$HOME/tizen-studio/tools/ide/bin/tizen
           if [ -n "$TIZEN_AUTHOR_CERT" ]; then
             echo "$TIZEN_AUTHOR_CERT" | base64 --decode > "$RUNNER_TEMP/author.p12"
-            password=$TIZEN_AUTHOR_PASSWORD
+            export password=$TIZEN_AUTHOR_PASSWORD
           elif [[ "$GITHUB_REF" == refs/tags/* ]]; then
             echo "::error::No TIZEN_AUTHOR_CERT secret: a release needs the project's author certificate"
             exit 1
           else
             echo "::warning::No TIZEN_AUTHOR_CERT secret: this package is signed with a certificate made for this run"
-            password=$(openssl rand -hex 16)
+            export password=$(openssl rand -hex 16)
             echo "::add-mask::$password"
-            "$tizen" certificate -a "Capy TV (test)" -p "$password" -f author -- "$RUNNER_TEMP"
           fi
-          "$tizen" security-profiles add -n capy-tv -a "$RUNNER_TEMP/author.p12" -p "$password"
-          TIZEN_PROFILE=capy-tv node scripts/tv.mjs package
+          dbus-run-session -- bash -ec '
+            echo -n keyring | gnome-keyring-daemon --unlock --components=secrets > /dev/null
+            if [ ! -s "$RUNNER_TEMP/author.p12" ]; then
+              "$tizen" certificate -a "Capy TV (test)" -p "$password" -f author -- "$RUNNER_TEMP"
+            fi
+            "$tizen" security-profiles add -n capy-tv -a "$RUNNER_TEMP/author.p12" -p "$password"
+            TIZEN_PROFILE=capy-tv node scripts/tv.mjs package
+          '
       - name: Remove the key
         if: always()
         run: rm -rf "$RUNNER_TEMP/author.p12" "$HOME/tizen-studio-data/profile" .env
