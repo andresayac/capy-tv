@@ -95,7 +95,7 @@ export function AiSettingsPanel() {
         <p class="muted" style={{ lineHeight: 1.5, margin: 0 }}>{t('aiBody')}</p>
         <div style={{ fontWeight: 600, marginTop: '1.4rem' }}>{status}</div>
         {/* Unlike everything else, what goes to the server for this is readable there */}
-        {s && s.viaServer && <p class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))', lineHeight: 1.4, margin: '0.6rem 0 0' }}>{t('aiServerNote')}</p>}
+        {s && s.viaServer && <p class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))', lineHeight: 1.4, margin: '0.6rem 0 0' }}>{t('aiServerNote')}</p>}
         <div class="wrap" data-fgroup style={{ marginTop: '1.4rem' }}>
           {recommender.off && recommender.canTurnOn ? (
             <SecondaryButton icon="restart_alt_rounded" label={t('aiUseBuiltIn')} onPressed={turn(true)} />
@@ -224,7 +224,7 @@ function PhoneTyping() {
         <Spinner size={32} />
       )}
       {!failure && (
-        <p class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))', lineHeight: 1.4, margin: '1.2rem 0 0' }}>{companionHost.remotes ? t('connectRemoteOn') : t('aiTypeOnPhone')}</p>
+        <p class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))', lineHeight: 1.4, margin: '1.2rem 0 0' }}>{companionHost.remotes ? t('connectRemoteOn') : t('aiTypeOnPhone')}</p>
       )}
     </div>
   );

@@ -391,7 +391,7 @@ function Grid({ channels, from, span: SPAN, scrollX, setScrollX }: { channels: L
                     <div style={{ width: '4.8rem', height: '4rem', margin: '0 0.8rem', flex: 'none' }}>
                       <NetImage url={c.icon || guide.iconOf(c.epgId)} icon="tv_rounded" />
                     </div>
-                    <div class="clamp2 grow" style={{ fontWeight: 600, fontSize: 'calc(1.3rem * var(--text))', paddingRight: '0.6rem' }}>{c.name}</div>
+                    <div class="clamp2 grow" style={{ fontWeight: 600, fontSize: 'calc(1.3rem * var(--text-scale))', paddingRight: '0.6rem' }}>{c.name}</div>
                   </div>
                 </Focusable>
               </div>
@@ -410,7 +410,7 @@ function Grid({ channels, from, span: SPAN, scrollX, setScrollX }: { channels: L
                       );
                     })
                   ) : (
-                    <div class="muted row" style={{ position: 'absolute', left: '0.4rem', top: '0.4rem', bottom: '0.4rem', width: `${x(now) + 30}rem`, padding: '0 1.4rem', fontSize: 'calc(1.2rem * var(--text))', background: 'rgba(17,17,17,0.5)', borderRadius: '1rem', boxSizing: 'border-box' }}>
+                    <div class="muted row" style={{ position: 'absolute', left: '0.4rem', top: '0.4rem', bottom: '0.4rem', width: `${x(now) + 30}rem`, padding: '0 1.4rem', fontSize: 'calc(1.2rem * var(--text-scale))', background: 'rgba(17,17,17,0.5)', borderRadius: '1rem', boxSizing: 'border-box' }}>
                       {!holder.ready ? t('guideLoading') : guide === EpgGuide.failed ? t('guideFailed') : t('noGuide')}
                     </div>
                   )}
@@ -452,9 +452,9 @@ function Block({ entry: e, archive, shift, now, onTap }: { entry: EpgEntry; arch
               <Icon icon="history_rounded" size={14} />
             </span>
           )}
-          <span class="ellipsis" style={{ fontWeight: on ? 700 : 600, fontSize: 'calc(1.3rem * var(--text))' }}>{e.title}</span>
+          <span class="ellipsis" style={{ fontWeight: on ? 700 : 600, fontSize: 'calc(1.3rem * var(--text-scale))' }}>{e.title}</span>
         </div>
-        <div class="muted" style={{ fontSize: 'calc(1.1rem * var(--text))', marginTop: '0.3rem', whiteSpace: 'nowrap', overflow: 'hidden' }}>{`${hm(e.start)} – ${hm(e.end)}`}</div>
+        <div class="muted" style={{ fontSize: 'calc(1.1rem * var(--text-scale))', marginTop: '0.3rem', whiteSpace: 'nowrap', overflow: 'hidden' }}>{`${hm(e.start)} – ${hm(e.end)}`}</div>
       </div>
     </Focusable>
   );
@@ -464,7 +464,7 @@ function Block({ entry: e, archive, shift, now, onTap }: { entry: EpgEntry; arch
 export function NowOnAir({ entry }: { entry: EpgEntry }) {
   return (
     <div>
-      <div class="muted ellipsis" style={{ fontSize: 'calc(1.2rem * var(--text))' }}>{entry.title}</div>
+      <div class="muted ellipsis" style={{ fontSize: 'calc(1.2rem * var(--text-scale))' }}>{entry.title}</div>
       <div style={{ height: '0.3rem', background: 'rgba(255,255,255,0.12)', borderRadius: '0.2rem', marginTop: '0.5rem', overflow: 'hidden' }}>
         <div style={{ width: `${epgProgress(entry) * 100}%`, height: '100%', background: 'var(--text)' }} />
       </div>

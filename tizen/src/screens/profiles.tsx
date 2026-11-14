@@ -147,7 +147,7 @@ function ProfilesScreen({ reopen, done }: { reopen?: string; done?: () => void }
                     <div style={{ width: `${(size + 24) / 10}rem`, padding: '1.2rem 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                       <ProfileAvatar profile={p} size={size} />
                       <div class="row" style={{ marginTop: '1rem', maxWidth: '100%' }}>
-                        <span class="ellipsis" style={{ fontWeight: 600, fontSize: 'calc(1.5rem * var(--text))' }}>{displayName(p)}</span>
+                        <span class="ellipsis" style={{ fontWeight: 600, fontSize: 'calc(1.5rem * var(--text-scale))' }}>{displayName(p)}</span>
                         {p.locked && (
                           <span class="muted" style={{ marginLeft: '0.4rem' }}>
                             <Icon icon="lock_rounded" size={14} />
@@ -196,9 +196,9 @@ function ManageProfilesScreen() {
                       <div class="row">
                         <ProfileAvatar profile={p} size={44} />
                         <div class="grow" style={{ marginLeft: '1.4rem' }}>
-                          <div style={{ fontWeight: 700, fontSize: 'calc(1.6rem * var(--text))' }}>{displayName(p)}</div>
+                          <div style={{ fontWeight: 700, fontSize: 'calc(1.6rem * var(--text-scale))' }}>{displayName(p)}</div>
                           {(p.kids || p.locked || showsAdult(p)) && (
-                            <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))' }}>
+                            <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))' }}>
                               {[p.kids ? t('kidsProfile') : '', p.locked ? t('profileLocked') : '', showsAdult(p) ? t('adultTag') : ''].filter(Boolean).join(' · ')}
                             </div>
                           )}
@@ -424,7 +424,7 @@ function AvatarPicker({ selected, initial, done }: { selected?: string; initial:
           {choice(undefined, <ProfileAvatar profile={initial} size={size} />)}
           {avatars.filter((a) => kidsAvatars.indexOf(a) < 0).map((a) => choice(a, <AvatarPicture name={a} size={size} />))}
         </div>
-        <div class="muted" style={{ padding: '1.7rem 0.7rem 0.7rem', fontSize: 'calc(1.4rem * var(--text))', fontWeight: 500 }}>{t('kidsProfile')}</div>
+        <div class="muted" style={{ padding: '1.7rem 0.7rem 0.7rem', fontSize: 'calc(1.4rem * var(--text-scale))', fontWeight: 500 }}>{t('kidsProfile')}</div>
         <div class="row" style={{ flexWrap: 'wrap' }}>{kidsAvatars.map((a) => choice(a, <AvatarPicture name={a} size={size} />))}</div>
       </div>
     </div>
@@ -438,8 +438,8 @@ export function Toggle({ label, hint, value, onChange }: { label: string; hint: 
       <Focusable radius={12} scale={1.01} onTap={() => onChange(!value)}>
         <div class="row" style={{ padding: '1rem 0.8rem' }}>
           <div class="grow">
-            <div style={{ fontWeight: 600, fontSize: 'calc(1.5rem * var(--text))' }}>{label}</div>
-            <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))', lineHeight: 1.4, marginTop: '0.2rem' }}>{hint}</div>
+            <div style={{ fontWeight: 600, fontSize: 'calc(1.5rem * var(--text-scale))' }}>{label}</div>
+            <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))', lineHeight: 1.4, marginTop: '0.2rem' }}>{hint}</div>
           </div>
           <div style={{ width: '5.2rem', height: '3.2rem', flex: 'none', marginLeft: '1.2rem', borderRadius: '1.6rem', background: value ? 'var(--text)' : 'var(--surface-high)', border: '1px solid var(--stroke)', position: 'relative', boxSizing: 'border-box' }}>
             <div style={{ position: 'absolute', top: '50%', left: value ? '2.4rem' : '0.6rem', width: value ? '2.4rem' : '1.6rem', height: value ? '2.4rem' : '1.6rem', marginTop: value ? '-1.2rem' : '-0.8rem', borderRadius: '50%', background: value ? 'var(--black)' : 'var(--muted)', transition: 'left 150ms' }} />
@@ -653,7 +653,7 @@ function PinPad({ title, check, wrong, forgot, limited, done }: { title: string;
   const key = (k: string, content: ComponentChildren, onTap: () => void, autofocus = false, label?: string) => (
     <div key={k} style={{ padding: '0.5rem' }}>
       <Focusable radius={12} scale={1.06} onTap={onTap} autofocus={autofocus} label={label}>
-        <div class="row" style={{ width: '6.4rem', height: '5.2rem', justifyContent: 'center', background: 'var(--surface-high)', fontSize: 'calc(2.2rem * var(--text))', fontWeight: 600 }}>
+        <div class="row" style={{ width: '6.4rem', height: '5.2rem', justifyContent: 'center', background: 'var(--surface-high)', fontSize: 'calc(2.2rem * var(--text-scale))', fontWeight: 600 }}>
           {content}
         </div>
       </Focusable>

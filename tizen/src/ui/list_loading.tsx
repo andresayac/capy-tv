@@ -37,7 +37,7 @@ export function ListProgressNote() {
   useNotifier(listDownloads);
   useNotifier(listImports);
   const text = listProgressText();
-  return text ? <div class="muted" style={{ marginTop: '0.4rem', fontSize: 'calc(1.3rem * var(--text))' }}>{text}</div> : null;
+  return text ? <div class="muted" style={{ marginTop: '0.4rem', fontSize: 'calc(1.3rem * var(--text-scale))' }}>{text}</div> : null;
 }
 
 const IMPORT_NAMES: Record<ImportKind, StringKey> = { live: 'liveTv', movies: 'movies', series: 'series', playlist: 'importedPlaylist' };
@@ -73,8 +73,8 @@ export function ListLoading() {
 function ImportCount({ row, first }: { row: ImportRow; first: boolean }) {
   return (
     <div style={{ marginLeft: first ? 0 : '2.8rem' }}>
-      <div style={{ fontSize: 'calc(2rem * var(--text))', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{row.items === 0 ? '–' : number(row.items)}</div>
-      <div class="row muted" style={{ justifyContent: 'center', marginTop: '0.2rem', fontSize: 'calc(1.3rem * var(--text))' }}>
+      <div style={{ fontSize: 'calc(2rem * var(--text-scale))', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{row.items === 0 ? '–' : number(row.items)}</div>
+      <div class="row muted" style={{ justifyContent: 'center', marginTop: '0.2rem', fontSize: 'calc(1.3rem * var(--text-scale))' }}>
         {row.done && (
           <span style={{ display: 'flex', marginRight: '0.3rem' }}>
             <Icon icon="check_rounded" size={13} />

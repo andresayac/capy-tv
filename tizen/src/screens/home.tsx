@@ -449,7 +449,7 @@ function NavItem(p: { icon: string; label: string; selected: boolean; last?: boo
           <span style={{ display: 'flex', flex: 'none' }}>
             <Icon icon={p.icon} size={26} />
           </span>
-          <div style={{ marginTop: '0.4rem', maxWidth: '100%', fontSize: 'calc(1.2rem * var(--text))', lineHeight: 1.25, fontWeight: p.selected ? 700 : 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.label}</div>
+          <div style={{ marginTop: '0.4rem', maxWidth: '100%', fontSize: 'calc(1.2rem * var(--text-scale))', lineHeight: 1.25, fontWeight: p.selected ? 700 : 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.label}</div>
         </div>
       </Focusable>
     </div>
@@ -640,7 +640,7 @@ function Channels({ source, category }: { source: ContentSource; category: strin
                   <div class="grow row" style={{ justifyContent: 'center', minHeight: 0 }}>
                     <NetImage url={c.icon || guide.iconOf(c.epgId)} icon="tv_rounded" />
                   </div>
-                  <div class={now ? 'ellipsis' : 'clamp2'} style={{ marginTop: '0.8rem', fontWeight: 600, fontSize: 'calc(1.3rem * var(--text))' }}>{c.name}</div>
+                  <div class={now ? 'ellipsis' : 'clamp2'} style={{ marginTop: '0.8rem', fontWeight: 600, fontSize: 'calc(1.3rem * var(--text-scale))' }}>{c.name}</div>
                   {now && (
                     <div style={{ marginTop: '0.6rem' }}>
                       <NowOnAir entry={now} />

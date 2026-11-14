@@ -330,7 +330,7 @@ export function HeroCarousel({ items, label, autofocus = true }: { items: Catalo
       <div style={{ ...fill, background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 45%, #000 100%)' }} />
       <div style={{ position: 'absolute', left: `${rail + 4.8}rem`, bottom: '6.4rem', width: '62rem' }}>
         <div key={`text:${item.key}`} class={fade}>
-          <div class="muted" style={{ fontWeight: 700, letterSpacing: '0.25rem', fontSize: 'calc(1.2rem * var(--text))' }}>{label.toUpperCase()}</div>
+          <div class="muted" style={{ fontWeight: 700, letterSpacing: '0.25rem', fontSize: 'calc(1.2rem * var(--text-scale))' }}>{label.toUpperCase()}</div>
           <h1 class="display-small clamp2" style={{ marginTop: '1rem' }}>{item.title}</h1>
           {meta.length > 0 && <div class="muted" style={{ marginTop: '1.2rem', fontWeight: 600 }}>{meta.join('   ·   ')}</div>}
           {item.plot && <p class="clamp3" style={{ margin: '1.2rem 0 0', lineHeight: 1.5 }}>{item.plot}</p>}
@@ -567,15 +567,15 @@ export function PosterCard({ item, autofocus }: { item: CatalogItem; autofocus?:
             <NetImage url={item.poster} icon="movie_rounded" cover label={item.title} />
           </div>
           {(item.rating || 0) > 0 && (
-            <div class="row" style={{ position: 'absolute', top: '0.8rem', right: '0.8rem', background: 'var(--scrim)', borderRadius: '0.6rem', padding: '0.3rem 0.7rem', fontSize: 'calc(1.2rem * var(--text))', fontWeight: 700 }}>
+            <div class="row" style={{ position: 'absolute', top: '0.8rem', right: '0.8rem', background: 'var(--scrim)', borderRadius: '0.6rem', padding: '0.3rem 0.7rem', fontSize: 'calc(1.2rem * var(--text-scale))', fontWeight: 700 }}>
               <Icon icon="star_rounded" size={13} />
               <span style={{ marginLeft: '0.3rem' }}>{item.rating!.toFixed(1)}</span>
             </div>
           )}
         </div>
       </Focusable>
-      <div class="ellipsis" style={{ margin: '0.8rem 0.3rem 0', fontSize: 'calc(1.3rem * var(--text))', fontWeight: 600 }}>{item.title}</div>
-      {item.note && <div class="muted clamp2" style={{ margin: '0.2rem 0.3rem 0', fontSize: 'calc(1.2rem * var(--text))', lineHeight: 1.3 }}>{item.note}</div>}
+      <div class="ellipsis" style={{ margin: '0.8rem 0.3rem 0', fontSize: 'calc(1.3rem * var(--text-scale))', fontWeight: 600 }}>{item.title}</div>
+      {item.note && <div class="muted clamp2" style={{ margin: '0.2rem 0.3rem 0', fontSize: 'calc(1.2rem * var(--text-scale))', lineHeight: 1.3 }}>{item.note}</div>}
     </div>
   );
 }

@@ -110,7 +110,7 @@ function Pick({ pick }: { pick: Movie | Series }) {
             <NetImage url={poster} icon="movie_rounded" cover label={pick.name} />
           </div>
           <div class="grow" style={{ marginLeft: '2rem' }}>
-            <h2 class="headline-medium" style={{ fontSize: 'calc(2.4rem * var(--text))' }}>{pick.name}</h2>
+            <h2 class="headline-medium" style={{ fontSize: 'calc(2.4rem * var(--text-scale))' }}>{pick.name}</h2>
             <div class="muted" style={{ marginTop: '0.8rem', fontWeight: 600 }}>{meta.join('   ·   ')}</div>
             {pick.plot && <p class="clamp3" style={{ lineHeight: 1.5, margin: '1.2rem 0 0' }}>{pick.plot}</p>}
             <div class="wrap" data-fgroup style={{ marginTop: '1.4rem' }}>

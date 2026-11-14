@@ -109,6 +109,39 @@ function env(name) {
   return '';
 }
 
+/**
+ * The design tokens (src/ui/theme.css's :root) checked against how the code uses them: each named
+ * once, and only numbers multiplied. --text was once both the text colour and the text size
+ * factor, and the size, set from Settings, left every text black on the TV.
+ */
+function checkTokens() {
+  const css = fs.readFileSync(path.join(ROOT, 'src', 'ui', 'theme.css'), 'utf8');
+  const root = /:root\s*\{([^}]*)\}/.exec(css.replace(/\/\*[\s\S]*?\*\//g, ''))[1];
+  const tokens = new Map();
+  for (const [, name, value] of root.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) {
+    if (tokens.has(name)) throw new Error(`theme.css: ${name} is defined twice in :root`);
+    tokens.set(name, value.trim());
+  }
+  const sources = [];
+  (function walk(dir) {
+    for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, f.name);
+      if (f.isDirectory()) walk(p);
+      else if (/\.(tsx?|css)$/.test(f.name)) sources.push(p);
+    }
+  })(path.join(ROOT, 'src'));
+  for (const file of sources) {
+    const text = fs.readFileSync(file, 'utf8');
+    for (const m of text.matchAll(/\*\s*var\((--[\w-]+)\)|var\((--[\w-]+)\)\s*\*/g)) {
+      const name = m[1] || m[2];
+      const value = tokens.get(name);
+      if (value !== undefined && !/^-?[\d.]+$/.test(value)) {
+        throw new Error(`${path.relative(ROOT, file)}: ${name} is multiplied, but theme.css makes it ${value}`);
+      }
+    }
+  }
+}
+
 function copyStatic() {
   fs.mkdirSync(path.join(OUT, 'fonts'), { recursive: true });
   for (const w of [400, 500, 600, 700, 800]) {
@@ -176,6 +209,7 @@ const options = {
   ],
 };
 
+checkTokens();
 generate();
 if (process.argv.includes('--watch')) {
   const ctx = await esbuild.context(options);

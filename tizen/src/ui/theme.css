@@ -5,7 +5,7 @@
  * no aspect-ratio.
  */
 :root {
-  --text: 1; /* the text size chosen in Settings, times; the layout stays as it is */
+  --text-scale: 1; /* the text size chosen in Settings, times; the layout stays as it is */
   --black: #000;
   --surface: #111;
   --surface-high: #1e1e1e;
@@ -38,7 +38,7 @@ html, body {
 
 /* On the body alone: on html it would replace the 20px that a rem is */
 body {
-  font-size: calc(1.4rem * var(--text));
+  font-size: calc(1.4rem * var(--text-scale));
 }
 
 #av {
@@ -78,11 +78,11 @@ body {
 
 /* ---- type -------------------------------------------------------------------------------- */
 
-.display-small { font-size: calc(3.6rem * var(--text)); font-weight: 800; letter-spacing: -0.14rem; line-height: 1.05; margin: 0; }
-.headline-medium { font-size: calc(2.8rem * var(--text)); font-weight: 800; letter-spacing: -0.1rem; margin: 0; }
-.title-large { font-size: calc(2.2rem * var(--text)); font-weight: 700; letter-spacing: -0.04rem; margin: 0; }
-.title-medium { font-size: calc(1.6rem * var(--text)); font-weight: 700; letter-spacing: -0.02rem; margin: 0; }
-.body-large { font-size: calc(1.6rem * var(--text)); line-height: 1.5; margin: 0; }
+.display-small { font-size: calc(3.6rem * var(--text-scale)); font-weight: 800; letter-spacing: -0.14rem; line-height: 1.05; margin: 0; }
+.headline-medium { font-size: calc(2.8rem * var(--text-scale)); font-weight: 800; letter-spacing: -0.1rem; margin: 0; }
+.title-large { font-size: calc(2.2rem * var(--text-scale)); font-weight: 700; letter-spacing: -0.04rem; margin: 0; }
+.title-medium { font-size: calc(1.6rem * var(--text-scale)); font-weight: 700; letter-spacing: -0.02rem; margin: 0; }
+.body-large { font-size: calc(1.6rem * var(--text-scale)); line-height: 1.5; margin: 0; }
 .muted { color: var(--muted); }
 .subtle { color: var(--subtle); }
 .ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -155,7 +155,7 @@ body {
   display: flex;
   align-items: center;
   padding: 1.3rem 2rem;
-  font-size: calc(1.5rem * var(--text));
+  font-size: calc(1.5rem * var(--text-scale));
   font-weight: 600;
   white-space: nowrap;
 }
@@ -170,7 +170,7 @@ body {
   align-items: center;
   padding: 0.7rem 1.4rem;
   background: var(--surface-high);
-  font-size: calc(1.4rem * var(--text));
+  font-size: calc(1.4rem * var(--text-scale));
   font-weight: 600;
 }
 .chip .icon { width: 1.8rem; height: 1.8rem; margin-right: 0.6rem; }
@@ -224,8 +224,8 @@ body {
   padding: 0.9rem 1.2rem;
   min-height: 3.4rem;
 }
-.field label { display: block; font-size: calc(1.2rem * var(--text)); color: var(--muted); }
-.field .value { font-size: calc(1.6rem * var(--text)); min-height: 2.2rem; line-height: 2.2rem; }
+.field label { display: block; font-size: calc(1.2rem * var(--text-scale)); color: var(--muted); }
+.field .value { font-size: calc(1.6rem * var(--text-scale)); min-height: 2.2rem; line-height: 2.2rem; }
 .field .value.hint { color: var(--subtle); }
 .field input {
   width: 100%;
@@ -235,11 +235,11 @@ body {
   background: transparent;
   color: var(--text);
   font: inherit;
-  font-size: calc(1.6rem * var(--text));
+  font-size: calc(1.6rem * var(--text-scale));
   line-height: 2.2rem;
 }
-.field-help { font-size: calc(1.2rem * var(--text)); color: var(--muted); margin: 0.4rem 1.5rem 0; line-height: 1.4; }
-.field-error { font-size: calc(1.2rem * var(--text)); color: var(--error); margin: 0.4rem 1.5rem 0; }
+.field-help { font-size: calc(1.2rem * var(--text-scale)); color: var(--muted); margin: 0.4rem 1.5rem 0; line-height: 1.4; }
+.field-error { font-size: calc(1.2rem * var(--text-scale)); color: var(--error); margin: 0.4rem 1.5rem 0; }
 
 /* ---- feedback ----------------------------------------------------------------------------- */
 
@@ -297,7 +297,7 @@ body {
 
 /* App bar of inner screens: back arrow and title. */
 .app-bar { display: flex; align-items: center; height: 6.4rem; padding: 0 1.6rem; }
-.app-bar h1 { font-size: calc(2.2rem * var(--text)); font-weight: 800; letter-spacing: -0.06rem; margin: 0 0 0 1.2rem; }
+.app-bar h1 { font-size: calc(2.2rem * var(--text-scale)); font-weight: 800; letter-spacing: -0.06rem; margin: 0 0 0 1.2rem; }
 
 /* A row that scrolls sideways under the remote; room above and below for the focus ring. */
 .hscroll {

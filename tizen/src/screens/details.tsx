@@ -149,7 +149,7 @@ function TitleBlock(p: { title: string; poster?: string; originalTitle?: string;
         {p.genres.length > 0 && (
           <div class="wrap" style={{ marginTop: '0.9rem' }}>
             {p.genres.map((g) => (
-              <span key={g} style={{ background: 'rgba(255,255,255,0.2)', borderRadius: '0.6rem', padding: '0.5rem 1rem', fontWeight: 600, fontSize: 'calc(1.3rem * var(--text))', margin: '0.3rem' }}>{g}</span>
+              <span key={g} style={{ background: 'rgba(255,255,255,0.2)', borderRadius: '0.6rem', padding: '0.5rem 1rem', fontWeight: 600, fontSize: 'calc(1.3rem * var(--text-scale))', margin: '0.3rem' }}>{g}</span>
             ))}
           </div>
         )}
@@ -163,12 +163,12 @@ function TitleBlock(p: { title: string; poster?: string; originalTitle?: string;
 function Overview({ plot, facts }: { plot?: string; facts: [string, string][] }) {
   return (
     <div class="row" style={{ alignItems: 'flex-start', padding: '2.4rem 4.8rem 0.8rem' }}>
-      <div style={{ flex: 3 }}>{plot && <p class="body-large" style={{ fontSize: 'calc(1.7rem * var(--text))', lineHeight: 1.6, margin: 0 }}>{plot}</p>}</div>
+      <div style={{ flex: 3 }}>{plot && <p class="body-large" style={{ fontSize: 'calc(1.7rem * var(--text-scale))', lineHeight: 1.6, margin: 0 }}>{plot}</p>}</div>
       <div style={{ width: '5.6rem' }} />
       <div style={{ flex: 2 }}>
         {facts.map(([label, value]) => (
           <div key={label} style={{ marginBottom: '1.4rem' }}>
-            <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))' }}>{label}</div>
+            <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))' }}>{label}</div>
             <div style={{ fontWeight: 500, lineHeight: 1.4, marginTop: '0.3rem' }}>{value}</div>
           </div>
         ))}
@@ -422,8 +422,8 @@ export function SeriesDetailScreen({ series, versions: given, close }: { series:
                       )}
                     </div>
                     <div class="grow" style={{ marginLeft: '1.8rem' }}>
-                      <div class="clamp2" style={{ fontWeight: 700, fontSize: 'calc(1.5rem * var(--text))' }}>{episodeLine(e, s.name)}</div>
-                      {meta.length > 0 && <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))', marginTop: '0.4rem' }}>{meta.join('   ·   ')}</div>}
+                      <div class="clamp2" style={{ fontWeight: 700, fontSize: 'calc(1.5rem * var(--text-scale))' }}>{episodeLine(e, s.name)}</div>
+                      {meta.length > 0 && <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))', marginTop: '0.4rem' }}>{meta.join('   ·   ')}</div>}
                       {e.plot && (
                         <p class="muted clamp3" style={{ margin: '0.8rem 0 0', lineHeight: 1.45 }}>{e.plot}</p>
                       )}

@@ -35,7 +35,7 @@ function showDiagnostics(): void {
   showDialog<void>((done) => (
     <div class="dialog" style={{ width: '120rem', maxHeight: '86vh', display: 'flex', flexDirection: 'column' }}>
       <h2 class="title-large">{t('diagnostics')}</h2>
-      <pre class="vscroll f" tabIndex={-1} style={{ flex: '1 1 auto', overflowY: 'auto', margin: '1.2rem 0', fontSize: 'calc(1.2rem * var(--text))', whiteSpace: 'pre-wrap' }}>
+      <pre class="vscroll f" tabIndex={-1} style={{ flex: '1 1 auto', overflowY: 'auto', margin: '1.2rem 0', fontSize: 'calc(1.2rem * var(--text-scale))', whiteSpace: 'pre-wrap' }}>
         {lines.join('\n')}
       </pre>
       <div class="wrap">
@@ -170,7 +170,7 @@ export function AccountScreen() {
                 <AppLogo size={40} />
                 <div class="grow" style={{ marginLeft: '1.4rem', minWidth: 0 }}>
                   <div class="title-medium">{playlist.name}</div>
-                  <div class="muted ellipsis" style={{ fontSize: 'calc(1.3rem * var(--text))' }}>{subtitle}</div>
+                  <div class="muted ellipsis" style={{ fontSize: 'calc(1.3rem * var(--text-scale))' }}>{subtitle}</div>
                 </div>
               </div>
               {a && (
@@ -278,7 +278,7 @@ export function AccountScreen() {
               <p class="muted" style={{ lineHeight: 1.5, margin: 0 }}>{t('aboutLicense')}</p>
               <p class="muted" style={{ margin: '1.2rem 0' }}>{t('appVersion', { version: BUILD })}</p>
               <SecondaryButton icon="bug_report_outlined" label={t('diagnostics')} onPressed={showDiagnostics} />
-              <p class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))', margin: '0.6rem 0 0' }}>{t('diagnosticsHint')}</p>
+              <p class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))', margin: '0.6rem 0 0' }}>{t('diagnosticsHint')}</p>
               {/* CC BY asks for the artists' credit where their drawings show */}
               <p class="muted" style={{ lineHeight: 1.5, margin: '1.2rem 0 0' }}>{t('avatarCredits')}</p>
               {/* TMDB asks for this wherever its data is used: only with a key, there is none otherwise */}

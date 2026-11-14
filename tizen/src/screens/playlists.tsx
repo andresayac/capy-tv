@@ -218,9 +218,9 @@ export function PlaylistsScreen() {
                   <Icon icon={p.type === 'xtream' ? 'dns_rounded' : p.type === 'm3u' ? 'playlist_play_rounded' : 'layers_rounded'} size={24} />
                 </div>
                 <div class="grow" style={{ marginLeft: '1.4rem' }}>
-                  <div style={{ fontWeight: 700, fontSize: 'calc(1.6rem * var(--text))' }}>{p.name}</div>
+                  <div style={{ fontWeight: 700, fontSize: 'calc(1.6rem * var(--text-scale))' }}>{p.name}</div>
                   {/* While it opens, how much of its list has come (an M3U downloads here) */}
-                  <div class="muted ellipsis" style={{ fontSize: 'calc(1.3rem * var(--text))' }}>{opening === p.id ? <ListProgressText or={subtitle(p)} /> : subtitle(p)}</div>
+                  <div class="muted ellipsis" style={{ fontSize: 'calc(1.3rem * var(--text-scale))' }}>{opening === p.id ? <ListProgressText or={subtitle(p)} /> : subtitle(p)}</div>
                 </div>
               </div>
             </Focusable>
@@ -457,7 +457,7 @@ export function CombineScreen({ initial, done }: { initial?: Playlist; done: (p?
                       <span style={{ color: n >= 0 ? 'var(--text)' : 'var(--muted)' }}>
                         <Icon icon={n >= 0 ? 'check_box_rounded' : 'check_box_outline_blank_rounded'} size={24} />
                       </span>
-                      <div class="grow" style={{ marginLeft: '1.4rem', fontWeight: 700, fontSize: 'calc(1.6rem * var(--text))' }}>{p.name}</div>
+                      <div class="grow" style={{ marginLeft: '1.4rem', fontWeight: 700, fontSize: 'calc(1.6rem * var(--text-scale))' }}>{p.name}</div>
                       {/* The order picked: on equal speed, the first one's copy plays */}
                       {n >= 0 && <span class="muted" style={{ fontWeight: 700 }}>{n + 1}</span>}
                     </div>

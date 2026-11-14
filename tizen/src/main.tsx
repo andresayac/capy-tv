@@ -17,7 +17,7 @@ import './ui/theme.css';
 
 setUntitledName(t('untitled')); // what comes without a name, named in the app's language
 // The text's size chosen in Settings: the text alone grows (theme.css's --text), the layout stays
-const applyTextSize = () => document.documentElement.style.setProperty('--text', String(settings.textSize / 100));
+const applyTextSize = () => document.documentElement.style.setProperty('--text-scale', String(settings.textSize / 100));
 applyTextSize();
 settings.listen(applyTextSize);
 registerKeys();

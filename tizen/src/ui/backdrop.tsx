@@ -266,7 +266,7 @@ function Slides({ trends, veil }: { trends: Trend[]; veil: string }) {
       {cur && <div style={{ ...fill, background: veil }} />}
       {cur && tr && (
         <div key={cur.index} class="fade-in" style={{ position: 'absolute', left: '4.8rem', right: '4.8rem', bottom: '2.8rem' }}>
-          <div class="muted" style={{ fontSize: 'calc(1.1rem * var(--text))', fontWeight: 700, letterSpacing: '0.12rem' }}>{(tr.series ? t('trendingSeries') : t('trendingMovie')).toUpperCase()}</div>
+          <div class="muted" style={{ fontSize: 'calc(1.1rem * var(--text-scale))', fontWeight: 700, letterSpacing: '0.12rem' }}>{(tr.series ? t('trendingSeries') : t('trendingMovie')).toUpperCase()}</div>
           <div class="ellipsis" style={{ fontWeight: 600, marginTop: '0.4rem' }}>
             {[tr.title, tr.year ? String(tr.year) : '', (tr.rating || 0) > 0 ? `★ ${tr.rating!.toFixed(1)}` : ''].filter(Boolean).join('  ·  ')}
           </div>

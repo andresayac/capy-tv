@@ -120,7 +120,7 @@ export function MovieNightScreen({ data, library, mood, series }: { data: Catalo
               </div>
               <div class="ellipsis" style={{ fontWeight: 600, marginTop: '0.8rem' }}>{x.title}</div>
               {/* As the votes come */}
-              <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))' }}>{votes(x)}</div>
+              <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))' }}>{votes(x)}</div>
             </div>
           ))}
         </div>

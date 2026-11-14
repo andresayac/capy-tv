@@ -55,7 +55,7 @@
 }
 
 .player-time {
-  font-size: calc(1.3rem * var(--text));
+  font-size: calc(1.3rem * var(--text-scale));
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -197,7 +197,7 @@ body.player-controls-up video::-webkit-media-text-track-container { transform: t
   background: var(--surface-high);
   border: 0.1rem solid var(--stroke);
   border-radius: var(--r-button);
-  font-size: calc(1.3rem * var(--text));
+  font-size: calc(1.3rem * var(--text-scale));
   font-weight: 600;
   opacity: 0;
   pointer-events: none;

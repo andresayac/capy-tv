@@ -319,10 +319,10 @@ function LeftElsewhere({ entry, onPlay, onDismiss }: { entry: HistoryEntry; onPl
           <div style={{ position: 'absolute', left: 0, bottom: 0, height: '0.4rem', width: `${progressOf(entry) * 100}%`, background: 'var(--text)' }} />
         </div>
         <div class="grow" style={{ margin: '0 1.8rem' }}>
-          <div class="muted ellipsis" style={{ fontSize: 'calc(1.3rem * var(--text))', fontWeight: 600 }}>{t('leftOn', { device: entry.dev || '', ago: ago(Date.now() - entry.at) })}</div>
-          <div class="ellipsis" style={{ fontSize: 'calc(1.8rem * var(--text))', fontWeight: 800, marginTop: '0.4rem' }}>{r.seriesTitle || r.title}</div>
-          {r.kind === 'episode' && <div class="muted ellipsis" style={{ fontSize: 'calc(1.2rem * var(--text))' }}>{`S${r.season} · E${r.number}  ${r.title}`}</div>}
-          <div class="muted" style={{ fontSize: 'calc(1.2rem * var(--text))', marginTop: '0.4rem' }}>{t('minutesLeft', { n: Math.max(1, Math.floor((entry.dur - entry.pos) / 60000)) })}</div>
+          <div class="muted ellipsis" style={{ fontSize: 'calc(1.3rem * var(--text-scale))', fontWeight: 600 }}>{t('leftOn', { device: entry.dev || '', ago: ago(Date.now() - entry.at) })}</div>
+          <div class="ellipsis" style={{ fontSize: 'calc(1.8rem * var(--text-scale))', fontWeight: 800, marginTop: '0.4rem' }}>{r.seriesTitle || r.title}</div>
+          {r.kind === 'episode' && <div class="muted ellipsis" style={{ fontSize: 'calc(1.2rem * var(--text-scale))' }}>{`S${r.season} · E${r.number}  ${r.title}`}</div>}
+          <div class="muted" style={{ fontSize: 'calc(1.2rem * var(--text-scale))', marginTop: '0.4rem' }}>{t('minutesLeft', { n: Math.max(1, Math.floor((entry.dur - entry.pos) / 60000)) })}</div>
         </div>
         <div class="wrap" data-fgroup>
           <PrimaryButton icon="play_arrow_rounded" label={t('goOnHere')} onPressed={onPlay} autofocus />
@@ -346,7 +346,7 @@ function ContinueCard({ entry, onTap, onLongPress, autofocus }: { entry: History
             <Icon icon="play_circle_rounded" size={44} />
           </div>
           <div style={{ position: 'absolute', left: '1.2rem', right: '1.2rem', bottom: '1rem' }}>
-            <div style={{ fontSize: 'calc(1.2rem * var(--text))', color: 'rgba(255,255,255,0.7)' }}>{t('minutesLeft', { n: Math.max(1, Math.floor((entry.dur - entry.pos) / 60000)) })}</div>
+            <div style={{ fontSize: 'calc(1.2rem * var(--text-scale))', color: 'rgba(255,255,255,0.7)' }}>{t('minutesLeft', { n: Math.max(1, Math.floor((entry.dur - entry.pos) / 60000)) })}</div>
             <div style={{ height: '0.4rem', background: 'rgba(255,255,255,0.24)', borderRadius: '0.3rem', marginTop: '0.6rem', overflow: 'hidden' }}>
               <div style={{ width: `${progressOf(entry) * 100}%`, height: '100%', background: 'var(--text)' }} />
             </div>
@@ -355,7 +355,7 @@ function ContinueCard({ entry, onTap, onLongPress, autofocus }: { entry: History
       </Focusable>
       <div class="ellipsis" style={{ fontWeight: 700, margin: '0.8rem 0.3rem 0' }}>{r.seriesTitle || r.title}</div>
       {/* Always two lines, so movie and episode cards keep the same artwork height */}
-      <div class="muted ellipsis" style={{ fontSize: 'calc(1.2rem * var(--text))', margin: '0 0.3rem' }}>{r.kind === 'episode' ? `S${r.season} · E${r.number}  ${r.title}` : ' '}</div>
+      <div class="muted ellipsis" style={{ fontSize: 'calc(1.2rem * var(--text-scale))', margin: '0 0.3rem' }}>{r.kind === 'episode' ? `S${r.season} · E${r.number}  ${r.title}` : ' '}</div>
     </div>
   );
 }
@@ -379,7 +379,7 @@ function ChannelRail({ title, channels, autofocus }: { title: string; channels: 
                 <div class="grow" style={{ minHeight: 0 }}>
                   <NetImage url={c.image} icon="tv_rounded" />
                 </div>
-                <div class="ellipsis" style={{ marginTop: '0.8rem', fontWeight: 600, fontSize: 'calc(1.3rem * var(--text))', textAlign: 'center' }}>{c.title}</div>
+                <div class="ellipsis" style={{ marginTop: '0.8rem', fontWeight: 600, fontSize: 'calc(1.3rem * var(--text-scale))', textAlign: 'center' }}>{c.title}</div>
               </div>
             </Focusable>
           </div>

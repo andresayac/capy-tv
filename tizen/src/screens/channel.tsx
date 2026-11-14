@@ -85,7 +85,7 @@ function ProgrammeRow({ channel, entry: e }: { channel: LiveChannel; entry: EpgE
         </div>
         <div class="grow">
           <div style={{ fontWeight: 600 }}>{e.title}</div>
-          <div class="muted" style={{ fontSize: 'calc(1.2rem * var(--text))' }}>{`${hm(e.start)} – ${hm(e.end)}`}</div>
+          <div class="muted" style={{ fontSize: 'calc(1.2rem * var(--text-scale))' }}>{`${hm(e.start)} – ${hm(e.end)}`}</div>
           {e.description && <div class="muted clamp2">{e.description}</div>}
         </div>
       </div>

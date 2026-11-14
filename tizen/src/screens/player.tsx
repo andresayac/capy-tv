@@ -1160,11 +1160,11 @@ function PlayerScreen({ items, start, done }: { items: PlayItem[]; start: number
           <div class="grow">
             <div class="row">
               {channel && channel.number !== undefined && (
-                <span class="muted" style={{ fontSize: 'calc(1.8rem * var(--text))', fontWeight: 700, marginRight: '1rem', flex: 'none' }}>
+                <span class="muted" style={{ fontSize: 'calc(1.8rem * var(--text-scale))', fontWeight: 700, marginRight: '1rem', flex: 'none' }}>
                   {channel.number}
                 </span>
               )}
-              <span class="grow ellipsis" style={{ fontSize: 'calc(1.8rem * var(--text))', fontWeight: 800, letterSpacing: '-0.03rem' }}>
+              <span class="grow ellipsis" style={{ fontSize: 'calc(1.8rem * var(--text-scale))', fontWeight: 800, letterSpacing: '-0.03rem' }}>
                 {item.title}
               </span>
             </div>
@@ -1266,14 +1266,14 @@ function PlayerScreen({ items, start, done }: { items: PlayItem[]; start: number
       )}
       {c.flash && (
         <div class="player-center">
-          <div class="panel" style={{ borderRadius: '99.9rem', padding: '1.4rem 2.8rem', fontSize: 'calc(3.4rem * var(--text))', fontWeight: 800 }}>
+          <div class="panel" style={{ borderRadius: '99.9rem', padding: '1.4rem 2.8rem', fontSize: 'calc(3.4rem * var(--text-scale))', fontWeight: 800 }}>
             {c.flash}
           </div>
         </div>
       )}
       {offered && (
         <div ref={nextBox} class="panel" style={{ position: 'absolute', right: '2.8rem', bottom: c.visible ? '15rem' : '4rem', width: '32rem', boxSizing: 'border-box', background: 'var(--scrim)', padding: '1.4rem 1.6rem' }}>
-          <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))' }}>{t('nextEpisodeIn', { seconds: Math.ceil((dur - pos) / 1000) })}</div>
+          <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))' }}>{t('nextEpisodeIn', { seconds: Math.ceil((dur - pos) / 1000) })}</div>
           <div class="clamp2" style={{ fontWeight: 700, marginTop: '0.4rem' }}>{items[c.index + 1].subtitle || items[c.index + 1].title}</div>
           <div class="wrap" style={{ marginTop: '1.2rem' }}>
             <PrimaryButton icon="play_arrow_rounded" label={t('playNow')} onPressed={() => c.go(1)} />
@@ -1387,7 +1387,7 @@ function LiveBadge() {
   return (
     <div class="player-pill" style={{ flex: 'none', padding: '0.7rem 1.4rem' }}>
       <span class="player-live-dot" />
-      <span style={{ marginLeft: '0.8rem', fontWeight: 800, letterSpacing: '0.12rem', fontSize: 'calc(1.2rem * var(--text))' }}>{t('live')}</span>
+      <span style={{ marginLeft: '0.8rem', fontWeight: 800, letterSpacing: '0.12rem', fontSize: 'calc(1.2rem * var(--text-scale))' }}>{t('live')}</span>
     </div>
   );
 }
@@ -1447,7 +1447,7 @@ function Option({ label, selected, onTap, autofocus }: { label: string; selected
     <div style={{ padding: '0.3rem 0' }}>
       <Focusable radius={14} scale={1.02} onTap={onTap} autofocus={autofocus}>
         <div class="row" style={{ padding: '1.3rem 1.4rem', background: selected ? 'rgba(255,255,255,0.1)' : 'transparent' }}>
-          <span class="grow" style={{ fontSize: 'calc(1.5rem * var(--text))', fontWeight: selected ? 700 : 500, color: selected ? 'var(--text)' : 'var(--muted)' }}>
+          <span class="grow" style={{ fontSize: 'calc(1.5rem * var(--text-scale))', fontWeight: selected ? 700 : 500, color: selected ? 'var(--text)' : 'var(--muted)' }}>
             {label}
           </span>
           <RoundCheck selected={selected} />
@@ -1463,10 +1463,10 @@ function SettingRow({ label, value, onTap }: { label: string; value: string; onT
     <div style={{ padding: '0.3rem 0' }}>
       <Focusable radius={14} scale={1.02} onTap={onTap}>
         <div class="row" style={{ padding: '1.3rem 1.4rem' }}>
-          <span class="grow" style={{ fontSize: 'calc(1.5rem * var(--text))', fontWeight: 500, color: onTap ? 'var(--muted)' : 'var(--subtle)' }}>
+          <span class="grow" style={{ fontSize: 'calc(1.5rem * var(--text-scale))', fontWeight: 500, color: onTap ? 'var(--muted)' : 'var(--subtle)' }}>
             {label}
           </span>
-          <span style={{ flex: 'none', marginLeft: '1.2rem', fontSize: 'calc(1.5rem * var(--text))', fontWeight: 700 }}>{value}</span>
+          <span style={{ flex: 'none', marginLeft: '1.2rem', fontSize: 'calc(1.5rem * var(--text-scale))', fontWeight: 700 }}>{value}</span>
         </div>
       </Focusable>
     </div>
@@ -1563,7 +1563,7 @@ function StreamInfo({ c }: { c: Playback }) {
       {rows
         .filter((r) => r[1])
         .map((r) => (
-          <div key={r[0]} class="row" style={{ padding: '0.2rem 0', fontSize: 'calc(1.3rem * var(--text))' }}>
+          <div key={r[0]} class="row" style={{ padding: '0.2rem 0', fontSize: 'calc(1.3rem * var(--text-scale))' }}>
             <span class="muted" style={{ width: '13rem', flex: 'none' }}>
               {r[0]}
             </span>
@@ -1670,16 +1670,16 @@ function ChannelRow({ number, name, now, selected, onTap }: { number?: number; n
       <Focusable radius={14} scale={1.02} onTap={onTap} autofocus={selected}>
         <div class="row" style={{ height: `${CHANNEL_ROW - 0.6}rem`, padding: '0 1.4rem', boxSizing: 'border-box', background: selected ? 'rgba(255,255,255,0.1)' : 'transparent' }}>
           {number !== undefined && (
-            <span class="muted" style={{ width: '5.4rem', flex: 'none', fontSize: 'calc(1.5rem * var(--text))', fontWeight: 700 }}>
+            <span class="muted" style={{ width: '5.4rem', flex: 'none', fontSize: 'calc(1.5rem * var(--text-scale))', fontWeight: 700 }}>
               {number}
             </span>
           )}
           <div class="grow">
-            <div class="ellipsis" style={{ fontSize: 'calc(1.5rem * var(--text))', fontWeight: selected ? 700 : 500, color: selected ? 'var(--text)' : 'var(--muted)' }}>
+            <div class="ellipsis" style={{ fontSize: 'calc(1.5rem * var(--text-scale))', fontWeight: selected ? 700 : 500, color: selected ? 'var(--text)' : 'var(--muted)' }}>
               {name}
             </div>
             {now && (
-              <div class="ellipsis muted" style={{ fontSize: 'calc(1.2rem * var(--text))', marginTop: '0.2rem' }}>
+              <div class="ellipsis muted" style={{ fontSize: 'calc(1.2rem * var(--text-scale))', marginTop: '0.2rem' }}>
                 {now}
               </div>
             )}

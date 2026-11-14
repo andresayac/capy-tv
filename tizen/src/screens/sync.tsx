@@ -279,7 +279,7 @@ function SyncScreen() {
       {create && (
         <div style={{ marginTop: '1.2rem' }}>
           <TextField label={t('syncInvite')} value={invite} onChange={setInvite} onSubmit={submit} help={t('syncInviteHint')} />
-          <p class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))', lineHeight: 1.4, margin: '1.2rem 0 0' }}>{t('syncPasswordNote')}</p>
+          <p class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))', lineHeight: 1.4, margin: '1.2rem 0 0' }}>{t('syncPasswordNote')}</p>
         </div>
       )}
       {errorLine}
@@ -320,11 +320,11 @@ function SyncScreen() {
     <div>
       <Panel style={{ padding: '2rem' }}>
         <div class="title-medium">{syncService.email || ''}</div>
-        <div class="muted ellipsis" style={{ fontSize: 'calc(1.3rem * var(--text))' }}>{host}</div>
+        <div class="muted ellipsis" style={{ fontSize: 'calc(1.3rem * var(--text-scale))' }}>{host}</div>
         <div style={{ height: '1.4rem' }} />
         <StatusLine />
         {status === 'offline' && syncService.problem && (
-          <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text))', marginTop: '0.6rem' }}>{problemText(syncService.problem)}</div>
+          <div class="muted" style={{ fontSize: 'calc(1.3rem * var(--text-scale))', marginTop: '0.6rem' }}>{problemText(syncService.problem)}</div>
         )}
       </Panel>
       {errorLine}
@@ -526,7 +526,7 @@ function RecoveryKeyDialog({ text, done }: { text: string; done: () => void }) {
       <h2 class="title-large">{t('syncRecoveryTitle')}</h2>
       <p class="muted" style={{ lineHeight: 1.5, margin: '1.2rem 0 0' }}>{t('syncRecoveryBody')}</p>
       {/* Two lines of four groups, to copy one at a time */}
-      <Panel style={{ marginTop: '2rem', padding: '1.8rem 1.6rem', textAlign: 'center', fontSize: 'calc(2.2rem * var(--text))', fontWeight: 600, letterSpacing: '0.2rem', lineHeight: 1.6, fontVariantNumeric: 'tabular-nums' }}>
+      <Panel style={{ marginTop: '2rem', padding: '1.8rem 1.6rem', textAlign: 'center', fontSize: 'calc(2.2rem * var(--text-scale))', fontWeight: 600, letterSpacing: '0.2rem', lineHeight: 1.6, fontVariantNumeric: 'tabular-nums' }}>
         <div>{text.slice(0, 19)}</div>
         <div>{text.slice(20)}</div>
       </Panel>

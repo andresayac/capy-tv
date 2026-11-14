@@ -323,7 +323,7 @@ function ChannelRow({ channel, title, subtitle, live, onTap }: { channel: LiveCh
               <div class="row">
                 {/* On now: a red dot, the one colour live TV has */}
                 {live && <span style={{ width: '0.7rem', height: '0.7rem', borderRadius: '50%', background: 'var(--live)', marginRight: '0.6rem', flex: 'none' }} />}
-                <span class="muted ellipsis" style={{ fontSize: 'calc(1.3rem * var(--text))' }}>{subtitle}</span>
+                <span class="muted ellipsis" style={{ fontSize: 'calc(1.3rem * var(--text-scale))' }}>{subtitle}</span>
               </div>
             )}
           </div>
