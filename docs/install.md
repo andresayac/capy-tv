@@ -75,8 +75,9 @@ Samsung certificate tied to the TV instead. Developer mode and the tools, step b
 
 Unpack `CapyTV-linux-x64.tar.gz` (a PC) or `CapyTV-linux-arm64.tar.gz` (a Raspberry Pi 4 or 5, or
 another ARM board, with a 64-bit system) anywhere and run `capy_tv` inside it. It needs the
-system's libmpv: `sudo apt install libmpv2` on Debian, Ubuntu and Raspberry Pi OS. The ARM build
-has not been tried on a Raspberry Pi yet: say how it goes in an issue.
+system's libmpv: `sudo apt install libmpv2` on Debian, Ubuntu and Raspberry Pi OS. Both are checked
+to open at each release, the ARM one on an ARM machine, but nobody has watched anything on a
+Raspberry Pi yet: say how it goes in an issue.
 
 ## macOS (experimental)
 

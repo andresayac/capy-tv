@@ -76,10 +76,10 @@
       { "name": "Android TV", "state": "now" },
       { "name": "Fire TV", "state": "now" },
       { "name": "Windows", "state": "now" },
-      { "name": "Linux", "state": "now" },
+      { "name": "Linux, on PCs and Raspberry Pi", "state": "now" },
       { "name": "Samsung TVs", "state": "now" },
-      { "name": "iOS", "state": "later" },
-      { "name": "macOS", "state": "later" }
+      { "name": "macOS", "state": "now" },
+      { "name": "iOS", "state": "later" }
     ],
     "yes": "Compatible",
     "no": "Not yet",
