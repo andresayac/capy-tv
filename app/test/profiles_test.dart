@@ -42,7 +42,10 @@ void main() {
       expect((saved.locked, saved.hasOwnPin), (true, true));
       expect(await store.checkProfilePin(saved, '7777'), isTrue);
       expect(await store.checkProfilePin(saved, '1111'), isFalse);
-      expect(jsonEncode(saved.toJson()), isNot(contains('7777')), reason: 'only its hash is kept');
+      // Only its hash is kept; a number saved with it, such as a time, may hold those digits by chance
+      final kept = _leaves(saved.toJson()).toList();
+      expect(kept, isNot(contains(7777)));
+      expect(kept.whereType<String>(), everyElement(isNot(contains('7777'))));
     });
 
     test('removing the parental PIN leaves it, and takes the locks that depended on it', () async {
@@ -193,7 +196,11 @@ void main() {
       expect(await store.checkPin('1234'), isTrue, reason: 'no PIN: nothing to check');
       await store.setPin('1234');
       expect((await store.checkPin('1234'), await store.checkPin('0000')), (true, false));
-      expect(jsonEncode(store.toJson()), isNot(contains('1234')));
+      // Not as a value, nor inside a text: a number saved with it, such as a time, may hold those
+      // digits by chance
+      final saved = _leaves(store.toJson()).toList();
+      expect(saved, isNot(contains(1234)));
+      expect(saved.whereType<String>(), everyElement(isNot(contains('1234'))));
       final dad = await store.add('Dad');
       await store.update(dad.copyWith(locked: true));
       await store.setPin(null);
@@ -1209,4 +1216,20 @@ void main() {
       reopenAfterProfile.value = null;
     });
   });
+}
+
+/// Every key and value of a JSON tree that holds no map or list.
+Iterable<Object?> _leaves(Object? json) sync* {
+  if (json is Map) {
+    for (final e in json.entries) {
+      yield e.key;
+      yield* _leaves(e.value);
+    }
+  } else if (json is List) {
+    for (final v in json) {
+      yield* _leaves(v);
+    }
+  } else {
+    yield json;
+  }
 }
