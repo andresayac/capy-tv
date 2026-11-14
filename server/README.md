@@ -393,7 +393,7 @@ Rocket Loader) leave them alone: the page's policy allows its own scripts only.
 
 ```sh
 go test ./...                                                       # API tests
-docker run --rm -v "$PWD:/src" -w /src golang:1.27.0 go test -race ./...  # with the race detector
+docker run --rm -v "$PWD:/src" -w /src golang:1.27.4 go test -race ./...  # with the race detector
 ```
 
 The app's tests (`app/test/sync_test.dart`, `app/integration_test/sync_flow_test.dart`) build

@@ -1,5 +1,5 @@
 # Capy TV sync server: one static Go binary (SQLite included) on an empty base image.
-FROM golang:1.27.0-alpine AS build
+FROM golang:1.27.4-alpine AS build
 WORKDIR /src
 COPY go.mod go.sum ./
 RUN go mod download
