@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../chromecast/chromecast_service.dart';
+import '../data/airing.dart';
 import '../data/catalog.dart';
 import '../data/combined.dart';
 import '../data/epg.dart';
@@ -100,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     currentCatalog.value = _catalog;
+    currentAiring.value = Airing.of(_source);
     openPlaylist.value = _inTitleBar;
     remoteSearch.addListener(_showSearch);
     castRequest.addListener(_onCast);
@@ -239,6 +241,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           _listsAt = DateTime.now();
         });
         currentCatalog.value = catalog;
+        currentAiring.value = Airing.of(source);
       }
 
       // As updatesListsOnReturn says: the old catalog and the new one do not fit in a stick at once.
@@ -300,6 +303,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     ProfileStore.instance.removeListener(_profileGone);
     if (currentCatalog.value == _catalog) currentCatalog.value = null;
     if (currentGuide.value == _guide.value) currentGuide.value = null;
+    if (currentAiring.value == Airing.of(_source)) currentAiring.value = null;
     if (openPlaylist.value == _inTitleBar) openPlaylist.value = null;
     remoteSearch.removeListener(_showSearch);
     _updating.dispose();
@@ -1133,13 +1137,26 @@ class _ChannelGrid extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  c.name,
-                  maxLines: guide.nowOn(c.epgId) == null ? 2 : 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                // What is on: the guide's, or the provider's for this channel alone (Airing)
+                ListenableBuilder(
+                  listenable: Airing.of(source),
+                  builder: (context, _) {
+                    final now = Airing.of(source).now(c, guide);
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          c.name,
+                          maxLines: now == null ? 2 : 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                        ),
+                        if (now != null) ...[const SizedBox(height: 6), NowOnAir(now)],
+                      ],
+                    );
+                  },
                 ),
-                if (guide.nowOn(c.epgId) case final now?) ...[const SizedBox(height: 6), NowOnAir(now)],
               ],
             ),
           ),
@@ -1182,23 +1199,27 @@ class _ChannelList extends StatelessWidget {
                 ),
                 const SizedBox(width: 14),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        c.name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      if (guide.nowOn(c.epgId) case final now?)
-                        Padding(padding: const EdgeInsets.only(top: 4), child: NowOnAir(now))
-                      else if (c.hasArchive)
+                  // What is on: the guide's, or the provider's for this channel alone (Airing)
+                  child: ListenableBuilder(
+                    listenable: Airing.of(source),
+                    builder: (context, _) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Text(
-                          context.l10n.catchupDays(c.archiveDays),
-                          style: const TextStyle(color: AppColors.text, fontSize: 12),
+                          c.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
-                    ],
+                        if (Airing.of(source).now(c, guide) case final now?)
+                          Padding(padding: const EdgeInsets.only(top: 4), child: NowOnAir(now))
+                        else if (c.hasArchive)
+                          Text(
+                            context.l10n.catchupDays(c.archiveDays),
+                            style: const TextStyle(color: AppColors.text, fontSize: 12),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
                 if (LibraryScope.maybeOf(context)?.isFavorite(MediaRef.channel(c)) ?? false) ...[

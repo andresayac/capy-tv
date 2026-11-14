@@ -24,10 +24,11 @@ export function showChannelSheet(c: LiveChannel, watch?: () => void): Promise<vo
 
 function ChannelSheet({ channel: c, watch, done }: { channel: LiveChannel; watch: () => void; done: () => void }) {
   const { source, guide: holder } = session();
-  // The guide as it is when the sheet opens; without it for this channel, the provider's short EPG
+  // The guide as it is when the sheet opens; when it has nothing from now on for this channel (left
+  // out, or a copy kept from before the provider's guide failed), the provider's short EPG
   const epg = useAsync<EpgEntry[]>(() => {
-    const guide = holder.guide;
-    return guide.has(c.epgId) ? Promise.resolve(guide.upcoming(c.epgId)) : source.shortEpg(c);
+    const upcoming = holder.guide.upcoming(c.epgId);
+    return upcoming.length ? Promise.resolve(upcoming) : source.shortEpg(c);
   }, []);
   return (
     <div class="dialog" style={{ width: '64rem', maxHeight: '50rem', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}>

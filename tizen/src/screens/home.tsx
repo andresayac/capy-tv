@@ -569,9 +569,10 @@ function CategoryRow(p: { name: string; selected: boolean; onTap: () => void }) 
 const CARD_ROW = 18; // rem: a card (16.4) and the row gap under it (1.6); every grid row is this tall
 
 function Channels({ source, category }: { source: ContentSource; category: string }) {
-  const { guide: holder, library } = session();
+  const { guide: holder, library, airing } = session();
   useNotifier(holder);
   useNotifier(library); // the hearts
+  useNotifier(airing); // what the provider says is on, for channels the guide leaves out
   // Keeps "on now" and its progress bar current, while the tab is in sight
   const inSight = useInSight();
   const [, tick] = useState(0);
@@ -622,7 +623,7 @@ function Channels({ source, category }: { source: ContentSource; category: strin
       >
         {channels.slice(win.first * perRow, win.end * perRow).map((c, k) => {
           const i = win.first * perRow + k;
-          const now = guide.nowOn(c.epgId);
+          const now = airing.nowOn(c, guide);
           return (
             <div key={c.id} data-i={i}>
               <Focusable onTap={() => playChannels(channels, i)} onLongPress={() => showChannelSheet(c, () => playChannels(channels, i))}>

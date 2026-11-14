@@ -228,8 +228,9 @@ function GuideFailed() {
 
 /** The rows of one category: only those near the view are built. */
 function Grid({ channels, from, span: SPAN, scrollX, setScrollX }: { channels: LiveChannel[]; from: number; span: number; scrollX: number; setScrollX: (x: number) => void }) {
-  const { guide: holder } = session();
+  const { guide: holder, airing } = session();
   useNotifier(holder);
+  useNotifier(airing); // what the provider says is on, for channels the guide leaves out
   const guide = holder.guide;
   const box = useRef<HTMLDivElement | null>(null);
   const win = useRowWindow(channels.length, ROW * PX);
@@ -377,6 +378,8 @@ function Grid({ channels, from, span: SPAN, scrollX, setScrollX }: { channels: L
       <div style={{ position: 'relative', height: `${channels.length * ROW + 3.2}rem` }}>
         {rows.map((i) => {
           const c = channels[i];
+          // For a channel the guide leaves out: what is on, when the provider says it for it alone
+          const on = holder.ready && !guide.has(c.epgId) ? airing.nowOn(c, guide) : undefined;
           return (
             <div key={i} data-row={i} class="row" style={{ position: 'absolute', left: 0, right: 0, top: `${i * ROW}rem`, height: `${ROW}rem`, alignItems: 'stretch' }}>
               <div data-cell style={{ width: `${CHANNEL}rem`, flex: 'none', padding: '0.4rem 0.8rem 0.4rem 1.2rem', boxSizing: 'border-box' }}>
@@ -410,8 +413,10 @@ function Grid({ channels, from, span: SPAN, scrollX, setScrollX }: { channels: L
                       );
                     })
                   ) : (
-                    <div class="muted row" style={{ position: 'absolute', left: '0.4rem', top: '0.4rem', bottom: '0.4rem', width: `${x(now) + 30}rem`, padding: '0 1.4rem', fontSize: 'calc(1.2rem * var(--text-scale))', background: 'rgba(17,17,17,0.5)', borderRadius: '1rem', boxSizing: 'border-box' }}>
-                      {!holder.ready ? t('guideLoading') : guide === EpgGuide.failed ? t('guideFailed') : t('noGuide')}
+                    <div class={on ? 'row' : 'muted row'} style={{ position: 'absolute', left: '0.4rem', top: '0.4rem', bottom: '0.4rem', width: `${x(now) + 30}rem`, padding: '0 1.4rem', fontSize: 'calc(1.2rem * var(--text-scale))', background: 'rgba(17,17,17,0.5)', borderRadius: '1rem', boxSizing: 'border-box' }}>
+                      <span class="ellipsis">
+                        {on ? `${t('onNow')} · ${on.title}` : !holder.ready ? t('guideLoading') : guide === EpgGuide.failed ? t('guideFailed') : t('noGuide')}
+                      </span>
                     </div>
                   )}
                 </div>

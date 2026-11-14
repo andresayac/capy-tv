@@ -158,7 +158,11 @@ extension _PlayerOverlay on _PlayerScreenState {
   /// Back, the poster, the title and year, the episode; and on the right what the stream is.
   List<Widget> _nowAndNext() {
     final l = context.l10n;
-    final on = currentGuide.value?.upcoming(_item.ref?.epgId, count: 2) ?? const [];
+    // The guide's, or the provider's for this channel alone (Airing), asked when the list showed it
+    final on =
+        currentAiring.value?.upcoming(liveChannelOf(_item.ref), currentGuide.value) ??
+        currentGuide.value?.upcoming(_item.ref?.epgId, count: 2) ??
+        const [];
     if (on.isEmpty) return const [];
     final now = on.first;
     final span = now.end.difference(now.start).inSeconds;
@@ -250,8 +254,20 @@ extension _PlayerOverlay on _PlayerScreenState {
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(color: Colors.white70),
                 ),
-              // A channel: what is on, and after it, as the TV app shows
-              if (_item.isLive) ..._nowAndNext(),
+              // A channel: what is on, and after it, as the TV app shows; shown when the provider says
+              // it for a channel the guide leaves out (Airing)
+              if (_item.isLive)
+                if (currentAiring.value case final onAir?)
+                  ListenableBuilder(
+                    listenable: onAir,
+                    builder: (_, _) => Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: _nowAndNext(),
+                    ),
+                  )
+                else
+                  ..._nowAndNext(),
             ],
           ),
         ),

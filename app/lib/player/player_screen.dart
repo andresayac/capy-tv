@@ -13,6 +13,7 @@ import 'package:media_kit_video/media_kit_video.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 
 import '../chromecast/cast_discovery.dart';
+import '../data/airing.dart';
 import '../data/app_url.dart';
 import '../data/catalog.dart';
 import '../data/epg.dart';
@@ -501,9 +502,14 @@ class _PlayerScreenState extends State<PlayerScreen>
     _opening = true;
     final stream = _stream;
     sayPlaying(this, (title: item.title, subtitle: item.subtitle));
+    // What is on, from the guide or, for a channel it leaves out, asked of the provider now (Airing),
+    // for the overlay's "on now" when it shows
+    final on = item.isLive
+        ? currentAiring.value?.now(liveChannelOf(item.ref), currentGuide.value) ??
+              currentGuide.value?.nowOn(item.ref?.epgId)
+        : null;
     // Zapping with a screen reader: which channel it landed on, and what is on, said out loud
     if (!sameItem && item.isLive && MediaQuery.accessibleNavigationOf(context)) {
-      final on = currentGuide.value?.nowOn(item.ref?.epgId);
       unawaited(
         SemanticsService.sendAnnouncement(
           View.of(context),

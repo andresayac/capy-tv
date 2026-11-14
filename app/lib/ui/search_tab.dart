@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../data/airing.dart';
 import '../data/catalog.dart';
 import '../data/epg.dart';
 import '../data/library.dart';
@@ -354,12 +355,16 @@ class _SearchTabState extends State<SearchTab> with AutomaticKeepAliveClientMixi
               ),
               for (final (i, c)
                   in (_allChannelsOf == _q ? found.channels : found.channels.take(_shownChannels)).indexed)
-                _ChannelRow(
-                  channel: c,
-                  title: c.name,
-                  subtitle: guide.nowOn(c.epgId)?.title,
-                  // Zapping goes through all those found
-                  onTap: () => play(found.channels, i),
+                // What is on: the guide's, or the provider's for this channel alone (Airing)
+                ListenableBuilder(
+                  listenable: Airing.of(source),
+                  builder: (_, _) => _ChannelRow(
+                    channel: c,
+                    title: c.name,
+                    subtitle: Airing.of(source).now(c, guide)?.title,
+                    // Zapping goes through all those found
+                    onTap: () => play(found.channels, i),
+                  ),
                 ),
             ],
           ],

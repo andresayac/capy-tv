@@ -7,6 +7,7 @@ import { t } from '../i18n';
 import { log } from '../log';
 import { Keys } from '../platform/tv';
 import { activeLayer, focus, focusables, offer, setLongPress } from './focus';
+import { Notifier } from './notifier';
 import { back } from './router';
 
 export function Icon({ icon, size }: { icon: string; size?: number }) {
@@ -370,19 +371,8 @@ function advance(field: HTMLElement): boolean {
   return true;
 }
 
-/** Something that tells its listeners when it changes (Flutter's ChangeNotifier). */
-export class Notifier {
-  private listeners = new Set<() => void>();
-
-  listen(l: () => void): () => void {
-    this.listeners.add(l);
-    return () => this.listeners.delete(l);
-  }
-
-  protected notify(): void {
-    this.listeners.forEach((l) => l());
-  }
-}
+// In a module of its own, with nothing else, so data classes can be checked alone in Node
+export { Notifier };
 
 /** Re-renders the component whenever [n] changes. */
 export function useNotifier(n: Notifier): void {

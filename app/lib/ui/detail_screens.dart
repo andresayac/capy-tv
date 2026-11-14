@@ -888,7 +888,12 @@ Future<void> showChannelGuide(BuildContext context, ContentSource source, LiveCh
         }
 
         return AsyncView<List<EpgEntry>>(
-          load: () async => guide != null && guide.has(c.epgId) ? guide.upcoming(c.epgId) : source.shortEpg(c),
+          // The guide's, unless it has nothing from now on for the channel (left out, or a copy kept
+          // from before the provider's guide failed): then the provider's for this channel alone
+          load: () async => switch (guide?.upcoming(c.epgId) ?? const []) {
+            final upcoming when upcoming.isNotEmpty => upcoming,
+            _ => source.shortEpg(c),
+          },
           builder: (_, epg) => Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
             child: Column(

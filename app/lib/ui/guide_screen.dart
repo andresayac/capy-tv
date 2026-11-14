@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../data/airing.dart';
 import '../data/catalog.dart';
 import '../data/epg.dart';
 import '../data/library.dart';
@@ -594,14 +595,25 @@ class _GuideScreenState extends State<GuideScreen> {
                 color: AppColors.surface.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(10),
               ),
-              // Not "no guide" while it is still on its way
-              child: Text(
-                identical(guide, EpgGuide.loading)
-                    ? context.l10n.guideLoading
-                    : identical(guide, EpgGuide.failed)
-                    ? context.l10n.guideFailed
-                    : context.l10n.noGuide,
-                style: const TextStyle(color: AppColors.muted, fontSize: 12),
+              // Not "no guide" while it is still on its way; what is on when the provider says it for
+              // this channel alone (Airing)
+              child: ListenableBuilder(
+                listenable: Airing.of(widget.source),
+                builder: (context, _) {
+                  final on = identical(guide, EpgGuide.loading) ? null : Airing.of(widget.source).now(c, guide);
+                  return Text(
+                    on != null
+                        ? '${context.l10n.onNow} · ${on.title}'
+                        : identical(guide, EpgGuide.loading)
+                        ? context.l10n.guideLoading
+                        : identical(guide, EpgGuide.failed)
+                        ? context.l10n.guideFailed
+                        : context.l10n.noGuide,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: on != null ? AppColors.text : AppColors.muted, fontSize: 12),
+                  );
+                },
               ),
             ),
           ),

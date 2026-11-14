@@ -13,7 +13,7 @@ if command -v go >/dev/null; then (cd ../server && go vet ./... && go test ./...
 # until its npm install is done
 if command -v node >/dev/null && [ -d ../tizen/node_modules ]; then
   (cd ../tizen && node scripts/build.mjs && node node_modules/typescript/bin/tsc --noEmit -p . &&
-    node scripts/focus-test.mjs && node scripts/player-test.mjs)
+    node scripts/airing-test.mjs && node scripts/focus-test.mjs && node scripts/player-test.mjs)
 fi
 
 device="${1:-windows}"

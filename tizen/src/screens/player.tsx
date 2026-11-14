@@ -1004,8 +1004,10 @@ function PlayerScreen({ items, start, done }: { items: PlayItem[]; start: number
       if (e.length) timer = window.setTimeout(() => alive && setTick((n) => n + 1), Math.max(1000, e[0].end.getTime() - Date.now() + 1000));
     };
     if (channel) {
+      // The guide's when it has what is on now; else the provider's for this channel alone, as for a
+      // channel the guide leaves out or a copy kept from before the provider's guide failed
       const guide = guideHolder.guide;
-      if (guide.has(channel.epgId)) {
+      if (guide.nowOn(channel.epgId)) {
         const e = guide.upcoming(channel.epgId, 2);
         setEpg(e);
         until(e);
@@ -1602,8 +1604,9 @@ function SettingsPanel({ c }: { c: Playback }) {
  * ask the guide what is on.
  */
 function QueuePanel({ c, done }: { c: Playback; done: () => void }) {
-  const { guide: holder } = session();
+  const { guide: holder, airing } = session();
   useNotifier(holder);
+  useNotifier(airing); // what the provider says is on, for channels the guide leaves out
   const items = c.items;
   const playing = c.index;
   const win = useRowWindow(items.length, CHANNEL_ROW * PX, 0, playing);
@@ -1641,7 +1644,7 @@ function QueuePanel({ c, done }: { c: Playback; done: () => void }) {
           {rows.map((i) => {
             const item = items[i];
             const channel = item.channel;
-            const now = c.isLive ? guide.nowOn(channel ? channel.epgId : item.ref && item.ref.epg) : undefined;
+            const now = !c.isLive ? undefined : channel ? airing.nowOn(channel, guide) : guide.nowOn(item.ref && item.ref.epg);
             return (
               <div key={i} data-row={i} style={{ position: 'absolute', left: 0, right: 0, top: `${i * CHANNEL_ROW}rem`, height: `${CHANNEL_ROW}rem` }}>
                 <ChannelRow

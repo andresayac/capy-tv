@@ -124,6 +124,8 @@ jobs:
       - run: node scripts/build.mjs
       - name: Types
         run: node node_modules/typescript/bin/tsc --noEmit -p .
+      - name: What is on, asked of the provider
+        run: node scripts/airing-test.mjs
       - name: The remote's focus
         run: node scripts/focus-test.mjs
       - name: The player

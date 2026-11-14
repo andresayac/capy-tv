@@ -1,5 +1,6 @@
 // The playlist open now and what goes with it: its source, its catalog (loaded once) and the
 // profile's library. Null on the playlists screen (Flutter's currentLibrary and currentCatalog).
+import { Airing } from './data/airing';
 import { Catalog } from './data/catalog';
 import { GuideHolder } from './data/epg';
 import { Library } from './data/library';
@@ -14,6 +15,8 @@ export interface Session {
   library: Library;
   /** The XMLTV guide, loaded in the background once the playlist opens. */
   guide: GuideHolder;
+  /** What is on, for the channels the guide has nothing on now for: asked of the provider. */
+  airing: Airing;
   account?: AccountInfo;
 }
 
@@ -27,6 +30,7 @@ export function startSession(playlist: Playlist, source: ContentSource, account?
     catalog: new Catalog(source),
     library: Library.load(playlist.id, profileStore.current.id),
     guide: new GuideHolder((stop, early) => source.guide(stop, early)),
+    airing: new Airing((c) => source.shortEpg(c)),
   };
   current = s;
   s.guide.start();

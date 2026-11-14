@@ -410,6 +410,7 @@ class _QueuePanel extends StatelessWidget {
         ? {for (final c in currentCatalog.value?.loaded?.live ?? const <LiveChannel>[]) c.id: c.number}
         : const <String, int?>{};
     final guide = live ? currentGuide.value : null;
+    final onAir = live ? currentAiring.value : null;
     final row = _queueRow(context, live: live);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -423,14 +424,18 @@ class _QueuePanel extends StatelessWidget {
             itemBuilder: (_, i) {
               final item = items[i];
               final number = live ? numbers[item.ref?.id] : null;
-              return _Option(
+              Widget option() => _Option(
                 oneLine: true,
                 label: live ? [?number?.toString(), item.title].join('  ') : item.subtitle ?? item.title,
-                detail: live ? guide?.nowOn(item.ref?.epgId)?.title : null,
+                // What is on: the guide's, or the provider's for this channel alone (Airing)
+                detail: !live
+                    ? null
+                    : onAir?.now(liveChannelOf(item.ref), guide)?.title ?? guide?.nowOn(item.ref?.epgId)?.title,
                 selected: i == current,
                 autofocus: i == current,
                 onTap: () => onPick(i),
               );
+              return onAir == null ? option() : ListenableBuilder(listenable: onAir, builder: (_, _) => option());
             },
           ),
         ),
