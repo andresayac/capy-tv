@@ -10,6 +10,8 @@ TVs, with an optional end-to-end encrypted sync server you run yourself.
 [![CI](https://github.com/andresayac/capy-tv/actions/workflows/ci.yml/badge.svg)](https://github.com/andresayac/capy-tv/actions/workflows/ci.yml)
 [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-blue.svg)](LICENSE)
 
+[Website](https://andresayac.github.io/capy-tv/) · [Download](https://github.com/andresayac/capy-tv/releases/latest)
+
 </div>
 
 Capy TV plays what **your own provider** gives you: an Xtream Codes account or an M3U list, with

@@ -9,8 +9,12 @@ npm run dev       # http://localhost:4321
 npm run build     # dist/, ready for any static host
 ```
 
-`SITE_URL=https://your.domain npm run build` adds the canonical link once the site has a domain.
-The GitHub address the page links to is in `src/config.ts`.
+`SITE_URL=https://your.domain npm run build` adds the canonical link once the site has a domain,
+and `BASE_PATH=/some/path` builds it to live under that path instead of a domain's root. The
+GitHub address the page links to is in `src/config.ts`.
+
+It is published at <https://andresayac.github.io/capy-tv/> by `.github/workflows/site.yml`, on
+each change to `site/` on `main`; a pull request that changes it is only built.
 
 ## Screenshots and posters
 

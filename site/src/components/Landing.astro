@@ -4,7 +4,7 @@ import type { ImageMetadata } from 'astro';
 import Base from '../layouts/Base.astro';
 import capyIcon from '../assets/brand/capy-icon.svg';
 import capyEmpty from '../assets/brand/capy-empty.svg';
-import { GITHUB_URL } from '../config';
+import { GITHUB_URL, local } from '../config';
 import en from '../i18n/en.json';
 import es from '../i18n/es.json';
 
@@ -14,8 +14,8 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = lang === 'es' ? es : en;
-const home = lang === 'es' ? '/es/' : '/';
-const other = lang === 'es' ? '/' : '/es/';
+const home = local(lang === 'es' ? 'es/' : '');
+const other = local(lang === 'es' ? '' : 'es/');
 
 const shots = import.meta.glob<{ default: ImageMetadata }>('../assets/shots/*/*.png', { eager: true });
 const shot = (name: string) => shots[`../assets/shots/${lang}/${name}.png`].default;
