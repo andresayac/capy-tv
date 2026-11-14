@@ -125,10 +125,13 @@ class FakeCastReceiver {
 
   /// Every connection drops, as on a Wi-Fi drop; the receiver plays on.
   void drop() {
-    for (final c in [..._conns]) {
+    // Off the list first: a socket may say it is done while being destroyed, and this end closing
+    // it is not the other end hanging up
+    final dropped = [..._conns];
+    _conns.clear();
+    for (final c in dropped) {
       c.socket.destroy();
     }
-    _conns.clear();
   }
 
   /// The receiver restarted: no app runs.
