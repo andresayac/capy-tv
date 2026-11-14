@@ -3,9 +3,9 @@
 #   git tag v1.2.3 && git push origin v1.2.3
 #
 # It has the Android APKs (64 and 32 bits: phones, tablets, Android TV and Fire TV), the Windows
-# installer, the Linux build, the Samsung TV package (CapyTV.wgt), SHA256SUMS.txt, and app.json,
-# which a sync server serves with the APKs and the installer for its devices to update themselves
-# (server/README.md, "App updates").
+# installer, the Linux builds (x64 and arm64), the Samsung TV package (CapyTV.wgt), SHA256SUMS.txt,
+# and app.json, which a sync server serves with the APKs and the installer for its devices to update
+# themselves (server/README.md, "App updates").
 # The sync server's image goes to ghcr.io. Run by hand (Actions → Release → Run workflow), it builds
 # all of it from the branch chosen, as the version given if any, and keeps it as artifacts,
 # publishing nothing.
@@ -167,9 +167,19 @@ jobs:
           path: CapyTV-Setup.exe
           if-no-files-found: error
 
+  # x64 for PCs; arm64 for a Raspberry Pi 4 or 5 and other ARM boards with a 64-bit system. Flutter
+  # builds for Linux only on the processor it runs on, so each has its own runner
   linux:
+    name: linux (${{ matrix.arch }})
     needs: version
-    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        include:
+          - arch: x64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 45
     defaults:
       run:
@@ -183,10 +193,20 @@ jobs:
           sudo apt-get install -y clang cmake ninja-build pkg-config liblzma-dev \
             libgtk-3-dev libmpv-dev libepoxy-dev libsecret-1-dev
       - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        if: matrix.arch == 'x64'
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
           cache: true
+      # Flutter publishes no SDK archive for Linux on ARM: its repository, at the same version, gets
+      # the ARM tools on first run
+      - name: Flutter
+        if: matrix.arch == 'arm64'
+        working-directory: .
+        run: |
+          git clone --depth 1 --branch "$FLUTTER_VERSION" https://github.com/flutter/flutter.git "$RUNNER_TEMP/flutter"
+          echo "$RUNNER_TEMP/flutter/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/flutter/bin/flutter" --version
       - run: flutter pub get --enforce-lockfile
       - name: Build
         env:
@@ -205,11 +225,11 @@ jobs:
         run: rm -f ../.env
       # An archive keeps the files' permissions
       - name: Package
-        run: tar -C build/linux/x64/release/bundle -czf ../CapyTV-linux-x64.tar.gz .
+        run: tar -C build/linux/${{ matrix.arch }}/release/bundle -czf ../CapyTV-linux-${{ matrix.arch }}.tar.gz .
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: linux
-          path: CapyTV-linux-x64.tar.gz
+          name: linux-${{ matrix.arch }}
+          path: CapyTV-linux-${{ matrix.arch }}.tar.gz
           if-no-files-found: error
 
   tizen:
