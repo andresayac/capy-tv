@@ -18,7 +18,14 @@ updates:
     directories: [/tizen, /site]
     schedule:
       interval: weekly
+    ignore:
+      # The Samsung TV app runs on old browsers (Tizen 5.5 and earlier) that CI cannot run: a new
+      # major version of its UI library is tried on a TV first, by hand
+      - dependency-name: preact
+        update-types: [version-update:semver-major]
   - package-ecosystem: docker
     directory: /server
     schedule:
       interval: weekly
+    # A new Go release for the image goes with the same one on go.mod's go line, which CI builds
+    # and checks with
