@@ -2,7 +2,8 @@
 // reached over the web inspector (sdb's debug mode), where its log is read and keys are pressed.
 //
 //   node scripts/tv.mjs package      build/CapyTV.wgt from build/www, signed (security profile $TIZEN_PROFILE)
-//   node scripts/tv.mjs install      connects to $TV (the TV's address) and installs it
+//   node scripts/tv.mjs install [f]  connects to $TV (the TV's address) and installs it, or the
+//                                    .wgt f (such as a release's CapyTV.wgt)
 //   node scripts/tv.mjs start        launches it in debug mode and forwards the inspector port
 //   node scripts/tv.mjs deploy       package + install + start
 //   node scripts/tv.mjs seed [n]     adds the .env's provider n (default: unnumbered) as a playlist
@@ -59,12 +60,12 @@ function connect() {
   run(SDB, ['connect', TV]);
 }
 
-function install() {
+function install(file = WGT) {
   connect();
   // `tizen install` wants the model name `sdb devices` lists, not the address
   const line = run(SDB, ['devices']).split(/\r?\n/).find((l) => l.startsWith(SERIAL));
   if (!line) throw new Error(`${SERIAL} is not connected`);
-  const out = run(TIZEN, ['install', '-n', WGT, '-t', line.trim().split(/\s+/).pop()]);
+  const out = run(TIZEN, ['install', '-n', path.resolve(file), '-t', line.trim().split(/\s+/).pop()]);
   console.log(out.split(/\r?\n/).filter((l) => /install completed|error|fail/i.test(l)).join('\n'));
 }
 
@@ -165,7 +166,7 @@ async function seed(n) {
 const [cmd, ...rest] = process.argv.slice(2);
 switch (cmd) {
   case 'package': packageApp(); break;
-  case 'install': install(); break;
+  case 'install': install(rest[0]); break;
   case 'start': start(); break;
   case 'deploy': packageApp(); install(); start(); break;
   case 'seed': await seed(rest[0]); break;

@@ -50,7 +50,7 @@ Everything in detail: [docs/features.md](docs/features.md) and [docs/player.md](
 | Android TV, Google TV and Fire TV | The same APK (the 32-bit one for most TV boxes) |
 | Windows 10 and 11 | Installer from [Releases](https://github.com/andresayac/capy-tv/releases) |
 | Linux (x64) | `.tar.gz` from [Releases](https://github.com/andresayac/capy-tv/releases); needs `libmpv2` |
-| Samsung TVs from 2020 and earlier (Tizen 5.5 and below) | A web app of its own, installed from a computer: [tizen/README.md](tizen/README.md) |
+| Samsung TVs from 2020 and earlier (Tizen 5.5 and below) | `CapyTV.wgt` from [Releases](https://github.com/andresayac/capy-tv/releases), a web app of its own, installed from a computer: [tizen/README.md](tizen/README.md) |
 | macOS and iOS | Build from source |
 
 Step-by-step installation, with no programming: [docs/install.md](docs/install.md).

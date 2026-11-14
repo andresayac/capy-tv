@@ -50,12 +50,17 @@ every update goes through developer mode and the Tizen tools, from a computer on
    (the same network, or a route to it).
 3. **On the computer**, in `tizen/`: `npm ci`, `npm run build`, then
    `TV=<the TV's IP> TIZEN_PROFILE=<profile> node scripts/tv.mjs deploy`. The app starts on the TV
-   and stays in its Apps.
+   and stays in its Apps. Or, without building it: download `CapyTV.wgt` from the latest
+   [release](https://github.com/andresayac/capy-tv/releases/latest) and run
+   `TV=<the TV's IP> node scripts/tv.mjs install CapyTV.wgt` (no certificate profile needed).
 4. **On the TV**, in the app: add the playlist, or sign in to sync to bring the lists, profiles and
    libraries of the other devices. The phone's companion (QR) adds a playlist without typing it.
 
-To **update** it: build again and run `tv.mjs deploy` with the TV in developer mode. What it has
-saved stays.
+To **update** it: build again and run `tv.mjs deploy`, or install a newer release's package, with
+the TV in developer mode. What it has saved stays, as long as the new package is signed with the
+same author certificate as the one installed: releases carry the project's ("Capy TV"), and the TV
+refuses a package signed with another until the app is removed (`sdb shell 0 vd_appuninstall
+CapyTvApp1.CapyTV`), which deletes what it saved.
 
 ## Known limits on these TVs
 

@@ -3,8 +3,9 @@
 #   git tag v1.2.3 && git push origin v1.2.3
 #
 # It has the Android APKs (64 and 32 bits: phones, tablets, Android TV and Fire TV), the Windows
-# installer, the Linux build, SHA256SUMS.txt, and app.json, which a sync server serves with the
-# APKs and the installer for its devices to update themselves (server/README.md, "App updates").
+# installer, the Linux build, the Samsung TV package (CapyTV.wgt), SHA256SUMS.txt, and app.json,
+# which a sync server serves with the APKs and the installer for its devices to update themselves
+# (server/README.md, "App updates").
 # The sync server's image goes to ghcr.io. Run by hand (Actions → Release → Run workflow), it builds
 # all of it from the branch chosen and keeps it as artifacts, publishing nothing.
 #
@@ -12,6 +13,8 @@
 #   ANDROID_KEYSTORE      the release keystore, base64 (base64 -w0 release.jks)
 #   ANDROID_KEY_ALIAS     its key alias
 #   ANDROID_KEY_PASSWORD  its password (PKCS12: the store and the key share it)
+#   TIZEN_AUTHOR_CERT     the Samsung TV package's author certificate (.p12), base64
+#   TIZEN_AUTHOR_PASSWORD its password
 #   TMDB_API_KEY          optional: trending titles, posters and trailers in the apps
 # No sync server and no language model are built in: whoever uses the apps sets their own.
 #
@@ -200,6 +203,73 @@ jobs:
           path: CapyTV-linux-x64.tar.gz
           if-no-files-found: error
 
+  tizen:
+    name: Samsung TV
+    needs: version
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      TIZEN_CLI: https://download.tizen.org/sdk/Installer/tizen-studio_6.1/web-cli_Tizen_Studio_6.1_ubuntu-64.bin
+      TIZEN_CLI_SHA256: 7f33fe09eda4eb5d50463cf997e8f676d455060720470070ae1932994413aaf4
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tizen/package-lock.json
+      # Tizen publishes no checksums: this one was taken from a download made apart from CI
+      - name: Tizen command-line tools
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/tizen-cli.bin" "$TIZEN_CLI"
+          echo "$TIZEN_CLI_SHA256  $RUNNER_TEMP/tizen-cli.bin" | sha256sum -c -
+          chmod +x "$RUNNER_TEMP/tizen-cli.bin"
+          "$RUNNER_TEMP/tizen-cli.bin" --accept-license "$HOME/tizen-studio"
+          rm "$RUNNER_TEMP/tizen-cli.bin"
+      - name: Version
+        run: |
+          sed -i "s/^version: .*/version: ${{ needs.version.outputs.name }}+${{ needs.version.outputs.build }}/" app/pubspec.yaml
+      # Only the TMDB key goes in, as in the other apps: no sync server and no language model
+      - name: Build
+        working-directory: tizen
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: |
+          npm ci
+          if [ -n "$TMDB_API_KEY" ]; then printf 'TMDB_API_KEY=%s\n' "$TMDB_API_KEY" > ../.env; fi
+          node scripts/build.mjs
+          rm -f ../.env
+      # Signed with the project's author certificate, so that each release installs over the last
+      - name: Package
+        working-directory: tizen
+        env:
+          TIZEN_AUTHOR_CERT: ${{ secrets.TIZEN_AUTHOR_CERT }}
+          TIZEN_AUTHOR_PASSWORD: ${{ secrets.TIZEN_AUTHOR_PASSWORD }}
+        run: |
+          tizen=$HOME/tizen-studio/tools/ide/bin/tizen
+          if [ -n "$TIZEN_AUTHOR_CERT" ]; then
+            echo "$TIZEN_AUTHOR_CERT" | base64 --decode > "$RUNNER_TEMP/author.p12"
+            password=$TIZEN_AUTHOR_PASSWORD
+          elif [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            echo "::error::No TIZEN_AUTHOR_CERT secret: a release needs the project's author certificate"
+            exit 1
+          else
+            echo "::warning::No TIZEN_AUTHOR_CERT secret: this package is signed with a certificate made for this run"
+            password=$(openssl rand -hex 16)
+            echo "::add-mask::$password"
+            "$tizen" certificate -a "Capy TV (test)" -p "$password" -f author -- "$RUNNER_TEMP"
+          fi
+          "$tizen" security-profiles add -n capy-tv -a "$RUNNER_TEMP/author.p12" -p "$password"
+          TIZEN_PROFILE=capy-tv node scripts/tv.mjs package
+      - name: Remove the key
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/author.p12" "$HOME/tizen-studio-data/profile" .env
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: tizen
+          path: release/tv/CapyTV.wgt
+          if-no-files-found: error
+
   server:
     name: Sync server image
     needs: version
@@ -235,7 +305,7 @@ jobs:
             ${{ steps.image.outputs.name }}:latest
 
   publish:
-    needs: [version, android, windows, linux, server]
+    needs: [version, android, windows, linux, tizen, server]
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-24.04
     timeout-minutes: 10

@@ -46,8 +46,21 @@ home screen.
 
 ## Samsung TV (2020 and earlier)
 
-There is no file to download: it is installed from a computer, with the TV in developer mode. Ask
-whoever sent you the link; the steps are in [tizen/README.md](../tizen/README.md#installing-on-another-tv).
+Each release has `CapyTV.wgt`. Samsung has no way to install it without a computer: turn on the
+TV's developer mode with that computer's address, then, on the computer, with the Tizen SDK's
+command-line tools:
+
+```sh
+sdb connect <the TV's IP>
+sdb devices                                 # the TV's name is the last word on its line
+tizen install -n CapyTV.wgt -t <that name>
+```
+
+The package is signed with the project's certificate, so the next release installs over it and
+keeps what the app saved. A package built and signed by someone else does not: the TV refuses it
+until the app is removed. TVs from 2021 on may ask for a Samsung certificate tied to the TV, and
+the app has not been tried on them. Developer mode and the tools, step by step:
+[tizen/README.md](../tizen/README.md#installing-on-another-tv).
 
 ## Windows
 
