@@ -77,7 +77,7 @@
       { "name": "Fire TV", "state": "now" },
       { "name": "Windows", "state": "now" },
       { "name": "Linux", "state": "now" },
-      { "name": "TV Samsung hasta 2020", "state": "now" },
+      { "name": "TV Samsung", "state": "now" },
       { "name": "iOS", "state": "later" },
       { "name": "macOS", "state": "later" }
     ],

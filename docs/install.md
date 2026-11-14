@@ -44,7 +44,7 @@ unknown apps in the TV's settings (usually Settings, Device preferences, Securit
 restrictions), and the address from *Install on another device*. Capy TV then shows up on the TV's
 home screen.
 
-## Samsung TV (2020 and earlier)
+## Samsung TV
 
 Each release has `CapyTV.wgt`. Samsung has no way to install it without a computer: turn on the
 TV's developer mode with that computer's address, then, on the computer, with the Tizen SDK's
@@ -58,8 +58,8 @@ tizen install -n CapyTV.wgt -t <that name>
 
 The package is signed with the project's certificate, so the next release installs over it and
 keeps what the app saved. A package built and signed by someone else does not: the TV refuses it
-until the app is removed. TVs from 2021 on may ask for a Samsung certificate tied to the TV, and
-the app has not been tried on them. Developer mode and the tools, step by step:
+until the app is removed. It has been used on a 2020 TV and a 2026 one; some models may ask for a
+Samsung certificate tied to the TV instead. Developer mode and the tools, step by step:
 [tizen/README.md](../tizen/README.md#installing-on-another-tv).
 
 ## Windows
@@ -73,8 +73,10 @@ the app has not been tried on them. Developer mode and the tools, step by step:
 
 ## Linux
 
-Unpack `CapyTV-linux-x64.tar.gz` anywhere and run `capy_tv` inside it. It needs the system's libmpv:
-`sudo apt install libmpv2` on Debian and Ubuntu.
+Unpack `CapyTV-linux-x64.tar.gz` (a PC) or `CapyTV-linux-arm64.tar.gz` (a Raspberry Pi 4 or 5, or
+another ARM board, with a 64-bit system) anywhere and run `capy_tv` inside it. It needs the
+system's libmpv: `sudo apt install libmpv2` on Debian, Ubuntu and Raspberry Pi OS. The ARM build
+has not been tried on a Raspberry Pi yet: say how it goes in an issue.
 
 ## macOS and iOS
 

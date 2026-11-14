@@ -1,8 +1,10 @@
-# Capy TV for older Samsung TVs
+# Capy TV for Samsung TVs
 
-Samsung TVs from 2020 and earlier (Tizen 5.5 and below) only run web apps, so the Flutter app
-cannot reach them. This is the same app for those TVs: TypeScript and Preact built for their
-browser (Chromium 69), playing with the TV's own player (AVPlay). It uses the Flutter app's
+Samsung TVs run Tizen, where the Flutter app cannot go: Flutter's Tizen port needs Tizen 6.0 or
+later, and the player the app is built on (libmpv) does not exist there. This is the same app for
+them, as a web app: TypeScript and Preact built for the oldest of their browsers (Chromium 69, on
+Tizen 5.5), playing with the TV's own player (AVPlay). It has been used on a 2020 TV and a 2026
+one. It uses the Flutter app's
 strings (`app/lib/l10n/*.arb`), font and design, and the same playlist format.
 
 It has what the Flutter app has on a TV remote: playlists (Xtream, M3U, combined), profiles with
@@ -42,9 +44,8 @@ Samsung offers no way to install a web app like this one without a computer: eve
 every update goes through developer mode and the Tizen tools, from a computer on the same network.
 
 1. **On the computer**, once: Node 20+, the Tizen SDK (the CLI is enough) and a certificate profile
-   (`tizen certificate`, then `tizen security-profiles add`). An author certificate of your own does
-   for TVs up to 2020; newer ones may ask for a Samsung certificate tied to the TV, and this app
-   has not been tried on them.
+   (`tizen certificate`, then `tizen security-profiles add`), with an author certificate of your
+   own; some models may ask for a Samsung certificate tied to the TV instead.
 2. **On the TV**: Apps, then 1 2 3 4 5 on the remote. Turn Developer mode on, type the computer's
    IP as the host and restart the TV as it asks. The computer and the TV must reach each other
    (the same network, or a route to it).

@@ -4,8 +4,8 @@
 
 # Capy TV
 
-An open-source IPTV player for Android, Android TV and Fire TV, Windows, Linux and older Samsung
-TVs, with an optional end-to-end encrypted sync server you run yourself.
+An open-source IPTV player for Android, Android TV and Fire TV, Windows, Linux and Samsung TVs,
+with an optional end-to-end encrypted sync server you run yourself.
 
 [![CI](https://github.com/andresayac/capy-tv/actions/workflows/ci.yml/badge.svg)](https://github.com/andresayac/capy-tv/actions/workflows/ci.yml)
 [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-blue.svg)](LICENSE)
@@ -49,8 +49,8 @@ Everything in detail: [docs/features.md](docs/features.md) and [docs/player.md](
 | Android phones and tablets (7.0 or later) | APK from [Releases](https://github.com/andresayac/capy-tv/releases) |
 | Android TV, Google TV and Fire TV | The same APK (the 32-bit one for most TV boxes) |
 | Windows 10 and 11 | Installer from [Releases](https://github.com/andresayac/capy-tv/releases) |
-| Linux (x64) | `.tar.gz` from [Releases](https://github.com/andresayac/capy-tv/releases); needs `libmpv2` |
-| Samsung TVs from 2020 and earlier (Tizen 5.5 and below) | `CapyTV.wgt` from [Releases](https://github.com/andresayac/capy-tv/releases), a web app of its own, installed from a computer: [tizen/README.md](tizen/README.md) |
+| Linux (x64, and arm64 such as a Raspberry Pi 4 or 5) | `.tar.gz` from [Releases](https://github.com/andresayac/capy-tv/releases); needs `libmpv2` |
+| Samsung TVs (Tizen; used on 2020 and 2026 models) | `CapyTV.wgt` from [Releases](https://github.com/andresayac/capy-tv/releases), a web app of its own, installed from a computer: [tizen/README.md](tizen/README.md) |
 | macOS and iOS | Build from source |
 
 Step-by-step installation, with no programming: [docs/install.md](docs/install.md).
@@ -78,7 +78,7 @@ in [docs/development.md](docs/development.md).
 | Path | What |
 |---|---|
 | [`app/`](app) | The Flutter app: one codebase for Android, Windows, Linux, macOS, iOS and the web |
-| [`tizen/`](tizen) | The app for older Samsung TVs, in TypeScript and Preact |
+| [`tizen/`](tizen) | The app for Samsung TVs, in TypeScript and Preact |
 | [`server/`](server) | The optional sync server, in Go |
 | [`site/`](site) | The project's web page, in Astro |
 | [`docs/`](docs) | Installation, features, the player, development and credits |
