@@ -1,0 +1,7 @@
+# gitleaks (CI's "No keys in the code"): its default rules, all of them, for every file but one.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "movi-player's bundle, copied unchanged from npm: the standard ids of DRM systems (ClearKey, Widevine) look like keys to it"
+paths = ['''app/web/movi/element\.js$''']

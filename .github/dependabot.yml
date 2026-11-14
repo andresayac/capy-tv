@@ -1,0 +1,24 @@
+# Updates proposed as pull requests, once a week, and at once for a known vulnerability (with
+# Dependabot security updates on: Settings → Code security). Each goes through CI like any change.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: pub
+    directory: /app
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: /server
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directories: [/tizen, /site]
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /server
+    schedule:
+      interval: weekly

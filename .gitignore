@@ -1,0 +1,43 @@
+# Local values the builds read (see .env.example): never committed
+.env
+.env.*
+!.env.example
+
+# Editors and tooling
+.idea/
+.vscode/
+*.log
+
+# Builds copied out for devices, and for a sync server's app updates
+*.apk
+/CapyTV-*.zip
+/CapyTV-*.exe
+release/
+
+# Samsung TV app: dependencies, builds and files generated from the Flutter app's
+tizen/node_modules/
+tizen/build/
+tizen/src/gen/
+# Its signed packages
+*.wgt
+
+# Public site
+site/node_modules/
+site/dist/
+site/.astro/
+
+# Keys, certificates and signing files, wherever they end up
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+key.properties
+
+# Copies of a sync server's database (and its write-ahead files)
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3

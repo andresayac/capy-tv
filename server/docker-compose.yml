@@ -1,0 +1,46 @@
+# Sync server with automatic HTTPS (Caddy + Let's Encrypt).
+#   1. Point a DNS name at this machine, with ports 80 and 443 open.
+#   2. cp .env.example .env, and set SYNC_DOMAIN and SIGNUP_CODE in it: kept for every later "up"
+#   3. docker compose up -d --build
+# Already running a reverse proxy? Use only the "sync" service: see README.md.
+services:
+  sync:
+    build: .
+    image: capy-tv-sync
+    restart: unless-stopped
+    environment:
+      TRUST_PROXY: "1"
+      # Accounts only with this invitation code. With none, no new accounts, unless SIGNUP_OPEN=1:
+      # anyone who finds the server may make one. Not there at all, compose stops: say which
+      SIGNUP_CODE: ${SIGNUP_CODE?set SIGNUP_CODE in .env (empty: no new accounts)}
+      SIGNUP_OPEN: ${SIGNUP_OPEN:-}
+      # The whole database's cap, in MB: past it, no new accounts nor more data (0: no limit)
+      MAX_DATA_MB: ${MAX_DATA_MB:-2048}
+      QUOTA_MB: ${QUOTA_MB:-50}
+      # Recommendations for the account's devices from a language model, if any: the key stays here
+      AI_MODEL: ${AI_MODEL:-}
+      AI_BASE_URL: ${AI_BASE_URL:-https://ollama.com/v1}
+      AI_API_KEY: ${AI_API_KEY:-}
+    volumes:
+      - sync-data:/data
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      SYNC_DOMAIN: ${SYNC_DOMAIN:?set SYNC_DOMAIN to the DNS name of this server}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - sync
+
+volumes:
+  sync-data:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23fff'/%3E%3Cpath d='M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z' transform='translate(-.5 0) scale(.85) translate(2 2)'/%3E%3C/svg%3E">
+<title>Capy TV</title>
+<style>
+  @font-face { font-family: Inter; font-weight: 400; src: url(/fonts/inter-400.ttf); }
+  @font-face { font-family: Inter; font-weight: 600; src: url(/fonts/inter-600.ttf); }
+  @font-face { font-family: Inter; font-weight: 800; src: url(/fonts/inter-800.ttf); }
+  :root {
+    --black: #000; --surface: #111; --high: #1e1e1e; --stroke: #2a2a2a;
+    --text: #fff; --muted: #a3a3a3; --subtle: #8a8a8a; --live: #e5322d;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; background: var(--black); color: var(--text); }
+  body {
+    font: 16px/1.45 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: max(20px, env(safe-area-inset-top)) 20px max(28px, env(safe-area-inset-bottom));
+    max-width: 520px; margin: 0 auto; min-height: 100vh;
+    overflow-wrap: anywhere; /* long device names have no spaces */
+  }
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .logo { width: 40px; height: 40px; border-radius: 10px; background: var(--text); display: grid; place-items: center; flex: none; }
+  .logo svg { width: 24px; height: 24px; }
+  header h1 { font-size: 17px; font-weight: 800; margin: 0; letter-spacing: -.2px; }
+  header p { margin: 0; color: var(--muted); font-size: 13px; display: flex; align-items: center; gap: 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--subtle); display: inline-block; }
+  .dot.on { background: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,.15); }
+  nav { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 2px; background: var(--surface); border: 1px solid var(--stroke); border-radius: 999px; padding: 4px; margin-bottom: 22px; }
+  /* Words whole ("Account" not split mid-word): smaller on a narrow phone instead */
+  nav button { border: 0; background: none; color: var(--muted); font: 600 min(13px, 3.4vw) Inter, system-ui, sans-serif; padding: 10px 2px; min-height: 44px; border-radius: 999px; cursor: pointer; overflow-wrap: normal; word-break: keep-all; hyphens: none; }
+  nav button[aria-selected=true] { background: var(--text); color: var(--black); }
+  section { display: none; }
+  section.on { display: block; }
+  h2 { font-size: 26px; font-weight: 800; letter-spacing: -.8px; line-height: 1.1; margin: 0 0 8px; }
+  .lead { color: var(--muted); margin: 0 0 20px; }
+  .seg { display: flex; gap: 8px; margin-bottom: 16px; }
+  .seg button { border: 0; background: var(--high); color: var(--text); font: 600 14px Inter, system-ui, sans-serif; padding: 9px 16px; min-height: 44px; border-radius: 999px; cursor: pointer; }
+  .seg button[aria-pressed=true] { background: var(--text); color: var(--black); }
+  label { display: block; font-size: 13px; color: var(--muted); margin: 0 0 6px; }
+  .field { margin-bottom: 14px; position: relative; }
+  input[type=text], input[type=url], input[type=password], input[type=search] {
+    width: 100%; background: var(--high); border: 2px solid transparent; color: var(--text);
+    font: 16px Inter, system-ui, sans-serif; padding: 13px 14px; border-radius: 10px; outline: none;
+  }
+  input:focus { border-color: var(--text); }
+  .reveal { position: absolute; right: 8px; bottom: 3px; min-height: 44px; border: 0; background: none; color: var(--muted); font: 600 13px Inter, system-ui, sans-serif; padding: 6px 8px; cursor: pointer; }
+  :focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 10px; padding: 14px 20px; font: 600 16px Inter, system-ui, sans-serif; cursor: pointer; text-decoration: none; }
+  .btn.primary { background: var(--text); color: var(--black); }
+  .btn.secondary { background: var(--high); color: var(--text); }
+  .btn.block { width: 100%; }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .card { background: var(--surface); border: 1px solid var(--stroke); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+  .msg { padding: 14px 16px; border-radius: 10px; margin-top: 14px; display: none; }
+  .msg.on { display: block; }
+  .msg.err { background: #2a0f0e; border: 1px solid #5c1e1b; }
+  .msg.ok { background: var(--high); border: 1px solid var(--stroke); }
+  .done { text-align: center; padding: 26px 8px 8px; }
+  .done .tick { width: 64px; height: 64px; border-radius: 50%; background: var(--text); color: var(--black); display: grid; place-items: center; margin: 0 auto 16px; font-size: 32px; font-weight: 800; }
+  .now { display: flex; gap: 12px; align-items: center; }
+  .now .live { width: 8px; height: 8px; border-radius: 50%; background: var(--live); flex: none; }
+  .now small { color: var(--muted); display: block; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+  .now strong { display: block; font-size: 16px; }
+  .now span { color: var(--muted); font-size: 14px; }
+  .pad { position: relative; width: min(78vw, 300px); height: min(78vw, 300px); margin: 8px auto 22px; border-radius: 50%; background: var(--surface); border: 1px solid var(--stroke); }
+  .pad button { position: absolute; border: 0; background: none; color: var(--text); cursor: pointer; display: grid; place-items: center; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+  .pad .arrow { width: 34%; height: 34%; }
+  .pad .arrow:active, .pad .arrow.held { background: rgba(255,255,255,.08); }
+  .pad .up { top: 0; left: 33%; border-radius: 50% 50% 12px 12px; }
+  .pad .down { bottom: 0; left: 33%; border-radius: 12px 12px 50% 50%; }
+  .pad .left { left: 0; top: 33%; border-radius: 50% 12px 12px 50%; }
+  .pad .right { right: 0; top: 33%; border-radius: 12px 50% 50% 12px; }
+  .pad .ok { width: 36%; height: 36%; left: 32%; top: 32%; border-radius: 50%; background: var(--text); color: var(--black); font: 800 18px Inter, system-ui, sans-serif; letter-spacing: 1px; }
+  .pad .ok:active { transform: scale(.96); }
+  .pad svg { width: 30px; height: 30px; }
+  .keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 22px; }
+  .keys button { border: 0; background: var(--high); color: var(--text); border-radius: 14px; padding: 14px 4px 10px; cursor: pointer; font: 600 14px Inter, system-ui, sans-serif; display: grid; justify-items: center; gap: 6px; touch-action: manipulation; }
+  .keys button:active { background: var(--stroke); }
+  .keys svg { width: 24px; height: 24px; }
+  .row { display: flex; gap: 10px; }
+  .row input { flex: 1; }
+  .note { color: var(--muted); font-size: 14px; margin-top: 10px; }
+  .hidden { display: none !important; }
+  .file { position: relative; overflow: hidden; }
+  .file input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+  footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: center; }
+  .vote { text-align: center; }
+  .vote img { display: block; width: min(62vw, 260px); aspect-ratio: 2 / 3; object-fit: cover; border-radius: 14px; margin: 0 auto 16px; background: var(--high); }
+  .vote h3 { font-size: 22px; font-weight: 800; letter-spacing: -.4px; margin: 0 0 4px; }
+  .vote .meta { color: var(--muted); font-weight: 600; font-size: 14px; margin: 0 0 10px; }
+  .vote .plot { color: var(--muted); font-size: 14px; margin: 0 0 18px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .vote .row { justify-content: center; }
+  .vote .row .btn { flex: 1; font-size: 18px; padding: 16px 10px; }
+  .progress { color: var(--muted); font-size: 14px; margin: 14px 0 0; }
+  body.waiting nav, body.waiting footer { visibility: hidden; }
+  body.guest nav { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"/></svg></div>
+  <div>
+    <h1 data-t="appTitle">Capy TV</h1>
+    <p><span class="dot" id="dot"></span><span id="status" role="status" aria-live="polite"></span></p>
+  </div>
+</header>
+
+<nav role="tablist">
+  <button role="tab" data-tab="add" data-t="tabAdd" aria-controls="add"></button>
+  <button role="tab" data-tab="remote" data-t="tabRemote" aria-controls="remote"></button>
+  <button role="tab" data-tab="account" data-t="tabAccount" aria-controls="account"></button>
+  <button role="tab" data-tab="backup" data-t="tabBackup" aria-controls="backup"></button>
+  <button role="tab" data-tab="night" data-t="tabNight" aria-controls="night" class="hidden"></button>
+</nav>
+
+<!-- Add a playlist with the phone's keyboard -->
+<section id="add" role="tabpanel">
+  <div id="addForm">
+    <h2 data-t="addTitle"></h2>
+    <p class="lead" data-t="addBody"></p>
+    <div class="seg">
+      <button type="button" data-type="xtream" aria-pressed="true" data-t="playlistTypeXtream"></button>
+      <button type="button" data-type="m3u" aria-pressed="false" data-t="playlistTypeM3u"></button>
+    </div>
+    <form id="form" autocomplete="off" novalidate>
+      <div class="field"><label for="name" data-t="playlistName"></label><input id="name" type="text" autocapitalize="words"></div>
+      <div class="field"><label for="url" id="urlLabel" data-t="serverUrl"></label><input id="url" type="url" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="http://example.com:8080"></div>
+      <div class="field xtream"><label for="username" data-t="username"></label><input id="username" type="text" autocapitalize="off" spellcheck="false"></div>
+      <div class="field xtream"><label for="password" data-t="password"></label><input id="password" type="password" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="reveal" data-for="password" data-t="show"></button></div>
+      <button class="btn primary block" id="save" type="submit" data-t="sendToDevice"></button>
+      <div class="msg err" id="addError" role="alert"></div>
+    </form>
+  </div>
+  <div id="addDone" class="done hidden">
+    <div class="tick" aria-hidden="true">✓</div>
+    <h2 id="addedTitle" tabindex="-1"></h2>
+    <p class="lead" data-t="addedBody"></p>
+    <button class="btn secondary" id="addAnother" data-t="addAnother"></button>
+  </div>
+</section>
+
+<!-- The phone as a remote -->
+<section id="remote" role="tabpanel">
+  <div class="card now">
+    <span class="live hidden" id="nowDot"></span>
+    <div><small data-t="nowPlaying"></small><strong id="nowTitle"></strong><span id="nowSub"></span></div>
+  </div>
+  <div class="pad">
+    <button class="arrow up" data-key="up" data-aria="dirUp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></button>
+    <button class="arrow left" data-key="left" data-aria="dirLeft"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 16.59 10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg></button>
+    <button class="ok" data-key="ok">OK</button>
+    <button class="arrow right" data-key="right" data-aria="dirRight"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></button>
+    <button class="arrow down" data-key="down" data-aria="dirDown"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg></button>
+  </div>
+  <div class="keys">
+    <button data-key="back"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg><span data-t="back"></span></button>
+    <button data-key="playpause"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6v12l8-6zM13 6h2.5v12H13zm4.5 0H20v12h-2.5z"/></svg><span data-t="playPause"></span></button>
+    <button data-key="chdown"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg><span data-t="channelDown"></span></button>
+    <button data-key="chup"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg><span data-t="channelUp"></span></button>
+  </div>
+  <form class="row" id="typeForm" autocomplete="off">
+    <input id="typeText" type="search" enterkeyhint="send" autocapitalize="off">
+    <button class="btn primary" type="submit" data-t="send"></button>
+  </form>
+  <div class="msg" id="typeMsg" role="status"></div>
+  <p class="note" data-t="typeHint"></p>
+</section>
+
+<!-- Sign this device in to the sync account -->
+<section id="account" role="tabpanel">
+  <div id="accountForm">
+    <h2 data-t="accountTitle"></h2>
+    <p class="lead" data-t="accountBody"></p>
+    <div class="msg ok" id="currentAccount" role="status"></div>
+    <form id="syncForm" autocomplete="off" novalidate style="margin-top:14px">
+      <div class="field"><label for="syncServer" data-t="syncServer"></label><input id="syncServer" type="url" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="https://sync.example.com"></div>
+      <div class="field"><label for="syncEmail" data-t="email"></label><input id="syncEmail" type="text" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false"></div>
+      <div class="field"><label for="syncPassword" data-t="password"></label><input id="syncPassword" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false"><button type="button" class="reveal" data-for="syncPassword" data-t="show"></button></div>
+      <button class="btn primary block" id="syncSave" type="submit" data-t="signInOn"></button>
+      <div class="msg err" id="syncError" role="alert"></div>
+    </form>
+  </div>
+  <div id="accountDone" class="done hidden">
+    <div class="tick" aria-hidden="true">✓</div>
+    <h2 id="signedInTitle" data-t="signedInTitle" tabindex="-1"></h2>
+    <p class="lead" id="signedInBody"></p>
+  </div>
+</section>
+
+<!-- Movie night: yes or no to each title, from every phone in the room -->
+<section id="night" role="tabpanel">
+  <h2 data-t="nightTitle"></h2>
+  <p class="lead" data-t="nightBody"></p>
+  <div class="card vote hidden" id="voteCard">
+    <img id="votePoster" alt="">
+    <h3 id="voteTitle"></h3>
+    <p class="meta" id="voteMeta"></p>
+    <p class="plot" id="votePlot"></p>
+    <div class="row">
+      <button class="btn secondary" id="voteNo" type="button" data-t="nightNo"></button>
+      <button class="btn primary" id="voteYes" type="button" data-t="nightYes"></button>
+    </div>
+    <p class="progress" id="voteProgress"></p>
+  </div>
+  <div id="voteDone" class="done hidden">
+    <div class="tick" aria-hidden="true">✓</div>
+    <h2 data-t="nightDone"></h2>
+    <p class="lead" data-t="nightDoneBody"></p>
+    <button class="btn secondary" id="voteAgain" type="button" data-t="nightAgain"></button>
+  </div>
+  <div class="card hidden" id="voteClosed"><p style="margin:0" data-t="nightClosed"></p></div>
+</section>
+
+<!-- Opened by typing the address: without the QR's key, nothing private is sent from here -->
+<section id="locked" role="tabpanel">
+  <div class="card"><p style="margin:0" data-t="needQr"></p></div>
+</section>
+
+<!-- Backups, and moving everything between devices -->
+<section id="backup" role="tabpanel">
+  <h2 data-t="backupTitle"></h2>
+  <p class="lead" data-t="backupBody"></p>
+  <div class="card">
+    <button class="btn primary block" id="download" type="button" data-t="downloadBackup"></button>
+    <p class="note" data-t="downloadHint"></p>
+    <div class="msg" id="downloadMsg" role="status"></div>
+  </div>
+  <div class="card">
+    <span class="btn secondary block file"><span data-t="restoreBackup"></span><input type="file" id="restore" accept="application/json,.json"></span>
+    <p class="note" data-t="restoreHint"></p>
+    <div class="msg" id="restoreMsg" role="status"></div>
+  </div>
+  <div class="card">
+    <p style="margin:0 0 14px" data-t="openAppBody"></p>
+    <a class="btn secondary block" id="openApp" data-t="openApp"></a>
+  </div>
+</section>
+
+<footer data-t="privacy"></footer>
+
+<script>/*SEAL*/</script>
+<script>
+'use strict';
+let STRINGS = /*STRINGS*/{};
+let DEVICE = /*DEVICE*/"";
+// Through the relay the device sends the texts, in its language, with its first answer. Until
+// then, and when it never comes, these few are said in the phone's: from the app's translations,
+// put in by the sync server ({"en": {...}, "es": {...}}; its relay-texts.json)
+const RELAY_TEXTS = /*RELAY_TEXTS*/{};
+const relayLang = () => {
+  const asked = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+  for (let i = 0; i < asked.length; i++) {
+    const code = String(asked[i]).slice(0, 2).toLowerCase();
+    if (RELAY_TEXTS[code]) return code;
+  }
+  return 'en';
+};
+const relayText = (k) => (RELAY_TEXTS[relayLang()] || RELAY_TEXTS.en || {})[k] || '';
+const token = new URLSearchParams(location.search).get('t') || '';
+// The QR code adds the key after the tab (#add&k=...): browsers never send what follows #, so it
+// stays between this phone and the device. Without it (address typed by hand) nothing private goes.
+const hash = location.hash.slice(1).split('&');
+// Came to vote on a movie night: the rest is not for this link, and the device would refuse it
+const GUEST = hash.includes('guest');
+if (GUEST) document.body.classList.add('guest');
+const keyText = (hash.find((p) => p.startsWith('k=')) || '').slice(2);
+// A device that cannot serve this page itself (the Samsung TV app) is reached through the sync
+// server's relay: the page then comes from that server (/companion) and the QR adds the room (r=).
+const room = (hash.find((p) => p.startsWith('r=')) || '').slice(2);
+const RELAY = Boolean(room) || /\/companion$/.test(location.pathname);
+// The sync server may live under a path: its relay is next to this page
+const RELAY_BASE = location.pathname.replace(/\/companion$/, '');
+const KEY = keyText ? Seal.keyFrom(keyText) : null;
+const sealed = (path, value) => JSON.stringify({ sealed: Seal.seal(KEY, path, value) });
+// split and join, not replaceAll: older browsers have none, and it would read a "$" in a name as a pattern
+const t = (k, vars = {}) => Object.entries(vars).reduce((s, [a, b]) => s.split('{' + a + '}').join(String(b)), STRINGS[k] || k);
+const $ = (id) => document.getElementById(id);
+const working = () => (STRINGS.working ? t('working') : '…');
+const api = (path) => path + (path.includes('?') ? '&' : '?') + 't=' + encodeURIComponent(token);
+
+function applyStrings() {
+  document.documentElement.lang = STRINGS.lang || 'en';
+  document.querySelectorAll('[data-t]').forEach((el) => { el.textContent = t(el.dataset.t, { device: DEVICE }); });
+  $('typeText').placeholder = t('typePlaceholder', { device: DEVICE });
+  $('typeText').setAttribute('aria-label', t('typePlaceholder', { device: DEVICE })); // a name that stays while typing
+  document.querySelectorAll('[data-aria]').forEach((el) => el.setAttribute('aria-label', t(el.dataset.aria)));
+}
+// Through the relay, the texts come with the device's first answer
+if (!RELAY) applyStrings();
+
+// Calls to the device: straight to it, or through the relay. Either way the answer has ok, status
+// and json(), like fetch's. Through the relay, each call goes sealed for 'relay/tv' with an id,
+// and the device's answer comes back sealed for 'relay/phone' with that id (see listen).
+const CALL_TIMEOUT = 60000; // checking a playlist with its provider can take a while
+// Signing a TV in derives its key in plain JavaScript there, which can take most of a minute; a
+// big playlist the device downloads and reads whole before it answers
+const timeoutFor = (path) => (path === '/api/sync' ? 150000 : path === '/api/playlists' ? 180000 : CALL_TIMEOUT);
+const pending = new Map(); // call id → what takes the device's answer
+const relayUrl = (to) => RELAY_BASE + '/v1/relay/' + encodeURIComponent(room) + '/' + to;
+function call(path, options = {}) {
+  if (!RELAY) {
+    // A device switched off mid-call would leave its button disabled until the browser gave up
+    const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+    const timer = ctrl && setTimeout(() => ctrl.abort(), timeoutFor(path));
+    const done = () => clearTimeout(timer);
+    return fetch(api(path), ctrl ? { ...options, signal: ctrl.signal } : options).then(
+      (r) => { done(); return r; },
+      (e) => { done(); throw e; },
+    );
+  }
+  const id = Array.from(crypto.getRandomValues(new Uint8Array(12)), (b) => b.toString(16).padStart(2, '0')).join('');
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => { pending.delete(id); reject(new TypeError('timeout')); }, timeoutFor(path));
+    const answer = (status, body) => {
+      clearTimeout(timer);
+      pending.delete(id);
+      resolve({ ok: status >= 200 && status < 300, status, json: async () => body });
+    };
+    pending.set(id, answer);
+    const envelope = { id, method: options.method || 'GET', path };
+    if (options.body !== undefined) envelope.body = JSON.parse(options.body);
+    toDevice(envelope).then((sent) => { if (!sent) answer(404, { error: 'room' }); }, (e) => {
+      clearTimeout(timer);
+      pending.delete(id);
+      reject(e);
+    });
+  });
+}
+// Posts [message] for the device, sealed; false when the room is gone
+async function toDevice(message) {
+  const r = await fetch(relayUrl('tv'), { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: Seal.seal(KEY, 'relay/tv', message) });
+  if (r.status === 404) { roomGone(); return false; }
+  if (!r.ok) throw new TypeError('relay ' + r.status);
+  return true;
+}
+// What the device sends: answers to calls, and what is playing (as the local remote socket does).
+// One long-poll after another, from the first message on: in order, the last one says what is
+// playing now. Anything that does not open with the key is not from the device, and is ignored.
+let after = 0, ended = false, ready = false;
+async function listen() {
+  let failures = 0;
+  while (!ended) {
+    try {
+      const r = await fetch(relayUrl('phone') + '?after=' + after, { cache: 'no-store' });
+      if (r.status === 404) { roomGone(); break; }
+      if (!r.ok) throw new TypeError('relay ' + r.status);
+      const j = await r.json();
+      after = j.next;
+      failures = 0;
+      // Connected while the device reads (it does every half minute at most), not because the
+      // server answers: a TV switched off is said so. A server that does not say is believed
+      if (ready) setStatus(!('peer' in j) || (j.peer >= 0 && j.peer < 70));
+      j.messages.forEach((m) => {
+        let e;
+        try { e = Seal.open(KEY, 'relay/phone', m.body); } catch (_) { return; }
+        if (!e || typeof e !== 'object') return;
+        if ('re' in e) { if (pending.has(e.re)) pending.get(e.re)(e.status, e.body); return; }
+        if ('nowPlaying' in e) showNow(e.nowPlaying);
+        if (e.type === 'night') showNightTab(e.open);
+      });
+    } catch (_) {
+      if (ready) setStatus(false);
+      await new Promise((go) => setTimeout(go, Math.min(8000, 500 * 2 ** failures++)));
+    }
+  }
+}
+// The device closed the room (it left its connect screen) or it expired: nothing more goes through
+function roomGone() {
+  if (ended) return;
+  ended = true;
+  pending.forEach((answer) => answer(404, { error: 'room' }));
+  $('dot').classList.remove('on');
+  // Without the device's texts, the page's own, in the phone's language
+  $('status').textContent = ready ? t('expired', { device: DEVICE }) : relayText('expired');
+}
+
+// Tabs; the address keeps the open one (#remote) so a reload or a bookmark returns to it
+const tabs = [...document.querySelectorAll('[data-tab]')];
+const needKey = ['add', 'account', 'backup'];
+function show(name) {
+  if (GUEST) name = 'night';
+  if (!tabs.some((b) => b.dataset.tab === name)) name = 'add';
+  tabs.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === name)));
+  const shown = !KEY && needKey.includes(name) ? 'locked' : name;
+  document.querySelectorAll('section').forEach((s) => s.classList.toggle('on', s.id === shown));
+  history.replaceState(null, '', '#' + name + (GUEST ? '&guest' : '') + (keyText ? '&k=' + keyText : '') + (room ? '&r=' + room : ''));
+  if (name === 'remote') connect();
+  if (name === 'night') loadNight();
+}
+tabs.forEach((b) => b.addEventListener('click', () => show(b.dataset.tab)));
+
+// Add a playlist
+let type = 'xtream';
+document.querySelectorAll('[data-type]').forEach((b) => b.addEventListener('click', () => {
+  type = b.dataset.type;
+  document.querySelectorAll('[data-type]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  document.querySelectorAll('.xtream').forEach((f) => f.classList.toggle('hidden', type !== 'xtream'));
+  $('urlLabel').textContent = t(type === 'xtream' ? 'serverUrl' : 'm3uUrl');
+  $('url').placeholder = type === 'xtream' ? 'http://example.com:8080' : 'http://example.com/list.m3u';
+}));
+document.querySelectorAll('.reveal').forEach((b) => b.addEventListener('click', () => {
+  const p = $(b.dataset.for);
+  p.type = p.type === 'password' ? 'text' : 'password';
+  b.textContent = t(p.type === 'password' ? 'show' : 'hide');
+}));
+function fail(el, text) { el.textContent = text; el.className = 'msg err on'; }
+$('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const body = { type, name: $('name').value, url: $('url').value.trim(), username: $('username').value.trim(), password: $('password').value };
+  if (!body.url || (type === 'xtream' && (!body.username || !body.password))) return fail($('addError'), t('required'));
+  $('addError').className = 'msg err';
+  $('save').disabled = true;
+  $('save').textContent = t('checking');
+  try {
+    const r = await call('/api/playlists', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: sealed('/api/playlists', body) });
+    const j = await r.json();
+    if (r.ok) {
+      $('addedTitle').textContent = t('addedTitle', { name: j.name, device: DEVICE });
+      $('addForm').classList.add('hidden');
+      $('addDone').classList.remove('hidden');
+      $('form').reset();
+      $('addedTitle').focus();
+    } else {
+      fail($('addError'), errorText(j));
+    }
+  } catch {
+    fail($('addError'), t('lostConnection', { device: DEVICE }));
+  } finally {
+    $('save').disabled = false;
+    $('save').textContent = t('sendToDevice', { device: DEVICE });
+  }
+});
+$('addAnother').addEventListener('click', () => { $('addDone').classList.add('hidden'); $('addForm').classList.remove('hidden'); });
+
+function errorText(j) {
+  // No answer at all (a TypeError from fetch): the device closed its page or left the network
+  if (!j || !j.error) return t('lostConnection', { device: DEVICE });
+  if (j.error === 'unauthorized' || j.error === 'locked' || j.error === 'room') return t('expired', { device: DEVICE });
+  const key = 'error_' + j.error;
+  return STRINGS[key] ? t(key, { detail: j.detail || '', device: DEVICE }) : t('errorUnknown');
+}
+
+// The remote: a WebSocket that reconnects on its own (phones sleep, Wi-Fi blinks), or messages
+// through the relay, where the device answers hello with what is playing
+let ws = null, retry = 0, wanted = false, greeted = false, alive = 0, expired = false;
+function setStatus(on) {
+  $('dot').classList.toggle('on', on);
+  $('status').textContent = on ? t('connectedTo', { device: DEVICE }) : t('reconnecting');
+}
+function connect() {
+  wanted = true;
+  if (RELAY) {
+    if (!greeted) { greeted = true; toDevice({ type: 'hello' }).catch(() => { greeted = false; }); }
+    // The device counts a quiet remote as gone after two minutes: say it is still open
+    if (!alive) alive = setInterval(() => { if (document.visibilityState === 'visible') relaySend({ type: 'alive' }); }, 30000);
+    return;
+  }
+  if (ws && ws.readyState <= 1) return;
+  ws = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + api('/ws'));
+  ws.onopen = () => { retry = 0; setStatus(true); };
+  ws.onmessage = (m) => {
+    const j = JSON.parse(m.data);
+    if ('nowPlaying' in j) showNow(j.nowPlaying);
+    if (j.type === 'night') showNightTab(j.open);
+    if (j.type === 'needQr') $('status').textContent = t('needQr');
+  };
+  ws.onclose = () => {
+    setStatus(false);
+    if (!wanted) return;
+    // After a few refusals, ask whether this session is still the device's: an old tab (the device
+    // started a new one since) would otherwise knock for good, and block the new one
+    if (retry >= 3) {
+      fetch(api('/api/info')).then((r) => {
+        if (r.status === 403 || r.status === 429) {
+          wanted = false; expired = true;
+          $('status').textContent = t('expired', { device: DEVICE });
+        } else setTimeout(connect, 8000);
+      }, () => setTimeout(connect, 8000));
+      retry++;
+      return;
+    }
+    setTimeout(connect, Math.min(8000, 500 * 2 ** retry++));
+  };
+}
+function showNow(n) {
+  $('nowTitle').textContent = n ? n.title : t('nothingPlaying');
+  $('nowSub').textContent = n && n.subtitle ? n.subtitle : '';
+  $('nowDot').classList.toggle('hidden', !n);
+}
+/** Whether it went: false while the connection is down. Through the relay a promise of it, once
+ * the relay has it for the device. */
+function send(msg) {
+  if (navigator.vibrate) navigator.vibrate(8);
+  if (RELAY) return relaySend(msg);
+  if (!ws || ws.readyState !== 1) { connect(); return false; }
+  ws.send(JSON.stringify(msg));
+  return true;
+}
+// Through the relay one after another, so the device gets them in order; while the network is
+// slow, a held arrow's repeats beyond a few are dropped rather than piled up
+let outbox = Promise.resolve(), queued = 0;
+function relaySend(msg) {
+  if (msg.type === 'key' && queued >= 4) return Promise.resolve(false);
+  queued++;
+  const went = outbox.then(() => toDevice(msg)).catch(() => false);
+  outbox = went.then(() => { queued--; });
+  return went;
+}
+// Arrows repeat while held, like a real remote
+document.querySelectorAll('[data-key]').forEach((b) => {
+  let timer = null;
+  const stop = () => { clearTimeout(timer); clearInterval(timer); timer = null; b.classList.remove('held'); };
+  b.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    send({ type: 'key', key: b.dataset.key });
+    if (!b.classList.contains('arrow')) return;
+    b.classList.add('held');
+    timer = setTimeout(() => { timer = setInterval(() => send({ type: 'key', key: b.dataset.key }), 140); }, 450);
+  });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => b.addEventListener(ev, stop));
+  // Enter, Space, TalkBack and VoiceOver press it with a click alone (detail 0): a tap or the mouse
+  // sent it already as it went down
+  b.addEventListener('click', (e) => { if (e.detail === 0) send({ type: 'key', key: b.dataset.key }); });
+  b.addEventListener('contextmenu', (e) => e.preventDefault());
+});
+let typedShown = null;
+$('typeForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const text = $('typeText').value;
+  const msg = $('typeMsg');
+  clearTimeout(typedShown);
+  msg.textContent = working();
+  msg.className = 'msg on';
+  // Straight to the device it travels over plain http, and it may be a password; the relay seals it all
+  const went = await send(KEY && !RELAY ? { type: 'text', sealed: Seal.seal(KEY, '/ws/text', text) } : { type: 'text', text });
+  // Said beside the field, not only at the top: sent, or not yet (send it again once connected)
+  msg.textContent = went ? t('sent') : t('reconnecting');
+  msg.className = went ? 'msg ok on' : 'msg err on';
+  clearTimeout(typedShown);
+  typedShown = setTimeout(() => { msg.className = 'msg'; }, went ? 2500 : 6000);
+});
+
+// Sign the device in to the sync account
+$('syncForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const body = { server: $('syncServer').value.trim(), email: $('syncEmail').value.trim(), password: $('syncPassword').value };
+  if (!body.server || !body.email || !body.password) return fail($('syncError'), t('required'));
+  $('syncError').className = 'msg err';
+  $('syncSave').disabled = true;
+  $('syncSave').textContent = t('signingIn');
+  try {
+    const r = await call('/api/sync', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: sealed('/api/sync', body) });
+    const j = await r.json();
+    if (!r.ok) return fail($('syncError'), errorText(j));
+    $('signedInBody').textContent = t('signedInBody', { email: j.email || body.email });
+    $('accountForm').classList.add('hidden');
+    $('accountDone').classList.remove('hidden');
+    $('syncForm').reset();
+    $('signedInTitle').focus();
+  } catch {
+    fail($('syncError'), t('lostConnection', { device: DEVICE }));
+  } finally {
+    $('syncSave').disabled = false;
+    $('syncSave').textContent = t('signInOn', { device: DEVICE });
+  }
+});
+
+// Backups: opened here and saved as a file, so it never crosses the network readable
+$('download').addEventListener('click', async () => {
+  const button = $('download'), msg = $('downloadMsg');
+  if (button.disabled) return;
+  button.disabled = true;
+  msg.textContent = working();
+  msg.className = 'msg on';
+  try {
+    const r = await call('/api/backup');
+    const j = await r.json();
+    if (!r.ok) throw j;
+    const data = Seal.open(KEY, '/api/backup', j.sealed);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 1)], { type: 'application/json' }));
+    a.download = 'capy-tv-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+    msg.textContent = t('backupSaved');
+    msg.className = 'msg ok on';
+  } catch (j) {
+    fail(msg, errorText(j));
+  } finally {
+    button.disabled = false;
+  }
+});
+$('restore').addEventListener('change', async () => {
+  const input = $('restore'), file = input.files[0];
+  if (!file) return;
+  const msg = $('restoreMsg');
+  input.disabled = true;
+  msg.textContent = working();
+  msg.className = 'msg on';
+  try {
+    let backup;
+    try { backup = JSON.parse(await file.text()); } catch { throw { error: 'format' }; }
+    const r = await call('/api/backup', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: sealed('/api/backup', backup) });
+    const j = await r.json();
+    if (!r.ok) throw j;
+    msg.textContent = t('restored', { added: j.added, updated: j.updated, device: DEVICE });
+    msg.className = 'msg ok on';
+  } catch (j) {
+    fail(msg, j && j.error === 'format' ? t('notBackup') : j && j.error === 'newer' ? t('backupNewer') : errorText(j));
+  }
+  input.value = '';
+  input.disabled = false;
+});
+// The app on the phone pairs with the device's own address: not through the relay. Its link is
+// the Android app's alone: an iPhone or a computer would say the address is not valid
+$('openApp').parentElement.classList.toggle('hidden', RELAY || !/Android/.test(navigator.userAgent));
+$('openApp').href = 'capytv://open/pair?' + new URLSearchParams({ u: location.origin, t: token, ...(keyText ? { k: keyText } : {}), n: DEVICE });
+
+// Movie night: one title at a time, yes or no; each phone counts once per title
+let night = [], at = 0;
+const voter = (() => {
+  try {
+    let v = localStorage.getItem('voter');
+    if (!v) { v = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('voter', v); }
+    return v;
+  } catch (_) { return Math.random().toString(36).slice(2); }
+})();
+async function loadNight() {
+  try {
+    const j = await (await call('/api/night')).json();
+    const titles = j.open ? j.titles : [];
+    // The same titles as before (back from another tab): on where it was, not from the first
+    const same = titles.length === night.length && titles.every((x, i) => x.id === night[i].id);
+    night = titles;
+    if (!same) at = 0;
+  } catch (_) { night = []; at = 0; }
+  showVote();
+}
+function showVote() {
+  const open = night.length > 0, done = open && at >= night.length;
+  $('voteClosed').classList.toggle('hidden', open);
+  $('voteCard').classList.toggle('hidden', !open || done);
+  $('voteDone').classList.toggle('hidden', !done);
+  if (!open || done) return;
+  const n = night[at];
+  $('votePoster').onerror = () => $('votePoster').classList.add('hidden'); // a poster that does not load
+  $('votePoster').src = n.poster || '';
+  $('votePoster').classList.toggle('hidden', !n.poster);
+  $('voteTitle').textContent = n.title;
+  $('voteMeta').textContent = [n.year, n.rating ? '★ ' + n.rating.toFixed(1) : null].filter(Boolean).join('  ·  ');
+  $('votePlot').textContent = n.plot || '';
+  $('voteProgress').textContent = t('nightProgress', { n: String(at + 1), total: String(night.length) });
+}
+function vote(yes) {
+  const n = night[at];
+  if (!n) return;
+  // On to the next one at once: a second tap while this vote travels votes on that one
+  at++;
+  showVote();
+  call('/api/night/vote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ voter, id: n.id, yes }) })
+    .catch(() => { /* a lost vote is no tragedy */ });
+}
+$('voteYes').addEventListener('click', () => vote(true));
+$('voteNo').addEventListener('click', () => vote(false));
+$('voteAgain').addEventListener('click', () => { at = 0; showVote(); });
+
+/** The vote's tab only while there is something to vote on. */
+function showNightTab(open) {
+  document.querySelector('[data-tab=night]').classList.toggle('hidden', !open);
+  if (!open && $('night').classList.contains('on')) loadNight(); // it says the vote is over
+}
+function showInfo(j) {
+  showNow(j.nowPlaying);
+  showNightTab(j.night);
+  if (!j.sync) return;
+  if (!$('syncServer').value) $('syncServer').value = j.sync.server || '';
+  if (j.sync.signedIn && j.sync.email) {
+    $('currentAccount').textContent = t('currentAccount', { device: DEVICE, email: j.sync.email });
+    $('currentAccount').classList.add('on');
+  }
+}
+const firstTab = hash.find((p) => p && !p.includes('=')) || 'add';
+// Through the relay, nothing to show until the device answers with its texts and its name
+function relayInfo() {
+  call('/api/info').then((r) => {
+    if (!r.ok) throw r;
+    return r.json();
+  }).then((j) => {
+    STRINGS = j.strings || {};
+    DEVICE = j.device || '';
+    applyStrings();
+    ready = true;
+    document.body.classList.remove('waiting');
+    setStatus(true);
+    showInfo(j);
+    show(firstTab);
+  }).catch(() => { if (!ended) setTimeout(relayInfo, 2000); });
+}
+if (RELAY) {
+  document.body.classList.add('waiting');
+  document.documentElement.lang = relayLang();
+  // Not a blank page while the device has not answered: what is going on, and after a while what
+  // to check (it asks again all along)
+  $('status').textContent = relayText('waiting');
+  setTimeout(() => { if (!ready && !ended) $('status').textContent = relayText('noAnswer'); }, 20000);
+  if (KEY && room) {
+    listen();
+    relayInfo();
+    // Back on the page, the remote is there again at once; closing it, the device hears at once
+    document.addEventListener('visibilitychange', () => {
+      if (alive && document.visibilityState === 'visible') relaySend({ type: 'alive' });
+    });
+    addEventListener('pagehide', () => {
+      if (alive && !ended) navigator.sendBeacon(relayUrl('tv'), Seal.seal(KEY, 'relay/tv', { type: 'bye' }));
+    });
+  } else {
+    roomGone();
+  }
+} else {
+  setStatus(true);
+  $('status').textContent = t('connectedTo', { device: DEVICE });
+  showNow(null);
+  fetch(api('/api/info')).then((r) => {
+    // A session the device no longer has (an old tab, a bookmark): said so, not tried for good
+    if (r.status === 403 || r.status === 429) {
+      wanted = false; expired = true;
+      $('dot').classList.remove('on');
+      $('status').textContent = t('expired', { device: DEVICE });
+      return;
+    }
+    return r.json().then(showInfo);
+  }).catch(() => setStatus(false));
+  show(firstTab);
+  // Without the remote's tab open there is no socket to tell: asked again on coming back
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' || expired) return;
+    fetch(api('/api/info')).then((r) => (r.ok ? r.json() : null)).then((j) => j && showNightTab(j.night), () => {});
+  });
+}
+// A QR opened in this same tab (the vote's): to its section
+addEventListener('hashchange', () => {
+  const name = location.hash.slice(1).split('&').find((p) => p && !p.includes('='));
+  if (name) show(name);
+});
+</script>
+</body>
+</html>

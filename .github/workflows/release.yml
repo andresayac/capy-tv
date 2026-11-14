@@ -1,0 +1,259 @@
+# Builds a release when a version tag is pushed, and publishes it on the repository's Releases page:
+#
+#   git tag v1.2.3 && git push origin v1.2.3
+#
+# It has the Android APKs (64 and 32 bits: phones, tablets, Android TV and Fire TV), the Windows
+# installer, the Linux build, SHA256SUMS.txt, and app.json, which a sync server serves with the
+# APKs and the installer for its devices to update themselves (server/README.md, "App updates").
+# The sync server's image goes to ghcr.io. Run by hand (Actions → Release → Run workflow), it builds
+# all of it from the branch chosen and keeps it as artifacts, publishing nothing.
+#
+# Secrets (Settings → Secrets and variables → Actions):
+#   ANDROID_KEYSTORE      the release keystore, base64 (base64 -w0 release.jks)
+#   ANDROID_KEY_ALIAS     its key alias
+#   ANDROID_KEY_PASSWORD  its password (PKCS12: the store and the key share it)
+#   TMDB_API_KEY          optional: trending titles, posters and trailers in the apps
+# No sync server and no language model are built in: whoever uses the apps sets their own.
+#
+# The build number comes from the version, 1.2.3 being 10203, and Android only installs a higher
+# one over another: versions only go up, minor and patch below 100.
+name: Release
+
+on:
+  push:
+    tags: ['v*.*.*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+
+env:
+  FLUTTER_VERSION: 3.47.9
+
+jobs:
+  version:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      name: ${{ steps.v.outputs.name }}
+      build: ${{ steps.v.outputs.build }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - id: v
+        name: Version and build number
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            name=${GITHUB_REF#refs/tags/v}
+          else
+            name=$(sed -n 's/^version: *\([^+]*\).*/\1/p' app/pubspec.yaml)
+          fi
+          if ! [[ "$name" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]] || (( BASH_REMATCH[2] > 99 || BASH_REMATCH[3] > 99 )); then
+            echo "::error::$name is not a version like 1.2.3 (minor and patch below 100)"
+            exit 1
+          fi
+          build=$(( BASH_REMATCH[1] * 10000 + BASH_REMATCH[2] * 100 + BASH_REMATCH[3] ))
+          echo "Version $name, build $build"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "build=$build" >> "$GITHUB_OUTPUT"
+
+  android:
+    needs: version
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Version
+        run: |
+          sed -i "s/^version: .*/version: ${{ needs.version.outputs.name }}+${{ needs.version.outputs.build }}/" pubspec.yaml
+      - name: TMDB key
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: if [ -n "$TMDB_API_KEY" ]; then printf 'TMDB_API_KEY=%s\n' "$TMDB_API_KEY" > ../.env; fi
+      # The signing key only reaches this step, and is gone after the build
+      - name: Signing key
+        working-directory: app/android
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -z "$ANDROID_KEYSTORE" ]; then
+            # A release signed with the debug key could never be updated by the next one
+            if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+              echo "::error::No ANDROID_KEYSTORE secret: a release needs the release key"
+              exit 1
+            fi
+            echo "::warning::No ANDROID_KEYSTORE secret: these APKs are signed with the debug key"
+            exit 0
+          fi
+          echo "$ANDROID_KEYSTORE" | base64 --decode > release.jks
+          printf 'storeFile=release.jks\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' \
+            "$ANDROID_KEY_PASSWORD" "$ANDROID_KEY_ALIAS" "$ANDROID_KEY_PASSWORD" > key.properties
+      - name: Build
+        run: bash tool/build_apk.sh small
+        env:
+          BUILD_NUMBER: ${{ needs.version.outputs.build }}
+          ALLOW_DEBUG_KEY: 1
+      - name: Remove the keys
+        if: always()
+        run: rm -f android/release.jks android/key.properties ../.env
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android
+          path: CapyTV-*.apk
+          if-no-files-found: error
+
+  windows:
+    needs: version
+    runs-on: windows-2025
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: app
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Inno Setup
+        run: choco install innosetup --no-progress -y
+      - name: Version
+        run: |
+          sed -i "s/^version: .*/version: ${{ needs.version.outputs.name }}+${{ needs.version.outputs.build }}/" pubspec.yaml
+      - name: TMDB key
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: if [ -n "$TMDB_API_KEY" ]; then printf 'TMDB_API_KEY=%s\n' "$TMDB_API_KEY" > ../.env; fi
+      - name: Build
+        run: bash tool/build_windows.sh
+        env:
+          BUILD_NUMBER: ${{ needs.version.outputs.build }}
+      - name: Remove the key
+        if: always()
+        run: rm -f ../.env
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: windows
+          path: CapyTV-Setup.exe
+          if-no-files-found: error
+
+  linux:
+    needs: version
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Libraries
+        working-directory: .
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config liblzma-dev \
+            libgtk-3-dev libmpv-dev libepoxy-dev libsecret-1-dev
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - name: Build
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: |
+          defines=()
+          if [ -n "$TMDB_API_KEY" ]; then
+            printf 'TMDB_API_KEY=%s\n' "$TMDB_API_KEY" > ../.env
+            defines=(--dart-define-from-file=../.env)
+          fi
+          flutter build linux --release \
+            --build-name=${{ needs.version.outputs.name }} --build-number=${{ needs.version.outputs.build }} \
+            "${defines[@]}" --dart-define=COMMIT="$(git rev-parse --short HEAD)"
+      - name: Remove the key
+        if: always()
+        run: rm -f ../.env
+      # An archive keeps the files' permissions
+      - name: Package
+        run: tar -C build/linux/x64/release/bundle -czf ../CapyTV-linux-x64.tar.gz .
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: linux
+          path: CapyTV-linux-x64.tar.gz
+          if-no-files-found: error
+
+  server:
+    name: Sync server image
+    needs: version
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Image name
+        id: image
+        run: echo "name=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/capy-tv-sync" >> "$GITHUB_OUTPUT"
+      # For servers on a Raspberry Pi or another ARM machine too
+      - uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: server
+          platforms: linux/amd64,linux/arm64
+          push: ${{ startsWith(github.ref, 'refs/tags/') }}
+          tags: |
+            ${{ steps.image.outputs.name }}:${{ needs.version.outputs.name }}
+            ${{ steps.image.outputs.name }}:latest
+
+  publish:
+    needs: [version, android, windows, linux, server]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Manifest for sync servers, and checksums
+        working-directory: dist
+        run: |
+          printf '{"version": "%s", "build": %s, "files": {"windows-x64": "CapyTV-Setup.exe", "arm64-v8a": "CapyTV-64bit.apk", "armeabi-v7a": "CapyTV-32bit.apk"}}\n' \
+            "${{ needs.version.outputs.name }}" "${{ needs.version.outputs.build }}" > app.json
+          sha256sum * > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/* --verify-tag --generate-notes \
+            --title "Capy TV ${{ needs.version.outputs.name }}"

@@ -1,0 +1,327 @@
+/*
+ * The Flutter app's design tokens (app/lib/ui/theme.dart), strictly monochrome. Its layout is in
+ * dp on a 960x540 dp TV screen; here 1rem = 10 dp on a 1920x1080 px page, so "1.6rem" is 16 dp.
+ * Tizen 5.5 runs Chromium 69: no `inset`, `gap` only in grid (not flex), no :focus-visible,
+ * no aspect-ratio.
+ */
+:root {
+  --text: 1; /* the text size chosen in Settings, times; the layout stays as it is */
+  --black: #000;
+  --surface: #111;
+  --surface-high: #1e1e1e;
+  --stroke: #2a2a2a;
+  --text: #fff;
+  --muted: #a3a3a3;
+  --subtle: #8a8a8a; /* 6:1 on black, 4.8:1 on surface-high (AA) */
+  --scrim: rgba(0, 0, 0, 0.85);
+  --live: #e5322d; /* dots and lines */
+  --error: #ff7a75; /* what went wrong, in words: 8:1 on black, 6.6:1 on surface-high (AA) */
+  --r-button: 0.8rem;
+  --r-card: 1rem;
+  --r-panel: 1.4rem;
+}
+
+html {
+  font-size: 20px;
+}
+
+html, body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: transparent;
+  color: var(--text);
+  font-family: Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* On the body alone: on html it would replace the 20px that a rem is */
+body {
+  font-size: calc(1.4rem * var(--text));
+}
+
+#av {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+}
+
+#root {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+}
+
+/*
+ * A screen fills the page; only the top one of the stack shows. It fades in whenever it comes on
+ * top, pushed or uncovered (display: none starts the animation again): Flutter's page transition,
+ * without its zoom, which a 1080p page cannot afford on this TV.
+ */
+.screen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--black);
+  overflow: hidden;
+  animation: route-in 150ms ease-out;
+}
+.screen.hidden { display: none; }
+@keyframes route-in { from { opacity: 0; } to { opacity: 1; } }
+.screen.clear { background: transparent; }
+
+/* ---- type -------------------------------------------------------------------------------- */
+
+.display-small { font-size: calc(3.6rem * var(--text)); font-weight: 800; letter-spacing: -0.14rem; line-height: 1.05; margin: 0; }
+.headline-medium { font-size: calc(2.8rem * var(--text)); font-weight: 800; letter-spacing: -0.1rem; margin: 0; }
+.title-large { font-size: calc(2.2rem * var(--text)); font-weight: 700; letter-spacing: -0.04rem; margin: 0; }
+.title-medium { font-size: calc(1.6rem * var(--text)); font-weight: 700; letter-spacing: -0.02rem; margin: 0; }
+.body-large { font-size: calc(1.6rem * var(--text)); line-height: 1.5; margin: 0; }
+.muted { color: var(--muted); }
+.subtle { color: var(--subtle); }
+.ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.clamp2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.clamp3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ---- focus ------------------------------------------------------------------------------- */
+
+/*
+ * The Flutter Focusable: a 3 dp gap, then a 2 dp white ring, and a slight lift. The ring sits on
+ * ::after so it never shifts the layout.
+ */
+.f {
+  position: relative;
+  outline: none;
+  border-radius: calc(var(--r, var(--r-card)) + 0.3rem);
+  padding: 0.3rem;
+  transition: transform 160ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+.f::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: calc(var(--r, var(--r-card)) + 0.3rem);
+  border: 0.2rem solid transparent;
+  pointer-events: none;
+  transition: border-color 160ms;
+}
+.f:focus { transform: scale(var(--s, 1.04)); }
+.f:focus::after { border-color: var(--text); }
+/* A focusable that holds the remote without showing it (a loading placeholder). */
+.f.bare::after { display: none; }
+/*
+ * OK's splash and highlight (InkWell's white10) on the child's shape: the router adds .pressed for
+ * the 300 ms it shows and fades, so the many items on a page carry no extra box meanwhile.
+ */
+.f.pressed::before {
+  content: '';
+  position: absolute;
+  left: 0.3rem;
+  top: 0.3rem;
+  right: 0.3rem;
+  bottom: 0.3rem;
+  border-radius: var(--r, var(--r-card));
+  background: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  z-index: 1;
+  animation: pressed 300ms ease-out forwards;
+}
+@keyframes pressed { 0%, 33% { opacity: 1; } 100% { opacity: 0; } }
+.f > .fc {
+  border-radius: var(--r, var(--r-card));
+  overflow: hidden;
+}
+
+/* ---- building blocks --------------------------------------------------------------------- */
+
+.panel { background: var(--surface); border-radius: var(--r-panel); }
+
+.button {
+  --r: var(--r-button);
+  --s: 1.03;
+  display: inline-block;
+  vertical-align: top;
+}
+.button > .fc {
+  display: flex;
+  align-items: center;
+  padding: 1.3rem 2rem;
+  font-size: calc(1.5rem * var(--text));
+  font-weight: 600;
+  white-space: nowrap;
+}
+.button .icon { width: 2.2rem; height: 2.2rem; margin-right: 0.8rem; }
+.button.primary > .fc { background: var(--text); color: var(--black); }
+.button.secondary > .fc { background: var(--surface-high); color: var(--text); }
+.button.disabled > .fc { background: var(--surface-high); color: var(--subtle); }
+
+.chip { --r: 99.9rem; --s: 1.05; display: inline-block; vertical-align: top; }
+.chip > .fc {
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 1.4rem;
+  background: var(--surface-high);
+  font-size: calc(1.4rem * var(--text));
+  font-weight: 600;
+}
+.chip .icon { width: 1.8rem; height: 1.8rem; margin-right: 0.6rem; }
+.chip.selected > .fc { background: var(--text); color: var(--black); }
+
+.icon { display: inline-block; flex: none; fill: currentColor; }
+
+.icon-button { --r: 99.9rem; --s: 1.1; display: inline-block; }
+.icon-button > .fc { display: flex; padding: 0.8rem; }
+.icon-button .icon { width: 2.4rem; height: 2.4rem; }
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text);
+  color: var(--black);
+}
+
+.capy-status { display: flex; flex-direction: column; align-items: center; flex: none; }
+/* The box moves, not its images: the still drawing takes over without playing the entrance again. */
+.capy-art { position: relative; animation: capy-enter 360ms ease-out both; }
+.capy-art img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+/* What moves repaints this small layer alone, not the screen around it (Flutter's RepaintBoundary). */
+.capy-moving { will-change: transform; }
+.capy-loading .capy-art { animation: capy-breathe 1.4s ease-in-out infinite alternate; }
+.capy-dots { display: flex; margin-top: 0.7rem; }
+.capy-dots i { width: 0.5rem; height: 0.5rem; margin: 0 0.2rem; border-radius: 50%; background: #e9ad67; animation: capy-dot 1.1s ease-in-out infinite alternate; }
+.capy-dots i:nth-child(2) { animation-delay: 0.18s; }
+.capy-dots i:nth-child(3) { animation-delay: 0.36s; }
+@keyframes capy-enter { from { opacity: 0; transform: translateY(0.4rem); } to { opacity: 1; transform: translateY(0); } }
+@keyframes capy-breathe { from { transform: translateY(0); } to { transform: translateY(-0.3rem); } }
+@keyframes capy-dot { from { opacity: 0.35; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .capy-art, .capy-dots i { animation: none; } }
+
+.capy-message { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.capy-message p { margin: 1.2rem 0 0; line-height: 1.4; }
+
+.row { display: flex; align-items: center; }
+.wrap { display: flex; flex-wrap: wrap; margin: -0.6rem; }
+.wrap > * { margin: 0.6rem; }
+.grow { flex: 1; min-width: 0; }
+
+/* ---- text field ------------------------------------------------------------------------ */
+
+/* Flutter's filled field: label above the value while it has one, white ring when focused. */
+.field { --r: var(--r-button); --s: 1.01; display: block; }
+.field > .fc {
+  position: relative;
+  background: var(--surface-high);
+  padding: 0.9rem 1.2rem;
+  min-height: 3.4rem;
+}
+.field label { display: block; font-size: calc(1.2rem * var(--text)); color: var(--muted); }
+.field .value { font-size: calc(1.6rem * var(--text)); min-height: 2.2rem; line-height: 2.2rem; }
+.field .value.hint { color: var(--subtle); }
+.field input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: calc(1.6rem * var(--text));
+  line-height: 2.2rem;
+}
+.field-help { font-size: calc(1.2rem * var(--text)); color: var(--muted); margin: 0.4rem 1.5rem 0; line-height: 1.4; }
+.field-error { font-size: calc(1.2rem * var(--text)); color: var(--error); margin: 0.4rem 1.5rem 0; }
+
+/* ---- feedback ----------------------------------------------------------------------------- */
+
+.spinner {
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 0.2rem solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--text);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  box-sizing: border-box;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Flutter's floating snack bar: the width of the screen less 15 dp margins, 10 dp off the bottom. */
+.snackbar {
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 1rem;
+  background: var(--text);
+  color: var(--black);
+  font-weight: 600;
+  padding: 1.4rem 1.6rem;
+  border-radius: var(--r-button);
+  z-index: 100;
+  animation: snack-in 250ms linear;
+}
+.snackbar.leaving { opacity: 0; transition: opacity 150ms ease-out; }
+/* Its 250 ms entrance fades in over the last 60%, as Flutter's Interval(0.4, 1.0) */
+@keyframes snack-in { 0%, 40% { opacity: 0; } 100% { opacity: 1; } }
+
+.scrim {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: route-in 150ms ease-out; /* Flutter's dialogs fade in, 150 ms */
+}
+.dialog {
+  background: var(--surface-high);
+  border-radius: var(--r-panel);
+  padding: 2.4rem;
+  min-width: 56rem;
+  max-width: 80rem;
+}
+.dialog .actions { display: flex; justify-content: flex-end; margin-top: 2.4rem; }
+.dialog .actions > * { margin-left: 1.2rem; }
+
+/* App bar of inner screens: back arrow and title. */
+.app-bar { display: flex; align-items: center; height: 6.4rem; padding: 0 1.6rem; }
+.app-bar h1 { font-size: calc(2.2rem * var(--text)); font-weight: 800; letter-spacing: -0.06rem; margin: 0 0 0 1.2rem; }
+
+/* A row that scrolls sideways under the remote; room above and below for the focus ring. */
+.hscroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+.hscroll::-webkit-scrollbar, .vscroll::-webkit-scrollbar { display: none; }
+
+.ranked-number {
+  width: 7rem;
+  font-size: 15rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -1rem;
+  color: transparent;
+  -webkit-text-stroke: 0.3rem var(--muted);
+  margin-bottom: 4rem;
+  text-align: right;
+}
+
+/* A focusable as wide as its content, not its row. */
+.f.inline { display: inline-block; }
+
+.fade-in { animation: fade-in 600ms ease both; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }

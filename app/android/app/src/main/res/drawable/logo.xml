@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The app logo: white rounded square with a black play arrow (same as AppLogo in lib/ui/common.dart) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M5.76,0h12.48a5.76,5.76 0,0 1,5.76 5.76v12.48a5.76,5.76 0,0 1,-5.76 5.76h-12.48a5.76,5.76 0,0 1,-5.76 -5.76v-12.48a5.76,5.76 0,0 1,5.76 -5.76z" />
+    <group android:scaleX="0.72" android:scaleY="0.72" android:translateX="3.36" android:translateY="3.36">
+        <path android:fillColor="#000000" android:pathData="M8,6.82v10.36c0,0.79 0.87,1.27 1.54,0.84l8.14,-5.18c0.62,-0.39 0.62,-1.29 0,-1.69L9.54,5.98C8.87,5.55 8,6.03 8,6.82z" />
+    </group>
+</vector>

@@ -1,0 +1,1649 @@
+{
+  "@@locale": "en",
+  "appTitle": "Capy TV",
+  "playlists": "Playlists",
+  "addPlaylist": "Add playlist",
+  "playlistTypeXtream": "Username and password (Xtream)",
+  "playlistTypeM3u": "Link (M3U)",
+  "playlistKindXtream": "Xtream Codes",
+  "playlistName": "Name",
+  "serverUrl": "Server URL",
+  "username": "Username",
+  "password": "Password",
+  "m3uUrl": "M3U playlist URL",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "deletePlaylistQuestion": "Delete \"{name}\"?",
+  "@deletePlaylistQuestion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connecting": "Connecting…",
+  "required": "Required",
+  "liveTv": "Live TV",
+  "movies": "Movies",
+  "series": "Series",
+  "nothingHere": "Nothing here",
+  "retry": "Retry",
+  "play": "Play",
+  "season": "Season {n}",
+  "seasonSpecials": "Specials",
+  "@season": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "minutes": "{n} min",
+  "@minutes": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "status": "Status",
+  "expires": "Expires",
+  "neverExpires": "Never",
+  "connections": "Connections",
+  "connectionsValue": "{active} of {max} in use",
+  "@connectionsValue": {
+    "placeholders": {
+      "active": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "outputFormats": "Output formats",
+  "serverTimezone": "Server time zone",
+  "providerMessage": "Message from the provider",
+  "sentFrom": "Sent from {device}",
+  "@sentFrom": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "switchPlaylist": "Switch playlist",
+  "trialAccount": "Trial account",
+  "nowPlaying": "Now",
+  "upNext": "Next",
+  "noGuide": "No guide data for this channel",
+  "catchupDays": "Earlier programmes: {n, plural, =1{1 day} other{{n} days}}",
+  "@catchupDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "audioAndSubtitles": "Audio & subtitles",
+  "audio": "Audio",
+  "subtitles": "Subtitles",
+  "off": "Off",
+  "notAvailable": "Not available",
+  "speed": "Speed",
+  "normalSpeed": "Normal",
+  "live": "LIVE",
+  "trackN": "Track {n}",
+  "@trackN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "languageName": "{code, select, spa{Spanish} eng{English} fra{French} deu{German} ita{Italian} por{Portuguese} jpn{Japanese} kor{Korean} zho{Chinese} ara{Arabic} rus{Russian} other{{code}}}",
+  "@languageName": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "listPartsMissing": "{names} did not answer: the lists stay as they were.",
+  "@listPartsMissing": {"placeholders": {"names": {"type": "String"}}},
+  "errorBadAddress": "Check the server's address: it can't be one as written.",
+  "errorWrongServer": "Check the server's address, the username and the password.",
+  "errorProviderBusy": "Your provider is overloaded or down for a while. Try again in a few minutes.",
+  "errorNoSpace": "There is no room left on this device for the list. Free some space and try again.",
+  "errorOffline": "This device seems to be offline. Check the Wi-Fi or the cable, then try again.",
+  "errorDns": "The server's name couldn't be found. Check that this device is online and that the address is written right.",
+  "errorTls": "The secure connection to the server failed. Check this device's date and time: when they are wrong, no secure connection works.",
+  "errorUnreachable": "Couldn't connect to the server. Check the address and your connection; if both are fine, the provider may be down.",
+  "errorTimeout": "The server is not responding.",
+  "errorUnauthorized": "Wrong username or password, or the account is blocked.",
+  "errorInactive": "The account is not active ({status}). Ask your provider to renew or reactivate it.",
+  "statusActive": "Active",
+  "statusExpired": "Expired",
+  "statusBanned": "Banned",
+  "statusDisabled": "Disabled",
+  "statusTrial": "Trial",
+  "statusUnknown": "Unknown",
+  "untitled": "Untitled",
+  "ungrouped": "No category",
+  "episodeNumber": "Episode {number}",
+  "@episodeNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "@errorInactive": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "errorHttp": "The server replied with error {code}. Try again in a while; if it goes on, ask your provider.",
+  "@errorHttp": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "errorBadResponse": "The server did not return a valid response.",
+  "errorNotFound": "The server doesn't have it. Check the address; if it's right, ask your provider.",
+  "errorEmptyPlaylist": "The playlist is empty or is not a valid M3U file.",
+  "errorUnknown": "Something went wrong. Try again; if it keeps happening, restart the app.",
+  "seeAll": "See all",
+  "details": "Details",
+  "welcomeTitle": "Your TV, your way",
+  "welcomeBody": "Connect your TV service with the details your provider gave you: a username and password, or a link. The app includes no channels: you use your own subscription.",
+  "episodesCount": "{n, plural, =1{1 episode} other{{n} episodes}}",
+  "watchLive": "Watch live",
+  "@episodesCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "home": "Home",
+  "search": "Search",
+  "searchHint": "Movies, series, channels or what is on",
+  "myList": "Favorites",
+  "inMyList": "In favorites",
+  "continueWatching": "Continue watching",
+  "recentChannels": "Recently watched channels",
+  "favoriteChannels": "Favorite channels",
+  "favoriteMovies": "Favorite movies",
+  "favoriteSeries": "Favorite series",
+  "homeEmptyTitle": "Make it yours",
+  "homeEmptyBody": "What you watch and add to Favorites shows up here, ready to pick up where you left off.",
+  "resumedFrom": "Resuming from {time}",
+  "startOver": "Start over",
+  "nextEpisode": "Next episode",
+  "nextChannel": "Next channel",
+  "channelUnavailable": "This channel isn't playing right now",
+  "reconnecting": "Reconnecting…",
+  "videoUnavailable": "This video couldn't be played",
+  "unavailableHint": "Your provider isn't sending it at the moment. Try again in a little while or pick something else.",
+  "continueAction": "Continue",
+  "settings": "Settings",
+  "playback": "Playback",
+  "appLanguage": "App language",
+  "appLanguageDevice": "As the device",
+  "languageSelf": "English",
+  "@languageSelf": {
+    "description": "This language's own name, as it is listed among the app's languages."
+  },
+  "advanced": "Advanced",
+  "preferredAudio": "Preferred audio language",
+  "preferredSubtitles": "Preferred subtitles",
+  "automatic": "Automatic",
+  "liveFormat": "Live stream format",
+  "liveFormatTs": "MPEG-TS (most compatible)",
+  "liveFormatHls": "HLS (m3u8)",
+  "decoder": "Video decoder",
+  "decoderHardware": "Hardware (recommended)",
+  "decoderSoftware": "Software (compatibility)",
+  "failMissing": "The provider no longer has it at this address. Try updating the list, or pick something else.",
+  "failDenied": "The provider refused it. Try again in a while; if it goes on, ask your provider.",
+  "failNetwork": "The provider can't be reached. Check this device's internet connection.",
+  "decoderHint": "The signal arrived, but the picture didn't start. In Settings, Playback, Advanced, set Video decoder to Software.",
+  "noResults": "No results",
+  "clearHistory": "Clear watch history",
+  "clearHistoryQuestion": "Clear what this profile watched in this playlist? With sync, on all your devices too.",
+  "removeFromContinue": "Removed from Continue watching",
+  "deletePlaylistEverywhere": "With sync on, it goes from all the devices of this account.",
+  "historyCleared": "Watch history cleared",
+  "loadingCatalog": "Loading the full catalog…",
+  "organizingCatalog": "Putting your catalog in order…",
+  "importedPlaylist": "In the playlist",
+  "importedCount": "{count} imported",
+  "@importedCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "downloadingCatalogPercent": "Downloading the catalog… {percent}%",
+  "@downloadingCatalogPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "downloadingCatalogSize": "Downloading the catalog… {size} MB",
+  "@downloadingCatalogSize": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "typeToSearch": "Type at least 2 letters",
+  "@resumedFrom": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "minutesLeft": "{n} min left",
+  "@minutesLeft": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "tvGuide": "TV guide",
+  "holdOkHint": "Hold OK or press Info on a programme: its details, catch-up and recording",
+  "recentlyAdded": "Recently added",
+  "topRated": "Top rated",
+  "newReleases": "New releases",
+  "newEpisodes": "New episodes",
+  "newMovies": "New movies",
+  "sortRecent": "Newest",
+  "sortTitle": "A–Z",
+  "trailer": "Trailer",
+  "moreLikeThis": "More like this",
+  "director": "Director",
+  "cast": "Cast",
+  "releaseDate": "Release date",
+  "country": "Country",
+  "duration": "Duration",
+  "quality": "Quality",
+  "hoursMinutes": "{h} h {m} min",
+  "seasonsCount": "{n, plural, =1{1 season} other{{n} seasons}}",
+  "@hoursMinutes": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "@seasonsCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "connectPhone": "Connect your phone",
+  "connectPhoneBody": "Scan the code with your phone's camera. A page opens where you can add playlists with your phone's keyboard, use your phone as a remote and move your lists between devices.",
+  "connectSameNetwork": "Your phone and {device} must be on the same Wi-Fi.",
+  "@connectSameNetwork": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "connectOrOpen": "Or open this address on any device:",
+  "connectWaiting": "Waiting for your phone…",
+  "connectRemoteOn": "Your phone is connected as a remote",
+  "connectNoNetwork": "Connect this device to Wi-Fi or Ethernet to use your phone.",
+  "connectAnyNetwork": "Your phone only needs the internet: it does not have to be on the same Wi-Fi as {device}.",
+  "@connectAnyNetwork": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "connectNeedsServer": "Set up a sync server in Sync to use your phone with this TV.",
+  "connectServerDown": "The sync server can't be reached right now. Try again in a moment.",
+  "addFromPhone": "Use your phone",
+  "playlistReceived": "\"{name}\" added from your phone",
+  "@playlistReceived": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "backupReceived": "Lists received: {added, plural, =1{1 new} other{{added} new}}, {updated} updated",
+  "@backupReceived": {
+    "placeholders": {
+      "added": {
+        "type": "int"
+      },
+      "updated": {
+        "type": "int"
+      }
+    }
+  },
+  "phoneConnected": "Phone connected as a remote",
+  "pairTitle": "Connected to {device}",
+  "@pairTitle": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairBody": "Move your lists, profiles, favorites, history and settings between this phone and {device}. Everything goes straight over your Wi-Fi.",
+  "@pairBody": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairSend": "Send everything to {device}",
+  "@pairSend": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairReceive": "Bring the lists from {device}",
+  "@pairReceive": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairRemote": "Use this phone as a remote",
+  "pairSent": "Sent to {device}: {added, plural, =1{1 new list} other{{added} new lists}}, {updated} updated",
+  "@pairSent": {
+    "placeholders": {
+      "added": {
+        "type": "int"
+      },
+      "updated": {
+        "type": "int"
+      },
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairReceived": "Received: {added, plural, =1{1 new list} other{{added} new lists}}, {updated} updated",
+  "@pairReceived": {
+    "placeholders": {
+      "added": {
+        "type": "int"
+      },
+      "updated": {
+        "type": "int"
+      }
+    }
+  },
+  "pairFailed": "Couldn't reach {device}. Scan its code again: it changes every time.",
+  "@pairFailed": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webTabAdd": "Add list",
+  "webTabRemote": "Remote",
+  "webTabBackup": "Backup",
+  "webAddTitle": "Add a list",
+  "webAddBody": "Type it here, with your phone's keyboard. {device} checks it with your provider and saves it.",
+  "@webAddBody": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webShow": "Show",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "webHide": "Hide",
+  "webSendToDevice": "Send to {device}",
+  "@webSendToDevice": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webChecking": "Checking with your provider…",
+  "webAddedTitle": "\"{name}\" is on {device}",
+  "@webAddedTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webAddedBody": "You can open it there now.",
+  "webAddAnother": "Add another",
+  "webLostConnection": "Couldn't reach {device}. Is it still on and on this Wi-Fi?",
+  "@webLostConnection": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webRelayWaiting": "Connecting to the TV…",
+  "webRelayNoAnswer": "The TV does not answer. Check that it is still on, with Capy TV open.",
+  "webRelayExpired": "This page has expired. Scan the code on the TV again.",
+  "webRelayLostConnection": "Couldn't reach {device}. Is it still on, with the app open?",
+  "@webRelayLostConnection": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webExpired": "This page has expired. Scan the code on {device} again.",
+  "@webExpired": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webNowPlaying": "Now playing",
+  "webNothingPlaying": "Nothing playing",
+  "webBack": "Back",
+  "webPlayPause": "Play/Pause",
+  "webChannelDown": "Ch −",
+  "webChannelUp": "Ch +",
+  "webSend": "Send",
+  "webTypePlaceholder": "Search on {device}",
+  "@webTypePlaceholder": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webTypeHint": "What you type replaces the text of the field selected on screen, or searches.",
+  "webConnectedTo": "Connected to {device}",
+  "@webConnectedTo": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webReconnecting": "Reconnecting…",
+  "webBackupTitle": "Back up or move your lists",
+  "webBackupBody": "A backup has your lists with their passwords, every profile with its PIN and what each one watched and keeps, and your settings. Keep it somewhere private.",
+  "webDownloadBackup": "Download a backup",
+  "webDownloadHint": "Saved on this phone as a file.",
+  "webRestoreBackup": "Restore a backup",
+  "webRestoreHint": "Lists already there are updated, not duplicated.",
+  "webRestored": "Done on {device}. New lists: {added} · Updated: {updated}",
+  "@webRestored": {
+    "placeholders": {
+      "added": {
+        "type": "String"
+      },
+      "updated": {
+        "type": "String"
+      },
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webNotBackup": "That file is not a Capy TV backup.",
+  "webBackupNewer": "This backup is from a newer version of Capy TV: update the app here first.",
+  "webBackupSaved": "Backup saved to your downloads.",
+  "webWorking": "One moment…",
+  "webSent": "Sent",
+  "webOpenAppBody": "Have Capy TV on this phone? Open it to send your lists to {device} or bring them here.",
+  "@webOpenAppBody": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webOpenApp": "Open the app",
+  "webPrivacy": "Everything stays between this phone and {device}, on your network.",
+  "@webPrivacy": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webRelayPrivacy": "The server only passes along what this phone and {device} say to each other, locked with a key that only the two of them have.",
+  "@webRelayPrivacy": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webUp": "Up",
+  "webDown": "Down",
+  "webLeft": "Left",
+  "webRight": "Right",
+  "close": "Close",
+  "editPlaylist": "Edit playlist",
+  "moveHistory": "Bring favorites and history from another list",
+  "moveHistoryChoose": "From which list?",
+  "moveHistoryWorking": "Looking for your titles in this list…",
+  "moveHistoryDone": "{moved, plural, =0{Nothing found in this list} =1{1 item moved} other{{moved} items moved}}{missing, plural, =0{} =1{; 1 is not in this list} other{; {missing} are not in this list}}",
+  "@moveHistoryDone": {
+    "placeholders": {
+      "moved": {
+        "type": "int"
+      },
+      "missing": {
+        "type": "int"
+      }
+    }
+  },
+  "sync": "Sync",
+  "syncTitle": "Your lists everywhere",
+  "syncBody": "Sign in on each device and your playlists, favorites and progress follow you. Everything is encrypted on the device before it leaves: the server keeps it but can't read it. Only recommendations, when your server makes them, send it readable the titles to recommend from.",
+  "syncServer": "Sync server",
+  "syncEmail": "Email",
+  "syncPassword": "Password",
+  "syncPasswordAgain": "Repeat password",
+  "syncSignIn": "Sign in",
+  "syncCreate": "Create sync account",
+  "syncToCreate": "New here? Create an account",
+  "syncToSignIn": "Have an account? Sign in",
+  "syncPasswordNote": "Only you know this password. Next you get a recovery key: keep it, it's the only way back in if you forget the password.",
+  "syncWorking": "Securing your keys…",
+  "syncErrorServer": "Use an https:// address (plain http only on your local network)",
+  "syncErrorEmail": "Enter a valid email",
+  "syncErrorShort": "Use at least 8 characters",
+  "syncErrorMismatch": "The passwords don't match",
+  "syncErrorCredentials": "Wrong email or password",
+  "syncErrorExists": "There's already an account with this email",
+  "syncErrorRateLimited": "Too many attempts. Try again in a minute.",
+  "syncErrorNetwork": "Can't reach the sync server",
+  "syncErrorFailed": "The sync server had a problem. Try again later.",
+  "syncStatusSynced": "Up to date · {time}",
+  "@syncStatusSynced": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "syncStatusSyncing": "Syncing…",
+  "syncStatusOffline": "Offline. Changes go out when the server is back.",
+  "syncStatusExpired": "Your session ended. Sign in again.",
+  "syncExpiredNotice": "Sync stopped: the session ended. Sign in again in Settings, Sync.",
+  "syncStatusOff": "Off",
+  "syncNow": "Sync now",
+  "syncDevices": "Signed-in devices",
+  "syncSeen": "Seen {time}",
+  "@syncSeen": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "syncSignOut": "Sign out",
+  "syncSignOutConfirm": "Sign this device out? What it has stays here, but nothing new comes until it signs in again.",
+  "syncDeleteAccount": "Delete account",
+  "syncDeleteConfirm": "Delete the account and everything synced? Each device keeps its own lists and history.",
+  "syncSignedOut": "Signed out. Everything stays on this device.",
+  "whoIsWatching": "Who's watching?",
+  "profileYou": "You",
+  "profiles": "Profiles",
+  "profilesTitle": "Profiles and parental control",
+  "profilesBody": "Each profile keeps its own favorites, history and \"Continue watching\". Kids profiles never show adult content.",
+  "addProfile": "Add profile",
+  "editProfile": "Edit profile",
+  "profileName": "Name",
+  "kidsProfile": "Kids",
+  "kidsAdultTitle": "This title is for adults, and this profile can't play it.",
+  "kidsProfileHint": "Never shows adult content.",
+  "kidsProfileNoPinHint": "Never shows adult content. Saving it asks for a parental PIN, so a child can't turn this off.",
+  "kidsPinTitle": "A PIN so a child can't change this",
+  "adultPinTitle": "A PIN so only adults can see this",
+  "lockProfile": "Ask for the PIN",
+  "lockProfileHint": "Only someone who knows its PIN can open this profile.",
+  "profilePin": "This profile's PIN",
+  "enterPinOf": "{name}'s PIN",
+  "enterPinMain": "Your PIN",
+  "@enterPinOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "forgotPin": "I forgot the PIN",
+  "forgotPinAccount": "Enter your sync account's password to remove the parental PIN from all your devices.",
+  "forgotPinNoAccount": "Without a sync account there is no way to prove it is you: the only way out is to clear this app's data or reinstall it, losing this device's profiles, lists and history.",
+  "forgotPinProfile": "To use it again, {name} must be deleted, with its favorites and history. Nobody will see what was watched.",
+  "@forgotPinProfile": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "forgotPinMain": "The favorites and history of {name} will be deleted and its PIN removed. Nobody will see what was watched.",
+  "forgotPinMainUnnamed": "The favorites and history of this profile will be deleted and its PIN removed. Nobody will see what was watched.",
+  "@forgotPinMain": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "showAdult": "Show adult content",
+  "showAdultHint": "Categories for adults (XXX, +18…) and whatever the provider marks as adult. Hidden by default.",
+  "deleteProfile": "Delete profile",
+  "deleteProfileQuestion": "Delete {name}? Its favorites and history go with it.",
+  "@deleteProfileQuestion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "parentalPin": "Parental PIN",
+  "parentalPinBody": "Needed to change these settings. Each profile can also have its own PIN.",
+  "setPin": "Set PIN",
+  "changePin": "Change PIN",
+  "removePin": "Remove PIN",
+  "enterPin": "Enter the PIN",
+  "newPin": "New PIN",
+  "repeatPin": "Repeat the PIN",
+  "wrongPin": "Wrong PIN",
+  "pinMismatch": "The PINs don't match",
+  "pinSaved": "PIN saved",
+  "pinRemoved": "PIN removed",
+  "storageFull": "Changes couldn't be saved: this device may be out of space.",
+  "noSecureStorage": "This device has no secure storage: the password was not saved.",
+  "startupFailed": "Capy TV couldn't start.",
+  "pickFieldFirst": "Choose a field on the TV first",
+  "castNotAllowed": "What was sent here isn't available on this profile.",
+  "pairCheck": "Check it matches the other device: {address} · code {code}",
+  "@pairCheck": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "pinWait": "Too many tries. Wait {seconds} s",
+  "@pinWait": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "switchProfile": "Switch profile",
+  "profileLocked": "PIN",
+  "adultTag": "Adult content",
+  "backspace": "Delete digit",
+  "syncInvite": "Invitation code",
+  "syncInviteHint": "Only if your server asks for one",
+  "syncErrorInvite": "This server only creates accounts with its invitation code",
+  "syncErrorQuota": "The account is full: ask whoever runs the server for more space",
+  "syncErrorFull": "This server takes no more accounts: ask whoever runs it",
+  "syncThisDevice": "This device",
+  "syncSignOutDevice": "Sign out",
+  "syncSignOutDeviceConfirm": "Sign {name} out? It keeps what it has, but gets nothing new until it signs in again.",
+  "@syncSignOutDeviceConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "syncSignedInAs": "Signed in to sync as {email}",
+  "@syncSignedInAs": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "webTabAccount": "Account",
+  "webAccountTitle": "Sign in to sync",
+  "webAccountBody": "{device} gets your playlists, profiles, favorites and history from your account. The password travels encrypted, and only {device} uses it.",
+  "@webAccountBody": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webSignInOn": "Sign {device} in",
+  "@webSignInOn": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webSigningIn": "Signing in… it takes a few seconds",
+  "webSignedInTitle": "{device} is signed in",
+  "@webSignedInTitle": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webSignedInBody": "As {email}. Your lists arrive in a moment.",
+  "@webSignedInBody": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "webCurrentAccount": "{device} is signed in as {email}. Signing in again switches accounts.",
+  "@webCurrentAccount": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      },
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "webNeedQr": "To send passwords, accounts or backups from here, scan the QR code on {device}: it carries the key that keeps them private on your network.",
+  "@webNeedQr": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "syncForgot": "Forgot your password?",
+  "syncBackToSignIn": "Back to sign in",
+  "syncRecoveryKey": "Recovery key",
+  "syncNewPassword": "New password",
+  "syncCurrentPassword": "Current password",
+  "syncRecover": "Set new password",
+  "syncRecoverBody": "Enter the recovery key you got when you created the account, and choose a new password. Your other devices will ask for it.",
+  "syncErrorRecoveryKey": "That isn't a recovery key: it has 32 letters and digits",
+  "syncErrorRecovery": "Wrong email or recovery key",
+  "syncErrorPassword": "Wrong password",
+  "syncRecoveryTitle": "Your recovery key",
+  "syncRecoveryBody": "If you forget your password, this key is the only way back into your account: nobody can reset it for you, not even whoever runs the server. Write it down or take a photo, and keep it somewhere safe.",
+  "syncRecoverySaved": "I've written it down",
+  "syncCopy": "Copy",
+  "syncCopied": "Copied",
+  "syncChangePassword": "Change password",
+  "syncChangePasswordBody": "Your other devices are signed out until they sign in with the new password.",
+  "syncPasswordChanged": "Password changed",
+  "syncNewRecoveryKey": "New recovery key",
+  "syncNewRecoveryKeyBody": "The recovery key you have now stops working. Enter your password to make a new one.",
+  "trendingMovie": "Movie trending this week",
+  "trendingSeries": "Series trending this week",
+  "about": "About",
+  "aboutLicense": "Open source, under the Mozilla Public License 2.0. It plays content from your own provider and includes none.",
+  "tmdbNotice": "This product uses the TMDB API but is not endorsed or certified by TMDB. Trending movies and series, with their images, come from The Movie Database.",
+  "trendingNow": "Trending this week",
+  "forYou": "Picked for {name}",
+  "forYouMain": "Picked for you",
+  "@forYou": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTitle": "Recommendations with AI",
+  "aiBody": "A language model picks titles for each profile from what it has watched and keeps in Favorites, and says why. Those titles, and some of the catalog's to pick from, never any for adults, go to the service that recommends: the one set up here, else your sync server's, else the app's own. Kids profiles never use it.",
+  "aiOff": "Not set up",
+  "aiSetUp": "Set up",
+  "aiChange": "Change",
+  "aiRemove": "Remove",
+  "aiUrl": "Service address",
+  "aiUrlHint": "Any service with the OpenAI chat API: Ollama, OpenAI, OpenRouter, your own server…",
+  "aiModel": "Model",
+  "aiKey": "API key",
+  "aiKeyKept": "Leave empty to keep the current key",
+  "aiTestAndSave": "Check and save",
+  "aiSaved": "Recommendations are on",
+  "aiWrongKey": "The service did not accept the key",
+  "aiWrongModel": "The service does not have that model, or the address is wrong",
+  "aiUnreachable": "The service did not answer: check the address",
+  "aiBusy": "The service is busy or down for now: try again later",
+  "aiServiceError": "The service answered with error {code}",
+  "@aiServiceError": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "aiUrlInsecure": "Use an https address: plain http only for a service on this network",
+  "aiKeyLost": "The key of your AI service couldn't be read on this device: set it up again",
+  "aiKeyAgain": "A new address needs its key typed again",
+  "aiBuiltIn": "On: included in this version of the app",
+  "aiUseBuiltIn": "Turn back on",
+  "aiTurnedOff": "Off on this device",
+  "aiTurnOff": "Turn off",
+  "aiOwn": "Use another service",
+  "aiFromServer": "On: through your sync server, {server}",
+  "@aiFromServer": {
+    "placeholders": {
+      "server": {
+        "type": "String"
+      }
+    }
+  },
+  "aiServerNote": "The titles sent for recommendations go through your sync server, which can read them; it forwards them to its model and keeps nothing.",
+  "aiTypeOnPhone": "Scan the code with your phone, open Remote and type there: the text goes into the field selected on the TV.",
+  "recentSearches": "Recent searches",
+  "clearRecent": "Clear",
+  "bestMatch": "Best match",
+  "onTvNow": "On TV",
+  "onNow": "Now",
+  "browseGenres": "Movies by genre",
+  "seeAllCount": "See all ({count})",
+  "@seeAllCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "versionsCount": "{count, plural, =1{1 version} other{{count} versions}}",
+  "@versionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "versionNumber": "Version {n}",
+  "@versionNumber": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "mostWatchedMovies": "Most watched movies this week",
+  "mostWatchedSeries": "Most watched series this week",
+  "tryingAnotherCopy": "Trying another copy…",
+  "combinePlaylists": "Combine playlists",
+  "combineBody": "Pick two or more providers to use as one list. Their catalogs come together: a title they share shows once, with every provider's copy among its versions, and plays from the one usually fastest at that hour, or from another when one fails. Each playlist stays as it is.",
+  "pasteLinkHint": "Or paste the link your provider sent you (get.php?username=…): it fills in everything",
+  "filledFromLink": "Server, user and password taken from the link",
+  "combineSuggestion": "Two providers: combine them to see all their titles together, and to play from the other when one fails",
+  "accountAlreadyAdded": "That account was already here: its password is updated",
+  "surpriseMe": "Surprise me",
+  "surpriseQuestion": "What do you feel like?",
+  "surpriseGo": "Pick one",
+  "surpriseAnother": "Another one",
+  "surpriseNone": "Nothing left for that mood: try another.",
+  "userAgentOptional": "User-Agent (optional)",
+  "userAgentHint": "Only if your provider asks for a particular player",
+  "guideTime": "Guide time",
+  "guideTimeHint": "If the guide shows programmes earlier or later than they air, put it right here.",
+  "guideTimeAsSent": "As the provider sends it",
+  "guideTimeMoved": "{hours} h",
+  "@guideTimeMoved": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "diagnostics": "Diagnostics",
+  "diagnosticsCopied": "Copied: paste it in a message to whoever is helping you.",
+  "diagnosticsHint": "What the app noted lately, with no addresses or passwords, for whoever is helping you.",
+  "surpriseAtRandom": "Your list has no genres or ratings: here is one at random.",
+  "surpriseNoInfoKids": "Your list has no genres or ratings, so there is nothing here to suggest for this profile.",
+  "moodLaugh": "A laugh",
+  "moodAction": "Action",
+  "moodSuspense": "Suspense",
+  "moodFamily": "With the family",
+  "moodRomance": "Romance",
+  "moodScary": "Scary",
+  "moodDifferent": "Something different",
+  "newEpisodesForYou": "New episodes of your series",
+  "upNextForYou": "Up next",
+  "guideToday": "Today",
+  "guideYesterday": "Yesterday",
+  "guideTomorrow": "Tomorrow",
+  "guideEarlier": "Two hours earlier",
+  "guideLater": "Two hours later",
+  "rowEarlier": "Earlier in this row",
+  "rowLater": "Further in this row",
+  "newEpisodeNote": "S{season} · E{number}{more, plural, =0{} =1{ and 1 more} other{ and {more} more}}",
+  "@newEpisodeNote": {
+    "placeholders": {
+      "season": {
+        "type": "int"
+      },
+      "number": {
+        "type": "int"
+      },
+      "more": {
+        "type": "int"
+      }
+    }
+  },
+  "screensaver": "Screensaver",
+  "minutesIdle": "After {minutes} min",
+  "@minutesIdle": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "movieNight": "Movie night",
+  "nightTitle": "What shall we watch tonight?",
+  "nightBodyTv": "Everyone scans the code with their phone and says yes or no to each of these. The one with the most votes wins.",
+  "nightYes": "Yes!",
+  "nightNo": "No",
+  "nightWinner": "See the winner",
+  "nightVoters": "{count, plural, =0{Nobody has voted yet} =1{1 phone has voted} other{{count} phones have voted}}",
+  "@nightVoters": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "nightWinnerTitle": "Tonight it is",
+  "nightNotEnough": "Not enough titles for this mood: try another.",
+  "webTabNight": "Vote",
+  "webNightBody": "Yes or no to each title: the TV counts everyone's votes.",
+  "webNightDone": "All done!",
+  "webNightDoneBody": "Look at {device}: the winner shows there.",
+  "@webNightDoneBody": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webNightAgain": "Change my votes",
+  "webNightClosed": "There is no vote open on {device} right now.",
+  "@webNightClosed": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "webNightProgress": "{n} of {total}",
+  "@webNightProgress": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "leftOn": "You left this on {device} {ago}",
+  "@leftOn": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      },
+      "ago": {
+        "type": "String"
+      }
+    }
+  },
+  "agoNow": "just now",
+  "agoMinutes": "{count, plural, =1{1 minute ago} other{{count} minutes ago}}",
+  "@agoMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "agoHours": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
+  "@agoHours": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "goOnHere": "Continue here",
+  "notNow": "Not now",
+  "avatar": "Avatar",
+  "avatarInitial": "Initial",
+  "changeAvatar": "Change avatar",
+  "playerSettings": "Player settings",
+  "settingOff": "Off",
+  "settingOn": "On",
+  "sleepTimer": "Sleep timer",
+  "sleepWhenItEnds": "When it ends",
+  "sleepDone": "Paused by the sleep timer",
+  "sleepDoneHint": "Sleep well.",
+  "sleepStillWatching": "Still watching?",
+  "sleepStillWatchingHint": "Playback stops in {seconds, plural, =1{1 second} other{{seconds} seconds}}.",
+  "@sleepStillWatchingHint": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "keepWatching": "Keep watching",
+  "exitPlayer": "Exit",
+  "leaveAppQuestion": "Leave Capy TV?",
+  "leaveApp": "Leave",
+  "listUpdatedPlain": "List updated.",
+  "guideLoading": "Loading the guide…",
+  "restartApp": "Start again",
+  "serviceEndsSoon": "Your service for {name} ends on {date}: renew it with your provider so it keeps working.",
+  "@serviceEndsSoon": {"placeholders": {"name": {"type": "String"}, "date": {"type": "String"}}},
+  "openFailedHint": "Open it to try again, or edit it to check its details.",
+  "noMoviesInPlaylist": "This playlist has no movies.",
+  "noSeriesInPlaylist": "This playlist has no series.",
+  "volumeBoost": "Volume boost",
+  "streamInfo": "Stream info",
+  "pictureFit": "Picture",
+  "fitContain": "Fit",
+  "fitCover": "Fill",
+  "fitFill": "Stretch",
+  "playerEpisodes": "Episodes",
+  "playerChannels": "Channels",
+  "lockControls": "Lock the screen",
+  "pipOff": "Picture-in-picture is turned off for this app in Android's settings",
+  "back10": "Back 10 seconds",
+  "reduceMotion": "Reduce motion",
+  "trailers": "Trailers",
+  "trailersAlways": "Always",
+  "trailersWifi": "Only on Wi-Fi",
+  "trailersNever": "Never",
+  "volumeDown": "Volume down",
+  "volumeUp": "Volume up",
+  "previousTitle": "Previous",
+  "nextTitle": "Next",
+  "clearSearch": "Clear the search",
+  "ratingOf": "rated {rating}",
+  "@ratingOf": {
+    "placeholders": {
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "pinDigits": "{count} of {total} digits",
+  "@pinDigits": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "forward10": "Forward 10 seconds",
+  "mute": "Sound on or off",
+  "fullScreen": "Full screen",
+  "timeLeftToday": "{n} min left for today",
+  "@timeLeftToday": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "tapToUnlock": "Tap the lock to unlock",
+  "infoVideo": "Video",
+  "infoDecoder": "Decoder",
+  "infoBitrate": "Bitrate",
+  "infoBuffer": "Buffer",
+  "infoDropped": "Dropped frames",
+  "infoCopy": "Copy",
+  "decoderHw": "Hardware",
+  "decoderSw": "Software",
+  "decoderSwAuto": "Software (the hardware showed no picture)",
+  "@decoderSwAuto": {
+    "description": "Stream info, in a browser: the film went over to software decoding by itself because the device's hardware decoder gave no picture"
+  },
+  "channelsMono": "MONO",
+  "channelsStereo": "STEREO",
+  "fpsBadge": "{n} FPS",
+  "@fpsBadge": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "nOfTotal": "{n} of {total}",
+  "@nOfTotal": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "refreshList": "Update channels and movies",
+  "listUpdating": "Updating the list…",
+  "listUpdated": "List updated. New: {movies, plural, =1{1 movie} other{{movies} movies}}, {series, plural, =1{1 series} other{{series} series}} and {channels, plural, =1{1 channel} other{{channels} channels}}",
+  "@listUpdated": {
+    "placeholders": {
+      "movies": {
+        "type": "int"
+      },
+      "series": {
+        "type": "int"
+      },
+      "channels": {
+        "type": "int"
+      }
+    }
+  },
+  "audioDelay": "Audio sync",
+  "subtitleDelay": "Subtitle sync",
+  "delayHint": "Use + if it comes before the picture",
+  "subtitleSize": "Subtitle size",
+  "subtitleBackground": "Subtitle background",
+  "playNow": "Play now",
+  "skipIntro": "Skip intro",
+  "seriesIntro": "Series intro",
+  "introStart": "Mark start",
+  "introEnd": "Mark end",
+  "introClear": "Clear",
+  "introNotMarked": "Not marked",
+  "nextEpisodeIn": "Next episode in {seconds} s",
+  "@nextEpisodeIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "pictureInPicture": "Picture in picture",
+  "pipBack": "Back to the window",
+  "sendTo": "Send to…",
+  "noOtherDevices": "No other device is signed in to this sync account.",
+  "deviceActive": "Active now",
+  "sentToDevice": "Sent to {device}",
+  "@sentToDevice": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceProfileTitle": "On this device",
+  "deviceProfileBody": "The profile that opens when the app starts here, without asking who is watching (a kids' TV).",
+  "deviceProfileAsk": "Ask who's watching",
+  "profileAudio": "Audio language",
+  "profileSubtitles": "Subtitles",
+  "asInSettings": "As in Settings",
+  "dailyLimit": "Time per day",
+  "dailyLimitHint": "Counted on each device. When it runs out, the PIN gives more.",
+  "noLimit": "No limit",
+  "timeUp": "That's all for today",
+  "timeUpHint": "There's more tomorrow. A grown-up can give more time with the PIN.",
+  "moreTime": "30 more minutes",
+  "moreTimeNeedsPin": "More time needs a parental PIN: set one in Profiles.",
+  "hoursOnly": "{h} h",
+  "@hoursOnly": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      }
+    }
+  },
+  "goLive": "Go live",
+  "updateTitle": "Capy TV {version}",
+  "@updateTitle": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateBody": "A new version is ready for this device.",
+  "updateNow": "Update",
+  "updateLater": "Later",
+  "updateInBackground": "Continue in background",
+  "updateDownloading": "Downloading the update…",
+  "updateAllowTitle": "Allow the update",
+  "updateAllowBody": "Android asks for this once: on the screen that opens, allow Capy TV to install apps, then come back here.",
+  "updateAllowManual": "In this device's settings, allow Capy TV to install unknown apps, then come back here.",
+  "openSettings": "Open settings",
+  "updateFailed": "The update didn't go through. Try again in a moment.",
+  "updateDamaged": "The download arrived damaged and was thrown away. Try again.",
+  "updateTo": "Update to {version}",
+  "@updateTo": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "appVersion": "Version {version}",
+  "@appVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "checkUpdates": "Check for updates",
+  "upToDate": "This is the latest version.",
+  "backgroundPlay": "Keep playing outside the app",
+  "pause": "Pause",
+  "stopPlaying": "Stop",
+  "multiview": "Multiview",
+  "multiviewAdd": "Add a channel",
+  "multiviewChange": "Change channel",
+  "multiviewRemove": "Remove",
+  "multiviewFull": "Full screen",
+  "record": "Record",
+  "stopRecording": "Stop recording",
+  "recordings": "Recordings",
+  "recordingSaved": "Saved in Recordings (in Settings, or next to your playlists)",
+  "recordingFailed": "Nothing was recorded",
+  "noRecordings": "Your recordings show here: those from the player and those scheduled from the guide.",
+  "deleteRecording": "Delete this recording?",
+  "recordingNotDeleted": "This recording couldn't be deleted: another program may have it open",
+  "cancelScheduledQuestion": "Cancel this scheduled recording?",
+  "stopRecordingQuestion": "Stop this recording? What was recorded is kept.",
+  "keepIt": "Keep it",
+  "recordingUntitled": "Channel",
+  "recordingStopped": "The recording stopped: it couldn't be saved further (is the storage full?)",
+  "recordingNoRoom": "Not enough room left on this device to record",
+  "recordingStoppedNoRoom": "The recording stopped: this device is nearly full. What was recorded is saved.",
+  "recordingAppClosedNote": "Android closed Capy TV meanwhile. Open it to record what is still on.",
+  "closeWithRecordingsTitle": "Close Capy TV?",
+  "closeWithRecordingsBody": "Something is being recorded or is scheduled. With the app closed it will not be recorded.",
+  "closeAnyway": "Close anyway",
+  "keepOpen": "Keep it open",
+  "keepAppOpenToRecord": "On iPhone, keep Capy TV open on screen until it is recorded: iOS stops it in the background.",
+  "keepAppOpenToCast": "On iPhone, keep Capy TV open: a live channel stops reaching the TV once the app leaves the screen.",
+  "castNoSubtitles": "Subtitles do not reach the TV: there the video plays without them.",
+  "castOtherAudio": "The TV plays the video's own audio, not the language chosen here.",
+  "sendToYourDevices": "Your devices",
+  "sendToNearby": "On this network",
+  "castSearching": "Looking for Chromecasts…",
+  "castNoneFound": "No Chromecast found on this network.",
+  "castByAddress": "Connect by address…",
+  "castAddressHint": "IP address, like 192.168.1.20",
+  "castAddressInvalid": "That is no device's address: write its IP, like 192.168.1.20",
+  "castConnect": "Connect",
+  "castConnecting": "Connecting to {device}…",
+  "@castConnecting": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "castStarting": "Starting on {device}…",
+  "@castStarting": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "castTrying": "Trying another copy ({n} of {total})…",
+  "@castTrying": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "castBuffering": "Loading…",
+  "castPaused": "Paused",
+  "castLost": "Connection to {device} lost. Reconnecting…",
+  "@castLost": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "castStopped": "Casting stopped.",
+  "castConnectFailed": "Couldn't connect to {device}.",
+  "@castConnectFailed": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "castLaunchFailed": "{device} didn't open its player.",
+  "@castLaunchFailed": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "castCannotPlay": "{device} can't play this.",
+  "castRelayUnreachable": "{device} couldn't connect to this device. Check that its firewall lets it in, and that both are on the same network.",
+  "@castRelayUnreachable": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "castProviderRefused": "Your provider refused this to {device}: your account may not allow another connection right now.",
+  "@castProviderRefused": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "@castCannotPlay": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "castTakenOver": "{device} is now playing something else.",
+  "@castTakenOver": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "castFinished": "Finished.",
+  "castingTo": "Casting to {device}",
+  "@castingTo": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "castMkvMayFail": "MKV files may not play on {device}.",
+  "@castMkvMayFail": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "castKeepOn": "Keep this device on and on the same Wi-Fi while casting a channel.",
+  "castPlayHere": "Play here",
+  "stopCasting": "Stop casting",
+  "castUnsupportedLive": "This channel's format can't be cast. Your devices can still play it.",
+  "castUnsupportedFile": "This video's format ({format}) can't be cast.",
+  "@castUnsupportedFile": {
+    "placeholders": {
+      "format": {
+        "type": "String"
+      }
+    }
+  },
+  "castUnsupportedLocal": "Recordings and earlier programmes can't be sent to Chromecast yet.",
+  "castNoHls": "Your provider doesn't offer this channel in the format Chromecast needs.",
+  "castLostEnded": "The connection to {device} was lost.",
+  "@castLostEnded": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "recordingEncrypted": "This channel can't be recorded: it is encrypted",
+  "recordingFragmented": "This channel can't be recorded: the app can't save its format",
+  "recordingSeparateAudio": "This channel can't be recorded: its sound and picture come separately",
+  "recordingCut": "The recording stopped because the channel dropped. What was recorded is saved.",
+  "cancelRecording": "Cancel recording",
+  "scheduledRecordings": "Scheduled",
+  "recordedFiles": "Recorded",
+  "recordingScheduled": "Recording scheduled",
+  "recordingNow": "Recording now",
+  "recordingDone": "Recorded",
+  "recordingFailedState": "Couldn't be recorded",
+  "recordingFailedBecause": "Couldn't be recorded: {why}",
+  "@recordingFailedBecause": {
+    "placeholders": {
+      "why": {
+        "type": "String"
+      }
+    }
+  },
+  "recordingPartly": "Recorded in part: {why}",
+  "@recordingPartly": {
+    "placeholders": {
+      "why": {
+        "type": "String"
+      }
+    }
+  },
+  "recordingMissedBecause": "Missed: {why}",
+  "@recordingMissedBecause": {
+    "placeholders": {
+      "why": {
+        "type": "String"
+      }
+    }
+  },
+  "recordingRetrying": "Trying again shortly: {why}",
+  "@recordingRetrying": {
+    "placeholders": {
+      "why": {
+        "type": "String"
+      }
+    }
+  },
+  "problemAppClosed": "the app was closed",
+  "problemAsleep": "the device was asleep",
+  "problemNoNetwork": "the channel couldn't be reached",
+  "problemChannelGone": "the channel is no longer in the playlist",
+  "problemUnsupported": "the app can't save this channel in the format it comes in",
+  "problemNothingCame": "the channel sent nothing",
+  "problemNoSpace": "the device has no room left",
+  "problemWriteFailed": "the file couldn't be written",
+  "scheduleNote": "Recorded while the app is running, even in the background. If it is closed at that time, the recording is missed.",
+  "recordEarly": "Start before the programme",
+  "recordLate": "Go on after the programme",
+  "recordMarginsHint": "For a match with extra time or a channel running late. For what you schedule from now on.",
+  "recordingStartsAt": "Recording starts at {time}",
+  "@recordingStartsAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "recordingChannel": "Recording {channel}",
+  "@recordingChannel": {
+    "placeholders": {
+      "channel": {
+        "type": "String"
+      }
+    }
+  },
+  "recordingChannels": "Recording {count} channels",
+  "@recordingChannels": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "removeFromList": "Remove",
+  "recordingPaused": "Recordings paused",
+  "recordingPausedNote": "Android lets the app record in the background for a few hours a day. Open Capy TV and they go on.",
+  "installOtherDevice": "Install on another device",
+  "installLinkLoading": "Getting a link…",
+  "installLinkType": "In Downloader on the Fire TV, type this address",
+  "installLinkScan": "On a phone, scan the code.",
+  "installLinkValid": "{minutes, plural, =1{Valid for 1 minute} other{Valid for {minutes} minutes}}",
+  "@installLinkValid": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "installLinkNoApp": "The sync server has no copy of the app to share. Whoever runs it can put one there.",
+  "installLinkTooMany": "Too many links in a short time. Try again later.",
+  "avatarCredits": "Profile avatars drawn with DiceBear (dicebear.com): \"Croodles - Doodle your face\" by vijay verma and \"Fun Emoji Set\" by Davis Uche, adapted for the app, under CC BY 4.0 (creativecommons.org/licenses/by/4.0); Notionists by Zoish, Lorelei by Lisa Wischofsky, Open Peeps by Pablo Stanley, and Critters and Voxel Bot by DiceBear, under CC0 1.0.",
+  "titleBarSearch": "Search in this playlist…",
+  "titleBarSearchShortcut": "Ctrl K",
+  "playlistKindM3u": "M3U",
+  "playlistKindCombined": "Combined",
+  "windowMinimize": "Minimize",
+  "windowMaximize": "Maximize",
+  "windowRestore": "Restore",
+  "errorExpiredOn": "The account ended on {date}. Ask your provider to renew it.",
+  "@errorExpiredOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "deletePlaylistInCombined": "{count, plural, =1{It's part of the combined playlist {names}, which will go on without it.} other{It's part of the combined playlists {names}, which will go on without it.}}",
+  "@deletePlaylistInCombined": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "sleepSoon": "The sleep timer stops it in a minute. Tap or press any button to keep watching {n} more minutes.",
+  "@sleepSoon": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "sleepExtended": "Sleep timer: {n} more minutes",
+  "@sleepExtended": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "guideFailed": "The guide couldn't be downloaded.",
+  "rankLabel": "Number {n}",
+  "@rankLabel": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "watchedPercent": "{percent}% watched",
+  "@watchedPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "holdOkChannelHint": "Hold OK or press Info on a channel: what it shows next, and Favorites",
+  "controlsStay": "Player controls stay",
+  "controlsStayMoment": "A moment",
+  "controlsStaySeconds": "{n} seconds",
+  "@controlsStaySeconds": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "webNoSecureStorage": "{device} saved the playlist, but not its password: its secure storage isn't working.",
+  "@webNoSecureStorage": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceMode": "Use this device as",
+  "deviceModeAuto": "As it says it is",
+  "deviceModeTv": "A TV, with a remote",
+  "deviceModeTouch": "A phone or tablet, by touch",
+  "appliesNextStart": "This applies the next time the app opens",
+  "playbackPosition": "Position",
+  "previousChannel": "Previous channel",
+  "subtitleOutline": "Subtitle outline",
+  "subtitleBandDarkness": "Background darkness",
+  "subtitleLift": "Subtitle height",
+  "subtitleLiftBottom": "At the bottom",
+  "subtitleLiftHigher": "Higher",
+  "subtitleLiftHighest": "Much higher",
+  "subtitlePicture": "picture",
+  "subtitlePictureHidden": "These subtitles are pictures: with the hardware decoder they can't show. Choose the software decoder in the player's settings.",
+  "playingOnDevice": "Playing on {device}",
+  "@playingOnDevice": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "playingOnDeviceHint": "Here it stopped, so the provider sees one connection. It goes on from the same place.",
+  "keepWatchingHere": "Keep watching here",
+  "failExpired": "The account isn't active any more. Ask your provider to renew it.",
+  "failBusy": "All the connections the account allows are in use on other devices. Stop one, then try again.",
+  "failUnsupported": "This device can't play this format. In the player's settings, try the other video decoder.",
+  "failUnsupportedHere": "This device can't play this format. Try another copy, or something else.",
+  "textSize": "Text size",
+  "textSizeDevice": "As the device's",
+  "watchAgain": "Watch again"
+}

@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import capyError from '../assets/brand/capy-error.svg';
+import en from '../i18n/en.json';
+---
+
+<Base lang="en" title={en.notFound.title} description={en.notFound.body}>
+  <main class="not-found">
+    <img src={capyError.src} alt="" width="140" height="140" />
+    <h1>{en.notFound.title}</h1>
+    <p>{en.notFound.body}</p>
+    <a class="button primary" href="/">{en.notFound.back}</a>
+  </main>
+</Base>

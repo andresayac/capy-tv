@@ -1,0 +1,19 @@
+name: flutter_inappwebview_linux
+description: Empty stand-in for the Linux web view. The real one needs WPE WebKit just to build, and no trailers play on Linux.
+version: 0.1.0-beta.1
+publish_to: none
+
+environment:
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  plugin:
+    implements: flutter_inappwebview
+    platforms:
+      linux:
+        dartPluginClass: NoLinuxWebView

@@ -1,0 +1,146 @@
+name: iptv_player
+description: "Capy TV: open-source IPTV player for TVs, phones and computers."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.7
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  media_kit: ^1.2.6
+  media_kit_video: ^2.0.1
+  media_kit_libs_video: ^1.0.7
+  http: ^1.6.0
+  # The time the player goes by to tell a frozen channel: tests move it on as they move timers
+  clock: ^1.1.3
+  shared_preferences: ^2.5.6
+  shared_preferences_platform_interface: ^2.4.2
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  path_provider: ^2.1.6
+  url_launcher: ^6.3.3
+  qr_flutter: ^4.1.0
+  flutter_secure_storage: ^11.2.0
+  cryptography: ^2.9.0
+  # Exact: trailer.dart's workarounds are tried against this beta (flutter_inappwebview_windows 0.7.0-beta.3)
+  flutter_inappwebview: 6.2.0-beta.3
+  flutter_svg: ^2.3.2
+  screen_brightness: ^2.1.11
+  # Finds Chromecasts on the local network (mDNS service discovery)
+  bonsoir: ^7.1.6
+  # The app's own title bar and the player's full screen on Windows. 0.5: a desktop-only plugin;
+  # 0.6 moved to nativeapi, whose build hook compiles a native library into Android builds too
+  window_manager: ^0.5.1
+  package_info_plus: ^10.2.2
+  wakelock_plus: ^1.8.2
+  screen_retriever: ^0.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^6.0.0
+  integration_test:
+    sdk: flutter
+
+dependency_overrides:
+  # The real one needs WPE WebKit just to build, and no trailers play on Linux
+  flutter_inappwebview_linux:
+    path: packages/flutter_inappwebview_linux
+  # media-kit's main, not on pub.dev: its libmpv is of October 2024 (mpv 0.39), where pub.dev's
+  # 1.0.11 has one of September 2023 (mpv 0.36) from a repository archived since. Changed here: its
+  # pubspec's workspace line is gone, and its CMakeLists (lines marked "Capy TV") extracts a newer
+  # libmpv over an older one left in the build folder, and builds without 7-Zip
+  media_kit_libs_windows_video:
+    path: packages/media_kit_libs_windows_video
+  # Android's libmpv built anew with its libraries of today (FFmpeg 6.1, mbedTLS 3.6, FreeType 2.14,
+  # libxml2 2.14), where 1.3.8 downloads jars of 2023: see its README and build_libmpv.sh
+  media_kit_libs_android_video:
+    path: packages/media_kit_libs_android_video
+
+flutter:
+  generate: true
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  assets:
+    - assets/branding/
+    - assets/companion/
+    - assets/fonts/
+    - assets/avatars/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
+
+  # Inter (SIL OFL 1.1, see assets/fonts/Inter-OFL.txt), bundled so the app works offline
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-400.ttf
+        - asset: assets/fonts/Inter-500.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-600.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-700.ttf
+          weight: 700
+        - asset: assets/fonts/Inter-800.ttf
+          weight: 800

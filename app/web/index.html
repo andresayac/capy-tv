@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Capy TV: an open-source IPTV player for your own provider.">
+  <meta name="theme-color" content="#0B0B0F">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Capy TV</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <!--
+    The movi-player element (WebCodecs + FFmpeg-WASM) is what plays a stream in a browser:
+    the native <video> cannot open an IPTV .ts, cannot switch its audio languages, and chokes
+    on AC-3. It is loaded only here, in the web build; the native apps keep mpv.
+    The script is local (web/movi/element.js, from the movi-player package) so the app works
+    offline and no third party sees who watches what. capy-movi.js loads it, and adds what the
+    app plays films with: the HEVC label fix and the hardware-to-software guard.
+  -->
+  <script type="module">
+    // Not fatal when absent: the player screen falls back to the browser's own <video>.
+    import('./movi/capy-movi.js').catch((e) => {
+      console.warn('movi-player is not available; playback falls back to <video>.', e);
+    });
+  </script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #0B0B0F;
+    }
+    body {
+      /* The app draws its own title bar; the browser's is not wanted */
+      overflow: hidden;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: #EDEDF2;
+      /* A drag on the picture should not select the page */
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* Black until Flutter paints its first frame, as on the other platforms */
+    #splash {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: #0B0B0F;
+      transition: opacity 240ms ease;
+    }
+    #splash img {
+      width: 128px;
+      height: 128px;
+    }
+    #splash.gone {
+      opacity: 0;
+      pointer-events: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #splash { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="splash">
+    <img src="capy-icon.svg" alt="Capy TV">
+  </div>
+  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Flutter calls this once its first frame is on screen (see main.dart)
+    window.capyReady = function () {
+      const splash = document.getElementById('splash');
+      if (splash) {
+        splash.classList.add('gone');
+        setTimeout(() => splash.remove(), 300);
+      }
+    };
+  </script>
+</body>
+</html>

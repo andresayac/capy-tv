@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, user-scalable=no">
+  <title>Capy TV</title>
+  <style>
+    @font-face { font-family: Inter; font-weight: 400; src: url(fonts/Inter-400.ttf); }
+    @font-face { font-family: Inter; font-weight: 500; src: url(fonts/Inter-500.ttf); }
+    @font-face { font-family: Inter; font-weight: 600; src: url(fonts/Inter-600.ttf); }
+    @font-face { font-family: Inter; font-weight: 700; src: url(fonts/Inter-700.ttf); }
+    @font-face { font-family: Inter; font-weight: 800; src: url(fonts/Inter-800.ttf); }
+  </style>
+  <link rel="stylesheet" href="app.css">
+  <!-- Samsung's TV APIs (AVPlay, product info); absent in a desktop browser, where the app plays with <video> -->
+  <script src="$WEBAPIS/webapis/webapis.js"></script>
+</head>
+<body>
+  <!-- AVPlay draws on a plane under the page; this object only holds its place -->
+  <object id="av" type="application/avplayer"></object>
+  <div id="root"></div>
+  <script src="app.js"></script>
+</body>
+</html>

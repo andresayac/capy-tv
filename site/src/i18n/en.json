@@ -1,0 +1,115 @@
+{
+  "lang": "en",
+  "meta": {
+    "title": "Capy TV, the open-source IPTV player",
+    "description": "A free, open-source IPTV player for your TV, phone and computer. It plays the Xtream or M3U list you already have. It comes with no channels or content."
+  },
+  "nav": { "home": "Home", "screens": "Screens", "features": "Features", "channels": "Channels", "project": "Project", "other": "ES", "otherName": "Ver en español" },
+  "hero": {
+    "line1": "Bring your list.",
+    "line2": "Capy does the rest.",
+    "body": "A free, open-source IPTV player for your TV, phone and computer. It takes the Xtream or M3U list you already have and turns it into movies, series and live TV that follow you from screen to screen.",
+    "note": "Capy TV comes with no channels, lists or content.",
+    "github": "View on GitHub",
+    "channels": "Where it runs"
+  },
+  "screens": {
+    "title": "It looks like this",
+    "region": "App screens, scrolls sideways",
+    "note": "Real screens of the app, showing a made-up demo catalog.",
+    "items": [
+      { "shot": "home", "alt": "Capy TV home screen with a featured title, continue watching and a row of posters", "caption": "Home opens on what's worth watching." },
+      { "shot": "title", "alt": "A movie's page listing three versions of the same title", "caption": "One page per title, with every copy your provider has." },
+      { "shot": "guide", "alt": "TV guide grid with channels, programmes and a red line at the current time", "caption": "A guide you can read from the couch." },
+      { "shot": "search", "alt": "Search results for capy, grouped into movies, series and what's on TV", "caption": "Search the whole catalog as you type." },      { "shot": "phone-movies", "alt": "The movies tab on a phone held sideways", "caption": "On a phone it runs sideways, like a small TV." }
+    ]
+  },
+  "features": {
+    "title": "What sets it apart",
+    "handoff": {
+      "title": "Start on one screen, finish on another",
+      "body": "With sync on, stop a movie on your phone and the TV offers to go on from the same minute. Your place follows every title from device to device, and Send to puts what you're watching on the screen you pick.",
+      "alt": "Home on a TV offering to go on with an episode left on a phone, above the Continue watching row"
+    },
+    "profiles": {
+      "title": "A profile for each person",
+      "body": "Everyone gets their own favorites, history, Continue watching and audio and subtitle languages. A PIN can lock a profile, adult content stays hidden unless a profile turns it on, and kids' profiles can have a daily time limit.",
+      "alt": "Who's watching screen with four profiles over a wall of posters"
+    },
+    "sync": {
+      "title": "Your own cloud, encrypted end to end",
+      "body": "Lists, favorites, progress and profiles reach your other devices in a second or two. Everything is encrypted before it leaves the device and kept on a sync server you run with one Docker command. It's optional, and the server can't read what it stores.",
+      "yours": "What you see",
+      "server": "What the server sees",
+      "plain": ["Ferry Line 12, S1 E3, minute 12", "Ana's list, 14 favorites", "Your provider's user and password"],
+      "cipherLabel": "The same three lines as unreadable encrypted text"
+    },
+    "moreTitle": "And a lot more",
+    "more": [
+      { "title": "Several providers, one catalog", "body": "A title they share shows once and plays from whichever is usually fastest at that hour." },
+      { "title": "A copy that won't start", "body": "Capy tries the next one by itself before ever saying a title is unavailable." },
+      { "title": "Change provider, keep your history", "body": "Favorites and progress move to the new list, matched by title." },
+      { "title": "Pause live TV", "body": "Pause and rewind a live channel, then jump back to live." },
+      { "title": "Four channels at once", "body": "Multiview shows up to four live channels, and you choose which one you hear." },
+      { "title": "Record from the guide", "body": "Schedule a programme and it records with nobody watching." },
+      { "title": "Your phone does the typing", "body": "Scan a code on the TV to add a list, sign in or use your phone as a remote, over your own network." },
+      { "title": "Chromecast, in beta", "body": "Cast from any platform, Fire TV and Windows included." },
+      { "title": "Search that forgives", "body": "Words in any order, cut short or with a typo, across the whole catalog and the guide." },
+      { "title": "New episodes of your series", "body": "Home shows which series you follow have something new, and the next episode to watch." },
+      { "title": "Surprise me", "body": "Pick a mood and get one well-rated title you haven't seen." },
+      { "title": "Picks for each profile", "body": "Optional recommendations with the AI service you choose, only from what your list has." }
+    ]
+  },
+  "night": {
+    "title": "Can't agree on a movie?",
+    "body": "Movie night puts six titles to a vote. Everyone scans the code on the TV and says yes or no from their phone. Capy counts the votes and shows the winner, ready to play.",
+    "alt": "Movie night screen with a QR code, six posters and the votes for each"
+  },
+  "channels": {
+    "title": "On these channels",
+    "body": "One project, on the screens you already own.",
+    "now": "Now",
+    "later": "Later",
+    "list": "Platforms and whether each one is available",
+    "rows": [
+      { "name": "Android phones and tablets", "state": "now" },
+      { "name": "Android TV", "state": "now" },
+      { "name": "Fire TV", "state": "now" },
+      { "name": "Windows", "state": "now" },
+      { "name": "Linux", "state": "now" },
+      { "name": "Samsung TVs up to 2020", "state": "now" },
+      { "name": "iOS", "state": "later" },
+      { "name": "macOS", "state": "later" }
+    ],
+    "yes": "Compatible",
+    "no": "Not yet",
+    "github": "Get it on GitHub"
+  },
+  "project": {
+    "title": "A home project, now open to anyone",
+    "body": "Capy TV started as a player for one family, after the app they relied on stopped being updated. It's written from scratch, costs nothing, and has no ads or analytics.",
+    "built": "Built with Flutter and libmpv. Licensed under the Mozilla Public License 2.0.",
+    "helpTitle": "Want to help?",
+    "help": [
+      "Try it on your devices and report what breaks.",
+      "Add your language. Each one is a single translation file.",
+      "Read the code and send improvements."
+    ],
+    "github": "View on GitHub"
+  },
+  "faq": {
+    "title": "Questions",
+    "items": [
+      { "q": "Does it include channels or movies?", "a": "No. Capy TV is only a player. You need a list from a provider of your own, and it's up to you to have the right to watch what that list offers." },
+      { "q": "Where do I get a list?", "a": "From a provider you choose. This project doesn't sell, recommend or link to any." },
+      { "q": "Which lists work?", "a": "Xtream Codes accounts and M3U playlists, with XMLTV guides." },
+      { "q": "Do I need an account?", "a": "No. Everything works on the device. Sync between devices is optional and needs a server you run yourself." },
+      { "q": "Is it free?", "a": "Yes, free and open source." }
+    ]
+  },
+  "footer": {
+    "tmdb": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
+    "license": "Mozilla Public License 2.0"
+  },
+  "notFound": { "title": "This page isn't on the guide", "body": "The address may be wrong, or the page has moved.", "back": "Go to the home page" }
+}

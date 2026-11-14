@@ -1,0 +1,115 @@
+{
+  "lang": "es",
+  "meta": {
+    "title": "Capy TV, el reproductor IPTV de código abierto",
+    "description": "Un reproductor IPTV gratis y de código abierto para tu TV, móvil y computador. Reproduce la lista Xtream o M3U que ya tienes. No incluye canales ni contenido."
+  },
+  "nav": { "home": "Inicio", "screens": "Pantallas", "features": "Funciones", "channels": "Canales", "project": "Proyecto", "other": "EN", "otherName": "View in English" },
+  "hero": {
+    "line1": "Trae tu lista.",
+    "line2": "Capy hace el resto.",
+    "body": "Un reproductor IPTV gratis y de código abierto para tu TV, móvil y computador. Toma la lista Xtream o M3U que ya tienes y la convierte en películas, series y TV en vivo que te siguen de una pantalla a otra.",
+    "note": "Capy TV no incluye canales, listas ni contenido.",
+    "github": "Ver en GitHub",
+    "channels": "Dónde funciona"
+  },
+  "screens": {
+    "title": "Así se ve",
+    "region": "Pantallas de la app, se desplaza de lado",
+    "note": "Pantallas reales de la app, con un catálogo de demostración inventado.",
+    "items": [
+      { "shot": "home", "alt": "Inicio de Capy TV con un título destacado, seguir viendo y una fila de carátulas", "caption": "El inicio abre con lo que vale la pena ver." },
+      { "shot": "title", "alt": "Página de una película con tres versiones del mismo título", "caption": "Una página por título, con todas las copias de tu proveedor." },
+      { "shot": "guide", "alt": "Guía de TV con canales, programas y una línea roja en la hora actual", "caption": "Una guía que se lee desde el sofá." },
+      { "shot": "search", "alt": "Resultados de buscar capy, agrupados en películas, series y lo que hay en TV", "caption": "Busca en todo el catálogo mientras escribes." },      { "shot": "phone-movies", "alt": "La pestaña de películas en un móvil apaisado", "caption": "En el móvil funciona de lado, como una TV pequeña." }
+    ]
+  },
+  "features": {
+    "title": "Lo que la hace distinta",
+    "handoff": {
+      "title": "Empieza en una pantalla, termina en otra",
+      "body": "Con la sincronización activa, deja una película en el móvil y la TV te ofrece seguir desde el mismo minuto. Tu progreso acompaña cada título de un dispositivo a otro, y Enviar a pone lo que estás viendo en la pantalla que elijas.",
+      "alt": "Inicio en una TV ofreciendo seguir un episodio que se dejó en un móvil, sobre la fila de Continuar viendo"
+    },
+    "profiles": {
+      "title": "Un perfil para cada persona",
+      "body": "Cada quien tiene sus favoritos, su historial, su Continuar viendo y sus idiomas de audio y subtítulos. Un PIN puede bloquear un perfil, el contenido para adultos sigue oculto salvo que un perfil lo active, y los perfiles infantiles pueden tener un límite de tiempo al día.",
+      "alt": "Pantalla de quién está viendo con cuatro perfiles sobre un muro de carátulas"
+    },
+    "sync": {
+      "title": "Tu propia nube, con cifrado de extremo a extremo",
+      "body": "Listas, favoritos, progreso y perfiles llegan a tus otros dispositivos en uno o dos segundos. Todo se cifra antes de salir del dispositivo y se guarda en un servidor de sincronización tuyo, que se levanta con un comando de Docker. Es opcional, y el servidor no puede leer lo que guarda.",
+      "yours": "Lo que ves tú",
+      "server": "Lo que ve el servidor",
+      "plain": ["Ferry Line 12, T1 E3, minuto 12", "Lista de Ana, 14 favoritos", "Usuario y contraseña de tu proveedor"],
+      "cipherLabel": "Las mismas tres líneas como texto cifrado ilegible"
+    },
+    "moreTitle": "Y mucho más",
+    "more": [
+      { "title": "Varios proveedores, un solo catálogo", "body": "Un título que comparten aparece una vez y se reproduce desde el que suele ir más rápido a esa hora." },
+      { "title": "Si una copia no arranca", "body": "Capy prueba la siguiente por sí solo antes de decir que un título no está disponible." },
+      { "title": "Cambia de proveedor, conserva tu historial", "body": "Favoritos y progreso pasan a la lista nueva, emparejados por título." },
+      { "title": "Pausa la TV en vivo", "body": "Pausa y retrocede un canal en vivo, y vuelve al directo cuando quieras." },
+      { "title": "Cuatro canales a la vez", "body": "Multivista muestra hasta cuatro canales en vivo, y eliges cuál se escucha." },
+      { "title": "Graba desde la guía", "body": "Agenda lo que quieras ver y se graba aunque nadie lo esté viendo." },
+      { "title": "Tu móvil escribe por ti", "body": "Escanea un código en la TV para añadir una lista, iniciar sesión o usar el móvil como control, por tu propia red." },
+      { "title": "Chromecast, en beta", "body": "Envía desde cualquier plataforma, incluidos Fire TV y Windows." },
+      { "title": "Una búsqueda que perdona", "body": "Palabras en cualquier orden, a medias o con errores, en todo el catálogo y la guía." },
+      { "title": "Episodios nuevos de tus series", "body": "El inicio muestra qué series que sigues tienen novedades y cuál es el siguiente episodio." },
+      { "title": "Sorpréndeme", "body": "Elige un ánimo y recibe un título bien valorado que no hayas visto." },
+      { "title": "Sugerencias para cada perfil", "body": "Recomendaciones opcionales con el servicio de IA que elijas, solo con lo que tu lista tiene." }
+    ]
+  },
+  "night": {
+    "title": "¿No se ponen de acuerdo con la película?",
+    "body": "Noche de pelis pone seis títulos a votación. Cada persona escanea el código de la TV y dice sí o no desde su móvil. Capy cuenta los votos y muestra la ganadora, lista para reproducir.",
+    "alt": "Pantalla de Noche de pelis con un código QR, seis carátulas y los votos de cada una"
+  },
+  "channels": {
+    "title": "En estos canales",
+    "body": "Un solo proyecto, en las pantallas que ya tienes.",
+    "now": "Ahora",
+    "later": "Más tarde",
+    "list": "Plataformas y si cada una está disponible",
+    "rows": [
+      { "name": "Móviles y tabletas Android", "state": "now" },
+      { "name": "Android TV", "state": "now" },
+      { "name": "Fire TV", "state": "now" },
+      { "name": "Windows", "state": "now" },
+      { "name": "Linux", "state": "now" },
+      { "name": "TV Samsung hasta 2020", "state": "now" },
+      { "name": "iOS", "state": "later" },
+      { "name": "macOS", "state": "later" }
+    ],
+    "yes": "Compatible",
+    "no": "Todavía no",
+    "github": "Conseguirlo en GitHub"
+  },
+  "project": {
+    "title": "Un proyecto de casa, ahora abierto a todos",
+    "body": "Capy TV empezó como un reproductor para una familia, cuando la app que usaban dejó de actualizarse. Está escrito desde cero, no cuesta nada y no tiene anuncios ni analítica.",
+    "built": "Hecho con Flutter y libmpv. Con licencia Mozilla Public License 2.0.",
+    "helpTitle": "¿Quieres ayudar?",
+    "help": [
+      "Pruébalo en tus dispositivos y cuenta qué falla.",
+      "Añade tu idioma. Cada uno es un solo archivo de traducción.",
+      "Lee el código y envía mejoras."
+    ],
+    "github": "Ver en GitHub"
+  },
+  "faq": {
+    "title": "Preguntas",
+    "items": [
+      { "q": "¿Incluye canales o películas?", "a": "No. Capy TV es solo un reproductor. Necesitas una lista de un proveedor propio, y es tu responsabilidad tener derecho a ver lo que ofrece." },
+      { "q": "¿Dónde consigo una lista?", "a": "Con el proveedor que elijas. Este proyecto no vende, recomienda ni enlaza ninguno." },
+      { "q": "¿Qué listas funcionan?", "a": "Cuentas Xtream Codes y listas M3U, con guías XMLTV." },
+      { "q": "¿Necesito una cuenta?", "a": "No. Todo funciona en el dispositivo. La sincronización entre dispositivos es opcional y necesita un servidor propio." },
+      { "q": "¿Es gratis?", "a": "Sí, gratis y de código abierto." }
+    ]
+  },
+  "footer": {
+    "tmdb": "Este producto usa la API de TMDB, pero TMDB no lo respalda ni lo certifica.",
+    "license": "Mozilla Public License 2.0"
+  },
+  "notFound": { "title": "Esta página no está en la guía", "body": "Puede que la dirección esté mal o que la página se haya movido.", "back": "Ir al inicio" }
+}

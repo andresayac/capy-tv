@@ -1,0 +1,120 @@
+// The companion page's texts in the app's language (app/lib/remote/companion_strings.dart), from
+// the same translations. Placeholders stay as `{name}` for the page to fill in.
+import { language, StringKey, t } from '../i18n';
+
+/** Page key → the translation it takes, and the placeholders that stay for the page. */
+const KEYS: Record<string, [StringKey, string[]?]> = {
+  appTitle: ['appTitle'],
+  tabAdd: ['webTabAdd'],
+  tabRemote: ['webTabRemote'],
+  tabBackup: ['webTabBackup'],
+  tabAccount: ['webTabAccount'],
+  tabNight: ['webTabNight'],
+  nightTitle: ['nightTitle'],
+  nightBody: ['webNightBody'],
+  nightYes: ['nightYes'],
+  nightNo: ['nightNo'],
+  nightDone: ['webNightDone'],
+  nightDoneBody: ['webNightDoneBody', ['device']],
+  nightAgain: ['webNightAgain'],
+  nightClosed: ['webNightClosed', ['device']],
+  nightProgress: ['webNightProgress', ['n', 'total']],
+  accountTitle: ['webAccountTitle'],
+  accountBody: ['webAccountBody', ['device']],
+  syncServer: ['syncServer'],
+  email: ['syncEmail'],
+  signInOn: ['webSignInOn', ['device']],
+  signingIn: ['webSigningIn'],
+  signedInTitle: ['webSignedInTitle', ['device']],
+  signedInBody: ['webSignedInBody', ['email']],
+  currentAccount: ['webCurrentAccount', ['device', 'email']],
+  needQr: ['webNeedQr', ['device']],
+  error_sealed: ['webNeedQr', ['device']],
+  error_sync_address: ['syncErrorServer'],
+  error_sync_credentials: ['syncErrorCredentials'],
+  error_sync_network: ['syncErrorNetwork'],
+  error_sync_rateLimited: ['syncErrorRateLimited'],
+  error_sync_server: ['syncErrorFailed'],
+  addTitle: ['webAddTitle'],
+  addBody: ['webAddBody', ['device']],
+  playlistTypeXtream: ['playlistTypeXtream'],
+  playlistTypeM3u: ['playlistTypeM3u'],
+  playlistName: ['playlistName'],
+  serverUrl: ['serverUrl'],
+  m3uUrl: ['m3uUrl'],
+  username: ['username'],
+  password: ['password'],
+  show: ['webShow'],
+  hide: ['webHide'],
+  sendToDevice: ['webSendToDevice', ['device']],
+  checking: ['webChecking'],
+  required: ['required'],
+  addedTitle: ['webAddedTitle', ['name', 'device']],
+  addedBody: ['webAddedBody'],
+  addAnother: ['webAddAnother'],
+  // Through the server, from any network: not "on this Wi-Fi"
+  lostConnection: ['webRelayLostConnection', ['device']],
+  expired: ['webExpired', ['device']],
+  errorUnknown: ['errorUnknown'],
+  error_unreachable: ['errorUnreachable'],
+  error_timeout: ['errorTimeout'],
+  error_unauthorized: ['errorUnauthorized'],
+  error_inactiveAccount: ['errorInactive', ['status:detail']],
+  error_httpStatus: ['errorHttp', ['code:detail']],
+  error_badResponse: ['errorBadResponse'],
+  error_notFound: ['errorNotFound'],
+  error_emptyPlaylist: ['errorEmptyPlaylist'],
+  error_badAddress: ['errorBadAddress'],
+  error_wrongServer: ['errorWrongServer'],
+  error_providerBusy: ['errorProviderBusy'],
+  error_offline: ['errorOffline'],
+  error_dns: ['errorDns'],
+  error_tls: ['errorTls'],
+  error_missing: ['required'],
+  error_secrets: ['webNoSecureStorage', ['device']],
+  nowPlaying: ['webNowPlaying'],
+  nothingPlaying: ['webNothingPlaying'],
+  back: ['webBack'],
+  playPause: ['webPlayPause'],
+  channelDown: ['webChannelDown'],
+  channelUp: ['webChannelUp'],
+  send: ['webSend'],
+  typePlaceholder: ['webTypePlaceholder', ['device']],
+  typeHint: ['webTypeHint'],
+  connectedTo: ['webConnectedTo', ['device']],
+  reconnecting: ['webReconnecting'],
+  backupTitle: ['webBackupTitle'],
+  backupBody: ['webBackupBody'],
+  downloadBackup: ['webDownloadBackup'],
+  downloadHint: ['webDownloadHint'],
+  restoreBackup: ['webRestoreBackup'],
+  restoreHint: ['webRestoreHint'],
+  restored: ['webRestored', ['added', 'updated', 'device']],
+  notBackup: ['webNotBackup'],
+  backupNewer: ['webBackupNewer'],
+  backupSaved: ['webBackupSaved'],
+  working: ['webWorking'],
+  sent: ['webSent'],
+  openAppBody: ['webOpenAppBody', ['device']],
+  openApp: ['webOpenApp'],
+  privacy: ['webRelayPrivacy', ['device']],
+  dirUp: ['webUp'],
+  dirDown: ['webDown'],
+  dirLeft: ['webLeft'],
+  dirRight: ['webRight'],
+};
+
+export function companionStrings(): Record<string, string> {
+  const out: Record<string, string> = { lang: language };
+  for (const k of Object.keys(KEYS)) {
+    const [key, holders] = KEYS[k];
+    const args: Record<string, string> = {};
+    // "status:detail": the translation's {status} becomes the page's {detail}
+    for (const h of holders || []) {
+      const [theirs, ours] = h.split(':');
+      args[theirs] = `{${ours || theirs}}`;
+    }
+    out[k] = t(key, args);
+  }
+  return out;
+}
