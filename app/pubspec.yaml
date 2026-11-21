@@ -55,7 +55,7 @@ dependencies:
   bonsoir: ^7.1.6
   # The app's own title bar and the player's full screen on Windows. 0.5: a desktop-only plugin;
   # 0.6 moved to nativeapi, whose build hook compiles a native library into Android builds too
-  window_manager: ^0.5.1
+  window_manager: ^0.7.0
   package_info_plus: ^10.2.2
   wakelock_plus: ^1.8.2
   screen_retriever: ^0.2.2
