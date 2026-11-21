@@ -20,7 +20,7 @@
   "devDependencies": {
     "@material-symbols/svg-400": "^0.48.3",
     "esbuild": "^0.28.2",
-    "playwright-core": "^1.65.0",
+    "playwright-core": "^1.65.1",
     "typescript": "^7.0.2"
   }
 }
